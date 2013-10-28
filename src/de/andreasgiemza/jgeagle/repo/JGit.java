@@ -1,5 +1,6 @@
-package de.andreasgiemza.jgeagle.data;
+package de.andreasgiemza.jgeagle.repo;
 
+import de.andreasgiemza.jgeagle.data.EagleFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;

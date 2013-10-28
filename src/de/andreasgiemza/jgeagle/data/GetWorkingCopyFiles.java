@@ -11,12 +11,12 @@ import java.util.List;
  *
  * @author hurik
  */
-public class WorkingCopyFiles extends SimpleFileVisitor<Path> {
+public class GetWorkingCopyFiles extends SimpleFileVisitor<Path> {
 
     private final Path repoDirectory;
     private final List<EagleFile> eagleFiles;
     
-    public WorkingCopyFiles(Path repoDirectory, List<EagleFile> eagleFiles) {
+    public GetWorkingCopyFiles(Path repoDirectory, List<EagleFile> eagleFiles) {
         this.repoDirectory = repoDirectory;
         this.eagleFiles = eagleFiles;
     }

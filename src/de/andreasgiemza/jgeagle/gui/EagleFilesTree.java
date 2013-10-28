@@ -2,6 +2,8 @@ package de.andreasgiemza.jgeagle.gui;
 
 import de.andreasgiemza.jgeagle.JGeagle;
 import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.gui.eaglefilestree.EagleFilesTreeCellRenderer;
+import de.andreasgiemza.jgeagle.gui.eaglefilestree.EagleFilesTreeSelectionListener;
 import java.nio.file.Path;
 import java.util.List;
 import javax.swing.JTree;

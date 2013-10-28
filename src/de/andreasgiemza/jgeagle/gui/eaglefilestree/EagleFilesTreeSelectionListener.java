@@ -1,4 +1,4 @@
-package de.andreasgiemza.jgeagle.gui;
+package de.andreasgiemza.jgeagle.gui.eaglefilestree;
 
 import de.andreasgiemza.jgeagle.JGeagle;
 import de.andreasgiemza.jgeagle.data.EagleFile;
@@ -27,6 +27,8 @@ public class EagleFilesTreeSelectionListener implements TreeSelectionListener {
 
         if (node.isLeaf()) {
             jGeagle.eagleFileSelected((EagleFile) node.getUserObject());
-        }
+        } else {
+            jGeagle.eagleFileSelected(null);
+        }      
     }
 }

@@ -1,5 +1,6 @@
-package de.andreasgiemza.jgeagle.gui;
+package de.andreasgiemza.jgeagle.gui.commitstables;
 
+import de.andreasgiemza.jgeagle.JGeagle;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -10,14 +11,14 @@ import javax.swing.event.ListSelectionListener;
  */
 public class OldCommitsSelectionListener implements ListSelectionListener {
 
+    private final JGeagle jGeagle;
     private final JTable oldCommitsTable;
-    private final JTable newCommitsTable;
 
     public OldCommitsSelectionListener(
-            JTable oldCommitsTable,
-            JTable newCommitsTable) {
+            JGeagle jGeagle,
+            JTable oldCommitsTable) {
+        this.jGeagle = jGeagle;
         this.oldCommitsTable = oldCommitsTable;
-        this.newCommitsTable = newCommitsTable;
     }
 
     @Override
@@ -29,7 +30,9 @@ public class OldCommitsSelectionListener implements ListSelectionListener {
 
             OldCommitsTableModel oldCommitTableModel = (OldCommitsTableModel) oldCommitsTable.getModel();
 
-            newCommitsTable.setModel(new NewCommitsTableModel(oldCommitTableModel.getEagleFile(), oldCommitTableModel.elementAt(oldCommitsTableSelectedRow)));
+            jGeagle.oldCommitSelected(
+                    oldCommitTableModel.getEagleFile(), 
+                    oldCommitTableModel.getElement(oldCommitsTableSelectedRow));
         }
     }
 }

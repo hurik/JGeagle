@@ -1,4 +1,4 @@
-package de.andreasgiemza.jgeagle.gui;
+package de.andreasgiemza.jgeagle.gui.eaglefilestree;
 
 import de.andreasgiemza.jgeagle.data.EagleFile;
 import java.awt.Component;

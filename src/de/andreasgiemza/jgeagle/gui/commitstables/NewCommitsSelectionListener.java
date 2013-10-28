@@ -1,4 +1,4 @@
-package de.andreasgiemza.jgeagle.gui;
+package de.andreasgiemza.jgeagle.gui.commitstables;
 
 import de.andreasgiemza.jgeagle.JGeagle;
 import javax.swing.JTable;
@@ -12,15 +12,12 @@ import javax.swing.event.ListSelectionListener;
 public class NewCommitsSelectionListener implements ListSelectionListener {
 
     private final JGeagle jGeagle;
-    private final JTable oldCommitsTable;
     private final JTable newCommitsTable;
 
     public NewCommitsSelectionListener(
             JGeagle jGeagle,
-            JTable oldCommitsTable,
             JTable newCommitsTable) {
         this.jGeagle = jGeagle;
-        this.oldCommitsTable = oldCommitsTable;
         this.newCommitsTable = newCommitsTable;
     }
 
@@ -33,15 +30,10 @@ public class NewCommitsSelectionListener implements ListSelectionListener {
             NewCommitsTableModel newCommitTableModel
                     = (NewCommitsTableModel) newCommitsTable.getModel();
 
-            int oldCommitsTableSelectedRow
-                    = oldCommitsTable.convertRowIndexToModel(oldCommitsTable.getSelectedRow());
-            OldCommitsTableModel oldCommitTableModel
-                    = (OldCommitsTableModel) oldCommitsTable.getModel();
-
-            jGeagle.oldAndNewCommitSelected(
-                    oldCommitTableModel.getEagleFile(),
-                    oldCommitTableModel.elementAt(oldCommitsTableSelectedRow),
-                    newCommitTableModel.elementAt(newCommitsTableSelectedRow));
+            jGeagle.newCommitSelected(
+                    newCommitTableModel.getEagleFile(),
+                    newCommitTableModel.getOldCommit(),
+                    newCommitTableModel.getElementAt(newCommitsTableSelectedRow));
         }
     }
 }

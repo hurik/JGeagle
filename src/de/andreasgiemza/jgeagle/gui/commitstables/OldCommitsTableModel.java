@@ -1,4 +1,4 @@
-package de.andreasgiemza.jgeagle.gui;
+package de.andreasgiemza.jgeagle.gui.commitstables;
 
 import de.andreasgiemza.jgeagle.data.EagleFile;
 import java.util.Arrays;
@@ -11,18 +11,16 @@ import org.eclipse.jgit.revwalk.RevCommit;
  *
  * @author hurik
  */
-public class NewCommitsTableModel extends AbstractTableModel {
+public class OldCommitsTableModel extends AbstractTableModel {
 
     private final EagleFile eagleFile;
-    private final RevCommit revCommit;
     private final List<String> columnTitles = Arrays.asList(
             "Date",
             "Author",
             "Message");
 
-    public NewCommitsTableModel(EagleFile eagleFile, RevCommit revCommit) {
+    public OldCommitsTableModel(EagleFile eagleFile) {
         this.eagleFile = eagleFile;
-        this.revCommit = revCommit;
     }
 
     @Override
@@ -51,21 +49,15 @@ public class NewCommitsTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        int i = 0;
-
-        for (RevCommit commit : eagleFile.getCommits()) {
-            if (commit == revCommit) {
-                break;
-            }
-
-            i++;
+        if (eagleFile == null) {
+            return 0;
         }
 
         if (eagleFile.isWorkingCopychanges()) {
-            i++;
+            return eagleFile.getCommits().size();
+        } else {
+            return eagleFile.getCommits().size() - 1;
         }
-
-        return i;
     }
 
     @Override
@@ -73,20 +65,9 @@ public class NewCommitsTableModel extends AbstractTableModel {
         RevCommit commit;
 
         if (eagleFile.isWorkingCopychanges()) {
-            if (i == 0) {
-                switch (i1) {
-                    case 0:
-                        return null;
-                    case 1:
-                        return null;
-                    case 2:
-                        return "Working copy changes";
-                }
-            }
-
-            commit = eagleFile.getCommits().get(i - 1);
-        } else {
             commit = eagleFile.getCommits().get(i);
+        } else {
+            commit = eagleFile.getCommits().get(i + 1);
         }
 
         switch (i1) {
@@ -101,17 +82,17 @@ public class NewCommitsTableModel extends AbstractTableModel {
         return null;
     }
 
-    public RevCommit elementAt(int i) {
+    public EagleFile getEagleFile() {
+        return eagleFile;
+    }
+
+    public RevCommit getElement(int i) {
         RevCommit commit;
 
         if (eagleFile.isWorkingCopychanges()) {
-            if (i == 0) {
-                return null;
-            }
-
-            commit = eagleFile.getCommits().get(i - 1);
-        } else {
             commit = eagleFile.getCommits().get(i);
+        } else {
+            commit = eagleFile.getCommits().get(i + 1);
         }
 
         return commit;

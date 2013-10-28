@@ -1,13 +1,10 @@
 package de.andreasgiemza.jgeagle;
 
 import de.andreasgiemza.jgeagle.data.EagleFile;
-import de.andreasgiemza.jgeagle.data.JGit;
-import de.andreasgiemza.jgeagle.data.WorkingCopyFiles;
+import de.andreasgiemza.jgeagle.repo.JGit;
+import de.andreasgiemza.jgeagle.data.GetWorkingCopyFiles;
 import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
-import de.andreasgiemza.jgeagle.gui.NewCommitsSelectionListener;
-import de.andreasgiemza.jgeagle.gui.NewCommitsTableModel;
-import de.andreasgiemza.jgeagle.gui.OldCommitsSelectionListener;
-import de.andreasgiemza.jgeagle.gui.OldCommitsTableModel;
+import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,6 +25,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 public class JGeagle extends javax.swing.JFrame {
 
     private final EagleFilesTree eagleFilesTree;
+    private final CommitsTables commitsTables;
     private JGit jGit;
 
     /**
@@ -37,32 +35,29 @@ public class JGeagle extends javax.swing.JFrame {
         initComponents();
 
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
-
-        oldCommitsTable.getSelectionModel().addListSelectionListener(
-                new OldCommitsSelectionListener(
-                        oldCommitsTable,
-                        newCommitsTable));
-
-        newCommitsTable.getSelectionModel().addListSelectionListener(
-                new NewCommitsSelectionListener(
-                        this,
-                        oldCommitsTable,
-                        newCommitsTable));
+        commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
     }
 
     public void eagleFileSelected(EagleFile eagleFile) {
+        if (eagleFile == null) {
+            commitsTables.reset();
+            return;
+        }
+
         try {
             eagleFile.getFileData(jGit);
-            oldCommitsTable.setModel(new OldCommitsTableModel(eagleFile));
-
-            NewCommitsTableModel newCommitTableModel
-                    = (NewCommitsTableModel) newCommitsTable.getModel();
+            commitsTables.updateOldCommitsTable(eagleFile);
+            commitsTables.resetNewCommitsTable();
         } catch (IOException | GitAPIException ex) {
             Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void oldAndNewCommitSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
+    public void oldCommitSelected(EagleFile eagleFile, RevCommit oldCommit) {
+        commitsTables.updateNewCommitsTable(eagleFile, oldCommit);
+    }
+
+    public void newCommitSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
         if (eagleFile.getFile().toString().toLowerCase().endsWith(".brd")) {
             diffImageButton.setEnabled(true);
         } else {
@@ -193,6 +188,7 @@ public class JGeagle extends javax.swing.JFrame {
         oldCommitsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Old"));
         oldCommitsPanel.setLayout(new javax.swing.BoxLayout(oldCommitsPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        oldCommitsTable.setAutoCreateRowSorter(true);
         oldCommitsScrollPane.setViewportView(oldCommitsTable);
 
         oldCommitsPanel.add(oldCommitsScrollPane);
@@ -202,16 +198,17 @@ public class JGeagle extends javax.swing.JFrame {
         newCommitsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("New"));
         newCommitsPanel.setLayout(new javax.swing.BoxLayout(newCommitsPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        newCommitsTable.setAutoCreateRowSorter(true);
         newCommitsScrollPane.setViewportView(newCommitsTable);
 
         newCommitsPanel.add(newCommitsScrollPane);
 
         commitsPanel.add(newCommitsPanel);
 
-        variousPanel.setLayout(new java.awt.GridLayout());
+        variousPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         sheetPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sheet"));
-        sheetPanel.setLayout(new java.awt.GridLayout());
+        sheetPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         sheetButton.setText("Count");
         sheetButton.setEnabled(false);
@@ -295,7 +292,7 @@ public class JGeagle extends javax.swing.JFrame {
             repositoryTextField.setText(repoDirectory.toString());
 
             List<EagleFile> eagleFiles = new LinkedList<>();
-            WorkingCopyFiles pf = new WorkingCopyFiles(repoDirectory, eagleFiles);
+            GetWorkingCopyFiles pf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
 
             try {
                 Files.walkFileTree(repoDirectory, pf);
