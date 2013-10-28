@@ -19,6 +19,8 @@ public class CommitsTables {
     private final JGeagle jGeagle;
     private final JTable oldCommitsTable;
     private final JTable newCommitsTable;
+    private final CommitsTableCellRenderer commitsTableCellRenderer 
+            =new CommitsTableCellRenderer();
 
     public CommitsTables(JGeagle jGeagle, JTable oldCommitsTable, JTable newCommitsTable) {
         this.jGeagle = jGeagle;
@@ -56,11 +58,11 @@ public class CommitsTables {
 
     public void updateOldCommitsTable(EagleFile eagleFile) {
         oldCommitsTable.setModel(new OldCommitsTableModel(eagleFile));
-        oldCommitsTable.getColumnModel().getColumn(0).setCellRenderer(new CommitsTableCellRenderer());
+        oldCommitsTable.getColumnModel().getColumn(0).setCellRenderer(commitsTableCellRenderer);
     }
 
     public void updateNewCommitsTable(EagleFile eagleFile, RevCommit oldCommit) {
         newCommitsTable.setModel(new NewCommitsTableModel(eagleFile, oldCommit));
-        newCommitsTable.getColumnModel().getColumn(0).setCellRenderer(new CommitsTableCellRenderer());
+        newCommitsTable.getColumnModel().getColumn(0).setCellRenderer(commitsTableCellRenderer);
     }
 }

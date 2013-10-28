@@ -84,4 +84,8 @@ public class EagleFilesTree {
             jTree.collapseRow(i);
         }
     }
+    
+    public void reset() {
+        jTree.setModel(null);
+    }
 }

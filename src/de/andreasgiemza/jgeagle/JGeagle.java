@@ -5,6 +5,7 @@ import de.andreasgiemza.jgeagle.repo.JGit;
 import de.andreasgiemza.jgeagle.data.GetWorkingCopyFiles;
 import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
+import de.andreasgiemza.jgeagle.options.Options;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
  */
 public class JGeagle extends javax.swing.JFrame {
 
+    private final Options options;
     private final EagleFilesTree eagleFilesTree;
     private final CommitsTables commitsTables;
     private JGit jGit;
@@ -34,6 +36,7 @@ public class JGeagle extends javax.swing.JFrame {
     public JGeagle() {
         initComponents();
 
+        options = new Options();
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
         commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
     }
@@ -288,6 +291,9 @@ public class JGeagle extends javax.swing.JFrame {
         int returnVal = repositoryFileChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            eagleFilesTree.reset();
+            commitsTables.reset();
+
             Path repoDirectory = repositoryFileChooser.getSelectedFile().toPath();
             repositoryTextField.setText(repoDirectory.toString());
 

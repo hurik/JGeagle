@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,9 +40,9 @@ public class JGit {
     }
 
     public List<RevCommit> getFileHistory(Path repoFile, List<RevCommit> commits, Map<RevCommit, String> renames) throws IOException, MissingObjectException, GitAPIException {
-        String originalPath = repoFile.toString().replace("\\", "/");
+        final String originalPath = repoFile.toString().replace("\\", "/");
         String path = originalPath;
-        
+
         RevCommit start = null;
 
         do {
@@ -55,7 +53,7 @@ public class JGit {
                 } else {
                     start = commit;
                     commits.add(commit);
-                    
+
                     if (!originalPath.equals(path)) {
                         renames.put(commit, path);
                     }
@@ -103,13 +101,13 @@ public class JGit {
 
         RevTree tree = commit.getTree();
         TreeWalk treewalk;
-        
+
         if (eagleFile.getRenames().containsKey(commit)) {
             treewalk = TreeWalk.forPath(repository, eagleFile.getRenames().get(commit), tree);
         } else {
             treewalk = TreeWalk.forPath(repository, path, tree);
         }
-        
+
         if (treewalk != null) {
             try (FileOutputStream fos = new FileOutputStream(target.toFile())) {
                 fos.write(repository.open(treewalk.getObjectId(0)).getBytes());
