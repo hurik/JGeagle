@@ -1,0 +1,14 @@
+int c;
+c = 0;
+
+if (schematic) {
+   schematic(SCH) {
+      SCH.sheets(S) {
+        c++;
+      }
+   }
+}
+output(argv[1], "wt") {
+   printf("%d", c);
+} 
+exit(EXIT_SUCCESS);
