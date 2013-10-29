@@ -18,13 +18,32 @@ public class EagleFile {
 
     private final Path file;
     private final Path repoFile;
+    private final String fileName;
+    private final String fileExtension;
+    private final String repoName;
     private Boolean workingCopychanges;
     private final List<RevCommit> commits = new LinkedList<>();
     private final Map<RevCommit, String> renames = new HashMap<>();
+    // constants
+    public final static String BRD = ".brd";
+    public final static String SCH = ".sch";
 
     public EagleFile(Path file, Path repoFile) {
         this.file = file;
         this.repoFile = repoFile;
+
+        repoName = file.subpath(
+                file.getNameCount() - (repoFile.getNameCount() + 1),
+                file.getNameCount() - repoFile.getNameCount()).toString();
+
+        fileName = repoFile.getFileName().toString().substring(
+                0, repoFile.getFileName().toString().length() - 4);
+
+        if (repoFile.toString().toLowerCase().endsWith(".brd")) {
+            fileExtension = BRD;
+        } else {
+            fileExtension = SCH;
+        }
     }
 
     public void getFileData(JGit jGit) throws IOException, GitAPIException {
@@ -40,6 +59,18 @@ public class EagleFile {
 
     public Path getRepoFile() {
         return repoFile;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public String getRepoName() {
+        return repoName;
     }
 
     public Boolean isWorkingCopychanges() {

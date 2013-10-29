@@ -18,6 +18,7 @@ public class Options {
 
     private final Path optionsDir = Paths.get(System.getProperty("user.home")).resolve(".JGeagle");
     private final Path tempDir = optionsDir.resolve("temp");
+    private final Path reposDir = optionsDir.resolve("repos");
     private final Path optionsFile = optionsDir.resolve("JGeagle.properties");
     private final Path countSheetsUlp = optionsDir.resolve("countSheets.ulp");
     private final Properties properties = new Properties();
@@ -33,6 +34,10 @@ public class Options {
         try {
             if (!Files.exists(tempDir)) {
                 Files.createDirectories(tempDir);
+            }
+
+            if (!Files.exists(reposDir)) {
+                Files.createDirectories(reposDir);
             }
 
             if (!Files.exists(optionsFile)) {
@@ -52,24 +57,19 @@ public class Options {
     }
 
     public void cleanTempDir() {
-        ClearDirectory pf = new ClearDirectory();
         try {
-            Files.walkFileTree(tempDir, pf);
+            Files.walkFileTree(tempDir, new ClearDirectory());
         } catch (IOException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public Path getOptionsDir() {
-        return optionsDir;
     }
 
     public Path getTempDir() {
         return tempDir;
     }
 
-    public Path getOptionsFile() {
-        return optionsFile;
+    public Path getReposDir() {
+        return reposDir;
     }
 
     public Path getCountSheetsUlp() {

@@ -5,12 +5,12 @@ import de.andreasgiemza.jgeagle.repo.JGit;
 import de.andreasgiemza.jgeagle.data.GetWorkingCopyFiles;
 import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
+import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +28,7 @@ public class JGeagle extends javax.swing.JFrame {
     private final Options options;
     private final EagleFilesTree eagleFilesTree;
     private final CommitsTables commitsTables;
+    private final SheetsAndDiffImage sheetsAndDiffImage;
     private JGit jGit;
 
     /**
@@ -39,6 +40,7 @@ public class JGeagle extends javax.swing.JFrame {
         options = new Options();
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
         commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
+        sheetsAndDiffImage = new SheetsAndDiffImage(options, sheetComboBox, sheetButton, diffImageButton);
     }
 
     public void eagleFileSelected(EagleFile eagleFile) {
@@ -51,6 +53,7 @@ public class JGeagle extends javax.swing.JFrame {
             eagleFile.getFileData(jGit);
             commitsTables.updateOldCommitsTable(eagleFile);
             commitsTables.resetNewCommitsTable();
+            sheetsAndDiffImage.reset();
         } catch (IOException | GitAPIException ex) {
             Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,21 +61,14 @@ public class JGeagle extends javax.swing.JFrame {
 
     public void oldCommitSelected(EagleFile eagleFile, RevCommit oldCommit) {
         commitsTables.updateNewCommitsTable(eagleFile, oldCommit);
+        sheetsAndDiffImage.reset();
     }
 
     public void newCommitSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
-        if (eagleFile.getFile().toString().toLowerCase().endsWith(".brd")) {
-            diffImageButton.setEnabled(true);
+        if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
+            sheetsAndDiffImage.brdSelected();
         } else {
-            sheetComboBox.setEnabled(true);
-            sheetButton.setEnabled(true);
-        }
-
-        try {
-            jGit.extractFile(Paths.get("C:\\Users\\hurik\\Desktop\\Neuer Ordner\\old.brd"), oldCommit, eagleFile);
-            jGit.extractFile(Paths.get("C:\\Users\\hurik\\Desktop\\Neuer Ordner\\new.brd"), newCommit, eagleFile);
-        } catch (IOException ex) {
-            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+            sheetsAndDiffImage.schSelected(eagleFile, oldCommit, newCommit);
         }
     }
 
@@ -208,10 +204,10 @@ public class JGeagle extends javax.swing.JFrame {
 
         commitsPanel.add(newCommitsPanel);
 
-        variousPanel.setLayout(new java.awt.GridLayout(1, 0));
+        variousPanel.setLayout(new java.awt.GridLayout());
 
         sheetPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sheet"));
-        sheetPanel.setLayout(new java.awt.GridLayout(1, 0));
+        sheetPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         sheetButton.setText("Count");
         sheetButton.setEnabled(false);
@@ -298,10 +294,10 @@ public class JGeagle extends javax.swing.JFrame {
             repositoryTextField.setText(repoDirectory.toString());
 
             List<EagleFile> eagleFiles = new LinkedList<>();
-            GetWorkingCopyFiles pf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
+            GetWorkingCopyFiles gwcf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
 
             try {
-                Files.walkFileTree(repoDirectory, pf);
+                Files.walkFileTree(repoDirectory, gwcf);
                 jGit = new JGit(repoDirectory);
 
                 eagleFilesTree.buildAndDisplayTree(repoDirectory, eagleFiles);
