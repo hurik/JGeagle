@@ -108,8 +108,16 @@ public class Options {
         return properties.getProperty(Options.SCHEMATIC_DPI);
     }
 
+    public int getPropSchematicDpiAsInt() {
+        return Integer.parseInt(properties.getProperty(Options.SCHEMATIC_DPI));
+    }
+
     public String getPropBoardDpi() {
         return properties.getProperty(Options.BOARD_DPI);
+    }
+
+    public int getPropBoardDpiAsInt() {
+        return Integer.parseInt(properties.getProperty(Options.BOARD_DPI));
     }
 
     public String getPropAddedElementColor() {

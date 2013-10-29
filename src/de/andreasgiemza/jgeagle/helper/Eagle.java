@@ -1,11 +1,8 @@
 package de.andreasgiemza.jgeagle.helper;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Eagle {
 
@@ -29,42 +26,36 @@ public class Eagle {
     }
 
     public static void extractSheet(
-            File eagleBinary,
+            Path eagleBinary,
             int sheet,
-            File targetSheetImage,
+            Path targetSheetImage,
             int dpi,
-            File tempSchematic) {
-        if (!targetSheetImage.getParentFile().exists()) {
-            targetSheetImage.getParentFile().mkdirs();
+            Path tempSchematic)
+            throws IOException, InterruptedException {
+        if (!Files.exists(targetSheetImage)) {
+            Files.createDirectories(targetSheetImage.getParent());
         }
 
-        try {
-            Process p = Runtime.getRuntime().exec(
-                    "\"" + eagleBinary + "\" -C \"EDIT .s" + sheet
-                    + "; EXPORT IMAGE " + targetSheetImage + " " + dpi
-                    + "; QUIT\" " + tempSchematic);
-            p.waitFor();
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(Eagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Process p = Runtime.getRuntime().exec(
+                "\"" + eagleBinary + "\" -C \"EDIT .s" + sheet
+                + "; EXPORT IMAGE " + targetSheetImage + " " + dpi
+                + "; QUIT\" " + tempSchematic);
+        p.waitFor();
     }
 
     public static void extractBoard(
-            File eagleBinary,
-            File targetBoardImage,
+            Path eagleBinary,
+            Path targetBoardImage,
             int dpi,
-            File tempBoard) {
-        if (!targetBoardImage.getParentFile().exists()) {
-            targetBoardImage.getParentFile().mkdirs();
+            Path tempBoard)
+            throws IOException, InterruptedException {
+        if (!Files.exists(targetBoardImage)) {
+            Files.createDirectories(targetBoardImage.getParent());
         }
 
-        try {
-            Process p = Runtime.getRuntime().exec(
-                    "\"" + eagleBinary + "\" -C \"EXPORT IMAGE "
-                    + targetBoardImage + " " + dpi + "; QUIT\" " + tempBoard);
-            p.waitFor();
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(Eagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Process p = Runtime.getRuntime().exec(
+                "\"" + eagleBinary + "\" -C \"EXPORT IMAGE "
+                + targetBoardImage + " " + dpi + "; QUIT\" " + tempBoard);
+        p.waitFor();
     }
 }

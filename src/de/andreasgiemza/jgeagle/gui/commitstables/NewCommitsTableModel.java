@@ -80,9 +80,9 @@ public class NewCommitsTableModel extends AbstractTableModel {
             if (i == 0) {
                 switch (i1) {
                     case 0:
-                        return null;
+                        return eagleFile.getWorkingCopyLastModified();
                     case 1:
-                        return null;
+                        return System.getProperty("user.name");
                     case 2:
                         return "Working copy change";
                 }

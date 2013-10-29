@@ -2,7 +2,9 @@ package de.andreasgiemza.jgeagle.data;
 
 import de.andreasgiemza.jgeagle.repo.JGit;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class EagleFile {
     private final String fileExtension;
     private final String repoName;
     private Boolean workingCopychanges;
+    private Date workingCopyLastModified;
     private final List<RevCommit> commits = new LinkedList<>();
     private final Map<RevCommit, String> renames = new HashMap<>();
     // constants
@@ -49,6 +52,7 @@ public class EagleFile {
     public void getFileData(JGit jGit) throws IOException, GitAPIException {
         if (workingCopychanges == null) {
             workingCopychanges = jGit.checkForWorkingCopyChanges(repoFile);
+            workingCopyLastModified = new Date(Files.getLastModifiedTime(file).toMillis());
             jGit.getFileHistory(repoFile, commits, renames);
         }
     }
@@ -75,6 +79,10 @@ public class EagleFile {
 
     public Boolean isWorkingCopychanges() {
         return workingCopychanges;
+    }
+
+    public Date getWorkingCopyLastModified() {
+        return workingCopyLastModified;
     }
 
     public List<RevCommit> getCommits() {

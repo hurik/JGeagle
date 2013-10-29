@@ -312,9 +312,12 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="diffImageButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Make"/>
+                <Property name="text" type="java.lang.String" value="Make or show"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

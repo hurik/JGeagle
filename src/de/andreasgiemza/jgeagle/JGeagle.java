@@ -232,8 +232,13 @@ public class JGeagle extends javax.swing.JFrame {
 
         diffImagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image"));
 
-        diffImageButton.setText("Make");
+        diffImageButton.setText("Make or show");
         diffImageButton.setEnabled(false);
+        diffImageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffImageButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout diffImagePanelLayout = new javax.swing.GroupLayout(diffImagePanel);
         diffImagePanel.setLayout(diffImagePanelLayout);
@@ -347,6 +352,18 @@ public class JGeagle extends javax.swing.JFrame {
             Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_sheetButtonActionPerformed
+
+    private void diffImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageButtonActionPerformed
+        try {
+            sheetsAndDiffImage.createDiffImage(
+                    jGit,
+                    commitsTables.getEagleFile(),
+                    commitsTables.getOldCommit(),
+                    commitsTables.getNewCommit());
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_diffImageButtonActionPerformed
 
     /**
      * @param args the command line arguments
