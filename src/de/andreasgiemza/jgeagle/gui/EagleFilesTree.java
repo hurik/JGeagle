@@ -45,12 +45,12 @@ public class EagleFilesTree {
         for (EagleFile file : eagleFiles) {
             DefaultMutableTreeNode lastNode = rootNode;
 
-            for (Path test : file.getRepoFile()) {
-                if (!test.toString().equals(file.getRepoFile().getFileName().toString())) {
+            for (Path pathPart : file.getRepoFile()) {
+                if (!pathPart.toString().equals(file.getRepoFile().getFileName().toString())) {
                     Boolean found = false;
 
                     for (int i = 0; i < lastNode.getChildCount(); i++) {
-                        if (test.toString().equals(lastNode.getChildAt(i).toString())) {
+                        if (pathPart.toString().equals(lastNode.getChildAt(i).toString())) {
                             lastNode = (DefaultMutableTreeNode) lastNode.getChildAt(i);
                             found = true;
                         }
@@ -58,7 +58,7 @@ public class EagleFilesTree {
 
                     if (!found) {
                         DefaultMutableTreeNode newNode
-                                = new DefaultMutableTreeNode(test.toString());
+                                = new DefaultMutableTreeNode(pathPart.toString());
                         lastNode.add(newNode);
                         lastNode = newNode;
                     }
@@ -84,7 +84,7 @@ public class EagleFilesTree {
             jTree.collapseRow(i);
         }
     }
-    
+
     public void reset() {
         jTree.setModel(null);
     }

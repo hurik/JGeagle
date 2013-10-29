@@ -36,14 +36,18 @@ public class JGeagle extends javax.swing.JFrame {
      */
     public JGeagle() {
         initComponents();
-        
+
         setLocation(new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (this.getWidth() / 2)).intValue(),
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (this.getHeight() / 2)).intValue());
-        
+
         options = new Options();
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
         commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
-        sheetsAndDiffImage = new SheetsAndDiffImage(options, sheetComboBox, sheetButton, diffImageButton);
+        sheetsAndDiffImage = new SheetsAndDiffImage(
+                options,
+                sheetComboBox,
+                sheetButton,
+                diffImageButton);
     }
 
     public void eagleFileSelected(EagleFile eagleFile) {
@@ -214,6 +218,11 @@ public class JGeagle extends javax.swing.JFrame {
 
         sheetButton.setText("Count");
         sheetButton.setEnabled(false);
+        sheetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sheetButtonActionPerformed(evt);
+            }
+        });
         sheetPanel.add(sheetButton);
 
         sheetComboBox.setEnabled(false);
@@ -326,6 +335,18 @@ public class JGeagle extends javax.swing.JFrame {
     private void optionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsButtonActionPerformed
         options.showOptionsPanel(this);
     }//GEN-LAST:event_optionsButtonActionPerformed
+
+    private void sheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheetButtonActionPerformed
+        try {
+            sheetsAndDiffImage.countSheets(
+                    jGit,
+                    commitsTables.getEagleFile(),
+                    commitsTables.getOldCommit(),
+                    commitsTables.getNewCommit());
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_sheetButtonActionPerformed
 
     /**
      * @param args the command line arguments

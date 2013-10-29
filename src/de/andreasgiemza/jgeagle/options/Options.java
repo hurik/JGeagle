@@ -100,6 +100,10 @@ public class Options {
         return properties.getProperty(Options.EAGLE_BINARY);
     }
 
+    public Path getPropEagleBinaryAsPath() {
+        return Paths.get(properties.getProperty(Options.EAGLE_BINARY));
+    }
+
     public String getPropSchematicDpi() {
         return properties.getProperty(Options.SCHEMATIC_DPI);
     }

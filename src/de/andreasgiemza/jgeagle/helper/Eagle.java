@@ -2,6 +2,8 @@ package de.andreasgiemza.jgeagle.helper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,22 +13,19 @@ public class Eagle {
     }
 
     public static void countSheets(
-            File eagleBinary,
-            File countSheetsUlpFile,
-            File targetSheetCount,
-            File tempSchematic) {
-        if (!targetSheetCount.getParentFile().exists()) {
-            targetSheetCount.getParentFile().mkdirs();
+            Path eagleBinary,
+            Path countSheetsUlp,
+            Path targetSheetCount,
+            Path tempSchematic)
+            throws IOException, InterruptedException {
+        if (!Files.exists(targetSheetCount)) {
+            Files.createDirectories(targetSheetCount.getParent());
         }
 
-        try {
-            Process p = Runtime.getRuntime().exec(
-                    "\"" + eagleBinary + "\" -C \"RUN " + countSheetsUlpFile
-                    + " " + targetSheetCount + "; QUIT\" " + tempSchematic);
-            p.waitFor();
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(Eagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Process p = Runtime.getRuntime().exec(
+                "\"" + eagleBinary + "\" -C \"RUN " + countSheetsUlp
+                + " " + targetSheetCount + "; QUIT\" " + tempSchematic);
+        p.waitFor();
     }
 
     public static void extractSheet(

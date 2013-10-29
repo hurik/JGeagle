@@ -1,9 +1,15 @@
 package de.andreasgiemza.jgeagle.gui;
 
 import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.helper.Eagle;
 import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.repo.JGit;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -19,7 +25,11 @@ public class SheetsAndDiffImage {
     private final JButton sheetButton;
     private final JButton diffImageButton;
 
-    public SheetsAndDiffImage(Options options, JComboBox sheetComboBox, JButton sheetButton, JButton diffImageButton) {
+    public SheetsAndDiffImage(
+            Options options,
+            JComboBox sheetComboBox,
+            JButton sheetButton,
+            JButton diffImageButton) {
         this.options = options;
         this.sheetComboBox = sheetComboBox;
         this.sheetButton = sheetButton;
@@ -37,21 +47,66 @@ public class SheetsAndDiffImage {
         diffImageButton.setEnabled(true);
     }
 
-    public void schSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
-        Path oldCountFile = buildPath(oldCommit, eagleFile);
-        Path newCountFile = buildPath(oldCommit, eagleFile);
+    public void schSelected(
+            EagleFile eagleFile,
+            RevCommit oldCommit,
+            RevCommit newCommit) {
+        Path oldCountFile = buildPath(oldCommit, eagleFile, ".txt");
+        Path newCountFile = buildPath(oldCommit, eagleFile, ".txt");
 
         if (Files.exists(oldCountFile) && Files.exists(newCountFile)) {
-            sheetComboBox.setEnabled(true);
-        }
+            try {
+                int oldCount = Integer.parseInt(Files.readAllLines(oldCountFile, Charset.defaultCharset()).get(0));
+                int newCount = Integer.parseInt(Files.readAllLines(newCountFile, Charset.defaultCharset()).get(0));
 
-        sheetButton.setEnabled(true);
+                for (int i = 1; i <= Math.min(oldCount, newCount); i++) {
+                    sheetComboBox.addItem(i);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SheetsAndDiffImage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            sheetComboBox.setEnabled(true);
+        } else {
+            sheetButton.setEnabled(true);
+        }
     }
 
-    private Path buildPath(RevCommit revCommit, EagleFile eagleFile) {
+    private Path buildPath(RevCommit revCommit, EagleFile eagleFile, String fileExtension) {
         return options.getReposDir()
                 .resolve(eagleFile.getRepoName())
                 .resolve(revCommit.getName())
-                .resolve(eagleFile.getFileName() + ".txt");
+                .resolve(eagleFile.getRepoFile().getParent())
+                .resolve(eagleFile.getFileName() + fileExtension);
+    }
+
+    public void countSheets(
+            JGit jGit,
+            EagleFile eagleFile,
+            RevCommit oldCommit,
+            RevCommit newCommit) throws IOException, InterruptedException {
+        options.cleanTempDir();
+
+        Path oldSchematicFile = options.getTempDir().resolve("old.sch");
+        jGit.extractFile(oldSchematicFile, oldCommit, eagleFile);
+
+        Path oldCountFile = buildPath(oldCommit, eagleFile, ".txt");
+        Eagle.countSheets(
+                options.getPropEagleBinaryAsPath(),
+                options.getCountSheetsUlp(),
+                oldCountFile,
+                oldSchematicFile);
+
+        Path newSchematicFile = options.getTempDir().resolve("new.sch");
+        jGit.extractFile(newSchematicFile, newCommit, eagleFile);
+
+        Path newCountFile = buildPath(newCommit, eagleFile, ".txt");
+        Eagle.countSheets(
+                options.getPropEagleBinaryAsPath(),
+                options.getCountSheetsUlp(),
+                newCountFile,
+                newSchematicFile);
+        
+        schSelected(eagleFile, oldCommit, newCommit);
     }
 }
