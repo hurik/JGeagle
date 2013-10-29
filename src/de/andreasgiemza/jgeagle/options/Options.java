@@ -1,6 +1,9 @@
 package de.andreasgiemza.jgeagle.options;
 
+import de.andreasgiemza.jgeagle.JGeagle;
+import java.awt.Toolkit;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -9,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 
 /**
  *
@@ -78,5 +82,63 @@ public class Options {
 
     public Properties getProperties() {
         return properties;
+    }
+
+    public void showOptionsPanel(JGeagle jGeagle) {
+        JDialog dialog = new JDialog(jGeagle, "Options", true);
+        dialog.setResizable(false);
+        dialog.getContentPane().add(new OptionsPanel(dialog, this));
+        dialog.pack();
+        dialog.setLocation(
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setVisible(true);
+    }
+
+    // Properties getter  
+    public String getPropEagleBinary() {
+        return properties.getProperty(Options.EAGLE_BINARY);
+    }
+
+    public String getPropSchematicDpi() {
+        return properties.getProperty(Options.SCHEMATIC_DPI);
+    }
+
+    public String getPropBoardDpi() {
+        return properties.getProperty(Options.BOARD_DPI);
+    }
+
+    public String getPropAddedElementColor() {
+        return properties.getProperty(Options.ADDED_ELEMENTS_COLOR);
+    }
+
+    public String getPropRemovedElementColor() {
+        return properties.getProperty(Options.REMOVED_ELEMENT_COLOR);
+    }
+
+    public String getPropUndefinedColor() {
+        return properties.getProperty(Options.UNDEFINED_COLOR);
+    }
+
+    // Save options
+    void save(
+            String eagleBinary,
+            String schematicDpi,
+            String boardDpi,
+            String addedElementColor,
+            String removedElementColor,
+            String undefinedColor) {
+        properties.setProperty(EAGLE_BINARY, eagleBinary);
+        properties.setProperty(SCHEMATIC_DPI, schematicDpi);
+        properties.setProperty(BOARD_DPI, boardDpi);
+        properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
+        properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
+        properties.setProperty(UNDEFINED_COLOR, undefinedColor);
+
+        try {
+            properties.store(new FileOutputStream(optionsFile.toFile()), null);
+        } catch (IOException ex) {
+            Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

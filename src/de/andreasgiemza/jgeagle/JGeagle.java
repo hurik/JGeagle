@@ -36,7 +36,10 @@ public class JGeagle extends javax.swing.JFrame {
      */
     public JGeagle() {
         initComponents();
-
+        
+        setLocation(new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (this.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (this.getHeight() / 2)).intValue());
+        
         options = new Options();
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
         commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
@@ -204,7 +207,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         commitsPanel.add(newCommitsPanel);
 
-        variousPanel.setLayout(new java.awt.GridLayout());
+        variousPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         sheetPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sheet"));
         sheetPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -239,6 +242,11 @@ public class JGeagle extends javax.swing.JFrame {
         optionsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
 
         optionsButton.setText("Customize");
+        optionsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
         optionsPanel.setLayout(optionsPanelLayout);
@@ -314,6 +322,10 @@ public class JGeagle extends javax.swing.JFrame {
     private void eagleFilesCollapseAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleFilesCollapseAllButtonActionPerformed
         eagleFilesTree.collapseAll();
     }//GEN-LAST:event_eagleFilesCollapseAllButtonActionPerformed
+
+    private void optionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsButtonActionPerformed
+        options.showOptionsPanel(this);
+    }//GEN-LAST:event_optionsButtonActionPerformed
 
     /**
      * @param args the command line arguments
