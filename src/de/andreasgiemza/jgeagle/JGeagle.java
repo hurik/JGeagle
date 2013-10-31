@@ -232,7 +232,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         diffImagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image"));
 
-        diffImageButton.setText("Make or show");
+        diffImageButton.setText("Make and/or show");
         diffImageButton.setEnabled(false);
         diffImageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,6 +356,7 @@ public class JGeagle extends javax.swing.JFrame {
     private void diffImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageButtonActionPerformed
         try {
             sheetsAndDiffImage.createDiffImage(
+                    this,
                     jGit,
                     commitsTables.getEagleFile(),
                     commitsTables.getOldCommit(),
