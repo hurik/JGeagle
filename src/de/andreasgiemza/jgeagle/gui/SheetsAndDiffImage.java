@@ -4,7 +4,6 @@ import de.andreasgiemza.jgeagle.JGeagle;
 import de.andreasgiemza.jgeagle.data.EagleFile;
 import de.andreasgiemza.jgeagle.helper.DiffImage;
 import de.andreasgiemza.jgeagle.helper.Eagle;
-import de.andreasgiemza.jgeagle.helper.ImageViewer;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.repo.JGit;
 import java.io.IOException;
@@ -180,7 +179,7 @@ public class SheetsAndDiffImage {
                         options.getPropUndefinedColor());
             }
 
-            new ImageViewer(diffImageFile, eagleFile, "");
+            ImageViewer.showImageViewer(diffImageFile, eagleFile, "");
         } else {
             int sheet = (int) sheetComboBox.getSelectedItem();
 
@@ -226,7 +225,7 @@ public class SheetsAndDiffImage {
                         options.getPropUndefinedColor());
             }
 
-            new ImageViewer(diffImageFile, eagleFile, " - Sheet " + sheet);
+            ImageViewer.showImageViewer(diffImageFile, eagleFile, " - Sheet " + sheet);
         }
     }
 }
