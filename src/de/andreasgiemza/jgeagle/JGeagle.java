@@ -72,6 +72,8 @@ public class JGeagle extends javax.swing.JFrame {
     }
 
     public void newCommitSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
+        options.cleanTempDir();
+
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
             sheetsAndDiffImage.brdSelected();
         } else {
