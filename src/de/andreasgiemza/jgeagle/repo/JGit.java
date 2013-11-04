@@ -1,6 +1,5 @@
 package de.andreasgiemza.jgeagle.repo;
 
-import de.andreasgiemza.jgeagle.data.EagleFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,18 +27,47 @@ public class JGit {
     private final Repository repository;
     private final Git git;
 
+    /**
+     *
+     * @param directory
+     * @throws IOException
+     * @throws GitAPIException
+     */
     public JGit(Path directory) throws IOException, GitAPIException {
         repository = new FileRepository(directory.resolve(".git").toFile());
         git = new Git(repository);
     }
 
-    public Boolean checkForWorkingCopyChanges(Path repoFile) throws GitAPIException {
+    /**
+     *
+     * @param repoFile
+     * @return
+     * @throws GitAPIException
+     */
+    public Boolean checkForWorkingCopyChanges(Path repoFile)
+            throws GitAPIException {
         Set<String> modifiedFiles = git.status().call().getModified();
 
         return modifiedFiles.contains(repoFile.toString().replace("\\", "/"));
     }
 
-    public List<RevCommit> getFileHistory(Path repoFile, List<RevCommit> commits, Map<RevCommit, String> renames) throws IOException, MissingObjectException, GitAPIException {
+    /**
+     *
+     * Based on http://stackoverflow.com/a/11504177/2246865 by OneWorld
+     *
+     * @param repoFile
+     * @param commits
+     * @param renames
+     * @return
+     * @throws java.io.IOException
+     * @throws org.eclipse.jgit.errors.MissingObjectException
+     * @throws org.eclipse.jgit.api.errors.GitAPIException
+     */
+    public List<RevCommit> getFileHistory(
+            Path repoFile,
+            List<RevCommit> commits,
+            Map<RevCommit, String> renames)
+            throws IOException, MissingObjectException, GitAPIException {
         final String originalPath = repoFile.toString().replace("\\", "/");
         String path = originalPath;
 
@@ -68,7 +96,18 @@ public class JGit {
         return commits;
     }
 
-    private String getRenamedPath(RevCommit start, String path) throws IOException, GitAPIException {
+    /**
+     *
+     * Based on http://stackoverflow.com/a/11504177/2246865 by OneWorld
+     *
+     * @param start
+     * @param path
+     * @return
+     * @throws IOException
+     * @throws GitAPIException
+     */
+    private String getRenamedPath(RevCommit start, String path)
+            throws IOException, GitAPIException {
         Iterable<RevCommit> allCommitsLater = git.log().add(start).call();
 
         for (RevCommit commit : allCommitsLater) {
@@ -80,11 +119,11 @@ public class JGit {
             rd.addAll(DiffEntry.scan(tw));
             List<DiffEntry> files = rd.compute();
 
-            for (DiffEntry diffEntry : files) {
-                if ((diffEntry.getChangeType() == DiffEntry.ChangeType.RENAME
-                        || diffEntry.getChangeType() == DiffEntry.ChangeType.COPY)
-                        && diffEntry.getNewPath().contains(path)) {
-                    return diffEntry.getOldPath();
+            for (DiffEntry deffE : files) {
+                if ((deffE.getChangeType() == DiffEntry.ChangeType.RENAME
+                        || deffE.getChangeType() == DiffEntry.ChangeType.COPY)
+                        && deffE.getNewPath().contains(path)) {
+                    return deffE.getOldPath();
                 }
             }
         }
@@ -92,8 +131,23 @@ public class JGit {
         return null;
     }
 
-    public void extractFile(Path target, RevCommit commit, EagleFile eagleFile) throws IOException {
-        String path = eagleFile.getRepoFile().toString().replace("\\", "/");
+    /**
+     *
+     * Based on http://stackoverflow.com/a/14856330/2246865 by creinig
+     *
+     * @param target
+     * @param commit
+     * @param repoFile
+     * @param renames
+     * @throws java.io.IOException
+     */
+    public void extractFile(
+            Path target,
+            RevCommit commit,
+            Path repoFile,
+            Map<RevCommit, String> renames)
+            throws IOException {
+        String path = repoFile.toString().replace("\\", "/");
 
         if (!Files.exists(target.getParent())) {
             Files.createDirectories(target.getParent());
@@ -102,8 +156,11 @@ public class JGit {
         RevTree tree = commit.getTree();
         TreeWalk treewalk;
 
-        if (eagleFile.getRenames().containsKey(commit)) {
-            treewalk = TreeWalk.forPath(repository, eagleFile.getRenames().get(commit), tree);
+        if (renames.containsKey(commit)) {
+            treewalk = TreeWalk.forPath(
+                    repository,
+                    renames.get(commit),
+                    tree);
         } else {
             treewalk = TreeWalk.forPath(repository, path, tree);
         }

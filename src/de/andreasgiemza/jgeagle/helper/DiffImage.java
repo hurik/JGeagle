@@ -7,16 +7,32 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
+/**
+ *
+ * @author hurik
+ */
 public class DiffImage {
 
     private DiffImage() {
     }
 
-    public static void make(
+    /**
+     *
+     * @param oldImageFile
+     * @param newImageFile
+     * @param diffImageFile
+     * @param background
+     * @param alpha
+     * @param addedElementColorHex
+     * @param removedElementColorHex
+     * @param undefinedColorHex
+     * @throws IOException
+     */
+    public static void create(
             Path oldImageFile,
             Path newImageFile,
             Path diffImageFile,
-            boolean background,
+            Color background,
             double alpha,
             String addedElementColorHex,
             String removedElementColorHex,
@@ -42,13 +58,7 @@ public class DiffImage {
         BufferedImage diffImageData = new BufferedImage(
                 maxWidth, maxHeight, BufferedImage.TYPE_INT_RGB);
 
-        int backgroundColor;
-
-        if (background) {
-            backgroundColor = Color.WHITE.getRGB();
-        } else {
-            backgroundColor = Color.BLACK.getRGB();
-        }
+        int backgroundColor = background.getRGB();
 
         int addedElementColor
                 = Color.decode(addedElementColorHex).getRGB();
@@ -63,25 +73,17 @@ public class DiffImage {
             }
         }
 
-        int backgroundPrecalculation;
-
-        if (background) {
-            backgroundPrecalculation = (int) ((1 - alpha) * 255);
-        } else {
-            backgroundPrecalculation = 0;
-        }
-
         for (int x = 0; x < minWidth; x++) {
             for (int y = 0; y < minHeight; y++) {
                 if (oldImage.getRGB(x, y) == newImage.getRGB(x, y)) {
                     Color color = new Color(oldImage.getRGB(x, y));
 
                     int red = (int) ((color.getRed() * alpha)
-                            + backgroundPrecalculation);
+                            + (int) ((1 - alpha) * background.getRed()));
                     int green = (int) ((color.getGreen() * alpha)
-                            + backgroundPrecalculation);
+                            + (int) ((1 - alpha) * background.getGreen()));
                     int blue = (int) ((color.getBlue() * alpha)
-                            + backgroundPrecalculation);
+                            + (int) ((1 - alpha) * background.getBlue()));
 
                     diffImageData.setRGB(
                             x, y,

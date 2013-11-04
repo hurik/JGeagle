@@ -4,11 +4,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ *
+ * @author hurik
+ */
 public class Eagle {
 
     private Eagle() {
     }
 
+    /**
+     *
+     * @param eagleBinary
+     * @param countSheetsUlp
+     * @param targetSheetCount
+     * @param tempSchematic
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static void countSheets(
             Path eagleBinary,
             Path countSheetsUlp,
@@ -25,7 +38,17 @@ public class Eagle {
         p.waitFor();
     }
 
-    public static void extractSheet(
+    /**
+     *
+     * @param eagleBinary
+     * @param sheet
+     * @param targetSheetImage
+     * @param dpi
+     * @param tempSchematic
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void extractSheetImage(
             Path eagleBinary,
             int sheet,
             Path targetSheetImage,
@@ -43,7 +66,16 @@ public class Eagle {
         p.waitFor();
     }
 
-    public static void extractBoard(
+    /**
+     *
+     * @param eagleBinary
+     * @param targetBoardImage
+     * @param dpi
+     * @param tempBoard
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void extractBoardImage(
             Path eagleBinary,
             Path targetBoardImage,
             int dpi,

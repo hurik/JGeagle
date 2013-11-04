@@ -105,14 +105,27 @@ public class NewCommitsTableModel extends AbstractTableModel {
         return null;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public EagleFile getEagleFile() {
         return eagleFile;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public RevCommit getOldCommit() {
         return oldCommit;
     }
 
+    /**
+     * 
+     * @param i
+     * @return 
+     */
     public RevCommit getElementAt(int i) {
         RevCommit commit;
 

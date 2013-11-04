@@ -27,7 +27,6 @@ public class OldCommitsSelectionListener implements ListSelectionListener {
                 && lse.getValueIsAdjusting()) {
             int oldCommitsTableSelectedRow
                     = oldCommitsTable.convertRowIndexToModel(oldCommitsTable.getSelectedRow());
-
             OldCommitsTableModel oldCommitTableModel = (OldCommitsTableModel) oldCommitsTable.getModel();
 
             jGeagle.oldCommitSelected(

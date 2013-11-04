@@ -14,11 +14,22 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
+/**
+ *
+ * @author hurik
+ */
 public class ImageViewer {
 
     private ImageViewer() {
     }
 
+    /**
+     *
+     * @param diffImageFile
+     * @param eagleFile
+     * @param sheet
+     * @throws IOException
+     */
     public static void showImageViewer(Path diffImageFile, EagleFile eagleFile, String sheet) throws IOException {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("JGeagle - " + eagleFile.getRepoFile() + sheet);
@@ -27,16 +38,16 @@ public class ImageViewer {
                 diffImageFile);
         JScrollPane scroll = new JScrollPane(ivp);
         jFrame.getContentPane().add(scroll);
-        
+
         scroll.removeMouseWheelListener(scroll.getMouseWheelListeners()[0]);
-        
+
         JViewport vport = scroll.getViewport();
         MouseAdapter ma = new HandScrollListener();
         MouseZoomListener mzl = new MouseZoomListener(ivp);
         vport.addMouseMotionListener(ma);
         vport.addMouseWheelListener(mzl);
         vport.addMouseListener(ma);
-        
+
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         jFrame.setSize(
                 new Double(size.getWidth() * 0.8).intValue(),
@@ -44,9 +55,9 @@ public class ImageViewer {
         jFrame.setLocation(
                 new Double((size.getWidth() / 2) - (jFrame.getWidth() / 2)).intValue(),
                 new Double((size.getHeight() / 2) - (jFrame.getHeight() / 2)).intValue());
-        
+
         jFrame.setVisible(true);
-        
+
         ivp.setFirstSize(vport.getSize());
     }
 }

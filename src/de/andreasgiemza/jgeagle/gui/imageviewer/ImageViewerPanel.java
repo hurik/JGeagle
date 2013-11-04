@@ -43,10 +43,18 @@ public class ImageViewerPanel extends JPanel {
         grphcs2d.drawRenderedImage(image, at);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getScale() {
         return scale;
     }
 
+    /**
+     * 
+     * @param scale 
+     */
     public void setScale(double scale) {
         if (scale > 0.01) {
             this.scale = scale;
@@ -55,6 +63,10 @@ public class ImageViewerPanel extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @param size 
+     */
     public void setFirstSize(Dimension size) {
         double xFactor = size.getWidth() / image.getWidth();
         double yFactor = size.getHeight() / image.getHeight();

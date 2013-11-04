@@ -13,6 +13,13 @@ import java.nio.file.attribute.BasicFileAttributes;
  */
 public class ClearDirectory extends SimpleFileVisitor<Path> {
 
+    /**
+     * 
+     * @param file
+     * @param bfa
+     * @return
+     * @throws IOException 
+     */
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes bfa) throws IOException {
         Files.delete(file);

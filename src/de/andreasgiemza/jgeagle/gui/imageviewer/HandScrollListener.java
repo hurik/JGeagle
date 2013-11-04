@@ -10,6 +10,8 @@ import javax.swing.JViewport;
 /**
  *
  * @author hurik
+ *
+ * Based on http://stackoverflow.com/a/13344337/2246865 by aterai
  */
 public class HandScrollListener extends MouseAdapter {
 

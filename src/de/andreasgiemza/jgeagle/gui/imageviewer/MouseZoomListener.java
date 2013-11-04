@@ -10,6 +10,8 @@ import javax.swing.JViewport;
 /**
  *
  * @author hurik
+ *
+ * Based on http://stackoverflow.com/a/14085161/2246865 by Absolom
  */
 public class MouseZoomListener implements MouseWheelListener {
 
