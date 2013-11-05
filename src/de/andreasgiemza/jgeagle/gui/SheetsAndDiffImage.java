@@ -242,30 +242,42 @@ public class SheetsAndDiffImage {
     }
 
     private Path buildPath(RevCommit revCommit, EagleFile eagleFile, String fileExtension) {
+        Path path;
+
         if (revCommit != null) {
-            return options.getReposDir()
+            path = options.getReposDir()
                     .resolve(eagleFile.getRepoName())
                     .resolve("images")
-                    .resolve(revCommit.getName())
-                    .resolve(eagleFile.getRepoFile().getParent())
-                    .resolve(eagleFile.getFileName() + fileExtension);
+                    .resolve(revCommit.getName());
+            if (eagleFile.getRepoFile().getParent() != null) {
+                path = path.resolve(eagleFile.getRepoFile().getParent());
+            }
+            path = path.resolve(eagleFile.getFileName() + fileExtension);
         } else {
-            return options.getTempDir()
+            path = options.getTempDir()
                     .resolve(eagleFile.getFileName() + fileExtension);
         }
+
+        return path;
     }
 
     private Path buildDiffPath(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit, String fileExtension) {
+        Path path;
+
         if (newCommit != null) {
-            return options.getReposDir()
+            path = options.getReposDir()
                     .resolve(eagleFile.getRepoName())
                     .resolve("diffImages")
-                    .resolve(oldCommit.getName() + "-" + newCommit.getName())
-                    .resolve(eagleFile.getRepoFile().getParent())
-                    .resolve(eagleFile.getFileName() + fileExtension);
+                    .resolve(oldCommit.getName() + "-" + newCommit.getName());
+            if (eagleFile.getRepoFile().getParent() != null) {
+                path = path.resolve(eagleFile.getRepoFile().getParent());
+            }
+            path = path.resolve(eagleFile.getFileName() + fileExtension);
         } else {
-            return options.getTempDir()
+            path = options.getTempDir()
                     .resolve("DIFF-" + eagleFile.getFileName() + fileExtension);
         }
+
+        return path;
     }
 }
