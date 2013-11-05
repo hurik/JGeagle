@@ -31,9 +31,9 @@
                   <Component id="diffImageColorsPanel" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="saveButton" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="saveButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelButton" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -75,7 +75,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="eagleBinaryTextField" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="eagleBinaryButton" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="eagleBinaryButton" min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -189,27 +189,21 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="dicRemovedElementTextField" pref="406" max="32767" attributes="0"/>
-                      <Component id="dicAddedElementTextField" max="32767" attributes="0"/>
+                      <Component id="dicRemovedElementTextField" alignment="0" pref="371" max="32767" attributes="0"/>
                       <Component id="dicUndefinedTextField" max="32767" attributes="0"/>
+                      <Component id="dicAddedElementTextField" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="dicUndefinedPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dicUndefinedButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="dicRemovedElementPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dicRemovedElementButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="dicAddedElementPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dicAddedElementButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="dicRemovedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="dicAddedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="dicUndefinedPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="dicAddedElementButton" alignment="1" pref="100" max="32767" attributes="0"/>
+                      <Component id="dicRemovedElementButton" alignment="1" max="32767" attributes="0"/>
+                      <Component id="dicUndefinedButton" alignment="1" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -218,14 +212,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Component id="dicAddedElementButton" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="dicAddedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dicAddedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="dicAddedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dicAddedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="dicAddedElementPanel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="dicAddedElementButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="dicAddedElementPanel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">

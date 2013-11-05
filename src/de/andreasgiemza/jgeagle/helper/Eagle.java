@@ -32,10 +32,9 @@ public class Eagle {
             Files.createDirectories(targetSheetCount.getParent());
         }
 
-        Process p = Runtime.getRuntime().exec(
-                "\"" + eagleBinary + "\" -C \"RUN " + countSheetsUlp
-                + " " + targetSheetCount + "; QUIT\" " + tempSchematic);
-        p.waitFor();
+        runComman(eagleBinary,
+                "RUN '" + countSheetsUlp.toString() + "' '" + targetSheetCount.toString() + "'; QUIT",
+                tempSchematic);
     }
 
     /**
@@ -59,11 +58,10 @@ public class Eagle {
             Files.createDirectories(targetSheetImage.getParent());
         }
 
-        Process p = Runtime.getRuntime().exec(
-                "\"" + eagleBinary + "\" -C \"EDIT .s" + sheet
-                + "; EXPORT IMAGE " + targetSheetImage + " " + dpi
-                + "; QUIT\" " + tempSchematic);
-        p.waitFor();
+        runComman(
+                eagleBinary,
+                "EDIT .s" + sheet + "; EXPORT IMAGE '" + targetSheetImage.toString() + "' " + dpi + "; QUIT",
+                tempSchematic);
     }
 
     /**
@@ -85,9 +83,30 @@ public class Eagle {
             Files.createDirectories(targetBoardImage.getParent());
         }
 
-        Process p = Runtime.getRuntime().exec(
-                "\"" + eagleBinary + "\" -C \"EXPORT IMAGE "
-                + targetBoardImage + " " + dpi + "; QUIT\" " + tempBoard);
+        runComman(
+                eagleBinary,
+                "EXPORT IMAGE '" + targetBoardImage.toString() + "' " + dpi + "; QUIT",
+                tempBoard);
+    }
+
+    /**
+     *
+     * @param eagleBinary
+     * @param command
+     * @param tempFile
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    private static void runComman(
+            Path eagleBinary,
+            String command,
+            Path tempFile)
+            throws IOException, InterruptedException {
+        Process p = new ProcessBuilder(
+                eagleBinary.toString(),
+                "-C",
+                command,
+                tempFile.toString()).start();
         p.waitFor();
     }
 }
