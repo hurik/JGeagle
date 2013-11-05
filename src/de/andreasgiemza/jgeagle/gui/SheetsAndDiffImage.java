@@ -54,6 +54,8 @@ public class SheetsAndDiffImage {
             EagleFile eagleFile,
             RevCommit oldCommit,
             RevCommit newCommit) {
+        reset();
+        
         Path oldCountFile = buildPath(oldCommit, eagleFile, ".txt");
         Path newCountFile = buildPath(newCommit, eagleFile, ".txt");
 
@@ -69,7 +71,6 @@ public class SheetsAndDiffImage {
                 Logger.getLogger(SheetsAndDiffImage.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            sheetButton.setEnabled(false);
             sheetComboBox.setEnabled(true);
             diffImageButton.setEnabled(true);
         } else {
