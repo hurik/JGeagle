@@ -32,6 +32,7 @@ import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -104,6 +105,14 @@ public class JGeagle extends javax.swing.JFrame {
         }
     }
 
+    private void openWebsite(String site) {
+        try {
+            java.awt.Desktop.getDesktop().browse(URI.create(site));
+        } catch (IOException ex) {
+            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,9 +123,6 @@ public class JGeagle extends javax.swing.JFrame {
     private void initComponents() {
 
         repositoryFileChooser = new javax.swing.JFileChooser();
-        repositoryPanel = new javax.swing.JPanel();
-        repositoryTextField = new javax.swing.JTextField();
-        repositoryButton = new javax.swing.JButton();
         eagleFilesPanel = new javax.swing.JPanel();
         eagleFilesScrollPane = new javax.swing.JScrollPane();
         eagleFilesJTree = new javax.swing.JTree();
@@ -135,41 +141,22 @@ public class JGeagle extends javax.swing.JFrame {
         sheetComboBox = new javax.swing.JComboBox();
         diffImagePanel = new javax.swing.JPanel();
         diffImageButton = new javax.swing.JButton();
-        optionsPanel = new javax.swing.JPanel();
-        optionsButton = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        repositoryMenu = new javax.swing.JMenu();
+        repositoryMenuItem = new javax.swing.JMenuItem();
+        optionsMenu = new javax.swing.JMenu();
+        preferencesMenuItem = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        websiteMenuItem = new javax.swing.JMenuItem();
+        githubMenuItem = new javax.swing.JMenuItem();
+        helpSeparator = new javax.swing.JPopupMenu.Separator();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         repositoryFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JGeagle");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/resources/jgeagle.png")));
-
-        repositoryPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Repository"));
-
-        repositoryTextField.setEditable(false);
-
-        repositoryButton.setText("Open");
-        repositoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                repositoryButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout repositoryPanelLayout = new javax.swing.GroupLayout(repositoryPanel);
-        repositoryPanel.setLayout(repositoryPanelLayout);
-        repositoryPanelLayout.setHorizontalGroup(
-            repositoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, repositoryPanelLayout.createSequentialGroup()
-                .addComponent(repositoryTextField)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(repositoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        repositoryPanelLayout.setVerticalGroup(
-            repositoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(repositoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(repositoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(repositoryButton))
-        );
 
         eagleFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Files"));
 
@@ -266,7 +253,7 @@ public class JGeagle extends javax.swing.JFrame {
         diffImagePanel.setLayout(diffImagePanelLayout);
         diffImagePanelLayout.setHorizontalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(diffImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+            .addComponent(diffImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
         );
         diffImagePanelLayout.setVerticalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,50 +262,80 @@ public class JGeagle extends javax.swing.JFrame {
 
         variousPanel.add(diffImagePanel);
 
-        optionsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
+        repositoryMenu.setText("Repository");
 
-        optionsButton.setText("Customize");
-        optionsButton.addActionListener(new java.awt.event.ActionListener() {
+        repositoryMenuItem.setText("Open...");
+        repositoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optionsButtonActionPerformed(evt);
+                repositoryMenuItemActionPerformed(evt);
             }
         });
+        repositoryMenu.add(repositoryMenuItem);
 
-        javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
-        optionsPanel.setLayout(optionsPanelLayout);
-        optionsPanelLayout.setHorizontalGroup(
-            optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(optionsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-        );
-        optionsPanelLayout.setVerticalGroup(
-            optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(optionsButton)
-        );
+        menuBar.add(repositoryMenu);
 
-        variousPanel.add(optionsPanel);
+        optionsMenu.setText("Options");
+
+        preferencesMenuItem.setText("Preferences");
+        preferencesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                preferencesMenuItemActionPerformed(evt);
+            }
+        });
+        optionsMenu.add(preferencesMenuItem);
+
+        menuBar.add(optionsMenu);
+
+        helpMenu.setText("Help");
+
+        websiteMenuItem.setText("Website (German)");
+        websiteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                websiteMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(websiteMenuItem);
+
+        githubMenuItem.setText("GitHub (English)");
+        githubMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                githubMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(githubMenuItem);
+        helpMenu.add(helpSeparator);
+
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutMenuItem);
+
+        menuBar.add(helpMenu);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(repositoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(eagleFilesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(commitsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(variousPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(commitsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(variousPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(repositoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eagleFilesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(commitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addComponent(commitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(variousPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -327,30 +344,6 @@ public class JGeagle extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void repositoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repositoryButtonActionPerformed
-        int returnVal = repositoryFileChooser.showOpenDialog(this);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            eagleFilesTree.reset();
-            commitsTables.reset();
-
-            Path repoDirectory = repositoryFileChooser.getSelectedFile().toPath();
-            repositoryTextField.setText(repoDirectory.toString());
-
-            List<EagleFile> eagleFiles = new LinkedList<>();
-            GetWorkingCopyFiles gwcf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
-
-            try {
-                Files.walkFileTree(repoDirectory, gwcf);
-                jGit = new JGit(repoDirectory);
-
-                eagleFilesTree.buildAndDisplayTree(repoDirectory, eagleFiles);
-            } catch (IOException | GitAPIException ex) {
-                Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_repositoryButtonActionPerformed
-
     private void eagleFilesExpandAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleFilesExpandAllButtonActionPerformed
         eagleFilesTree.expandAll();
     }//GEN-LAST:event_eagleFilesExpandAllButtonActionPerformed
@@ -358,10 +351,6 @@ public class JGeagle extends javax.swing.JFrame {
     private void eagleFilesCollapseAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleFilesCollapseAllButtonActionPerformed
         eagleFilesTree.collapseAll();
     }//GEN-LAST:event_eagleFilesCollapseAllButtonActionPerformed
-
-    private void optionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsButtonActionPerformed
-        options.showOptionsPanel(this);
-    }//GEN-LAST:event_optionsButtonActionPerformed
 
     private void sheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheetButtonActionPerformed
         try {
@@ -387,6 +376,45 @@ public class JGeagle extends javax.swing.JFrame {
             Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_diffImageButtonActionPerformed
+
+    private void websiteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_websiteMenuItemActionPerformed
+        openWebsite("http://www.andreasgiemza.de/jgeagle/");
+    }//GEN-LAST:event_websiteMenuItemActionPerformed
+
+    private void githubMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_githubMenuItemActionPerformed
+        openWebsite("https://github.com/hurik/JGeagle");
+    }//GEN-LAST:event_githubMenuItemActionPerformed
+
+    private void repositoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repositoryMenuItemActionPerformed
+        int returnVal = repositoryFileChooser.showOpenDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            eagleFilesTree.reset();
+            commitsTables.reset();
+
+            Path repoDirectory = repositoryFileChooser.getSelectedFile().toPath();
+
+            List<EagleFile> eagleFiles = new LinkedList<>();
+            GetWorkingCopyFiles gwcf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
+
+            try {
+                Files.walkFileTree(repoDirectory, gwcf);
+                jGit = new JGit(repoDirectory);
+
+                eagleFilesTree.buildAndDisplayTree(repoDirectory, eagleFiles);
+            } catch (IOException | GitAPIException ex) {
+                Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_repositoryMenuItemActionPerformed
+
+    private void preferencesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMenuItemActionPerformed
+        options.showOptionsPanel(this);
+    }//GEN-LAST:event_preferencesMenuItemActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,6 +447,7 @@ public class JGeagle extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JPanel commitsPanel;
     private javax.swing.JButton diffImageButton;
     private javax.swing.JPanel diffImagePanel;
@@ -427,21 +456,25 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JTree eagleFilesJTree;
     private javax.swing.JPanel eagleFilesPanel;
     private javax.swing.JScrollPane eagleFilesScrollPane;
+    private javax.swing.JMenuItem githubMenuItem;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JPopupMenu.Separator helpSeparator;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel newCommitsPanel;
     private javax.swing.JScrollPane newCommitsScrollPane;
     private javax.swing.JTable newCommitsTable;
     private javax.swing.JPanel oldCommitsPanel;
     private javax.swing.JScrollPane oldCommitsScrollPane;
     private javax.swing.JTable oldCommitsTable;
-    private javax.swing.JButton optionsButton;
-    private javax.swing.JPanel optionsPanel;
-    private javax.swing.JButton repositoryButton;
+    private javax.swing.JMenu optionsMenu;
+    private javax.swing.JMenuItem preferencesMenuItem;
     private javax.swing.JFileChooser repositoryFileChooser;
-    private javax.swing.JPanel repositoryPanel;
-    private javax.swing.JTextField repositoryTextField;
+    private javax.swing.JMenu repositoryMenu;
+    private javax.swing.JMenuItem repositoryMenuItem;
     private javax.swing.JButton sheetButton;
     private javax.swing.JComboBox sheetComboBox;
     private javax.swing.JPanel sheetPanel;
     private javax.swing.JPanel variousPanel;
+    private javax.swing.JMenuItem websiteMenuItem;
     // End of variables declaration//GEN-END:variables
 }
