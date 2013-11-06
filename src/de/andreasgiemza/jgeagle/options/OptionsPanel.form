@@ -23,13 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="eagleBinaryPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="imageDpiPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="diffImageColorsPanel" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="eaglePanel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="diffImagePanel" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="saveButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -44,11 +43,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="eagleBinaryPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="eaglePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="imageDpiPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="diffImageColorsPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="diffImagePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -60,11 +57,11 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="eagleBinaryPanel">
+    <Container class="javax.swing.JPanel" name="eaglePanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Eagle binary"/>
+            <TitledBorder title="Eagle"/>
           </Border>
         </Property>
       </Properties>
@@ -73,22 +70,84 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="eagleBinaryTextField" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="eagleBinaryButton" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="eagleBinaryLabel" min="-2" pref="107" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="eagleBinaryTextField" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="eagleBoardBackgroundLabel" max="32767" attributes="0"/>
+                              <Component id="eagleSchematicBackgroundLabel" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="eagleSchematicBackgroundTextField" pref="365" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="eagleSchematicBackgroundPanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="eagleBoardBackgroundTextField" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="eagleBoardBackgroundPanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="eagleBoardBackgroundButton" alignment="1" max="32767" attributes="0"/>
+                      <Component id="eagleSchematicBackgroundButton" alignment="1" max="32767" attributes="0"/>
+                      <Component id="eagleBinaryButton" alignment="1" pref="100" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                  <Component id="eagleBinaryButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="eagleBinaryTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="eagleBinaryButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="eagleBinaryTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="eagleBinaryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="eagleSchematicBackgroundButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="eagleSchematicBackgroundPanel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="eagleSchematicBackgroundTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="eagleSchematicBackgroundLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="eagleBoardBackgroundButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="eagleBoardBackgroundPanel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="eagleBoardBackgroundTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="eagleBoardBackgroundLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="eagleBinaryLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Binary"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="eagleBinaryTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JButton" name="eagleBinaryButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Select"/>
@@ -97,18 +156,95 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eagleBinaryButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="eagleBinaryTextField">
+        <Component class="javax.swing.JLabel" name="eagleSchematicBackgroundLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Schematic background"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="eagleSchematicBackgroundTextField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
+        <Container class="javax.swing.JPanel" name="eagleSchematicBackgroundPanel">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
+        <Component class="javax.swing.JButton" name="eagleSchematicBackgroundButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Choose"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eagleSchematicBackgroundButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="eagleBoardBackgroundLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Board background"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="eagleBoardBackgroundTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JPanel" name="eagleBoardBackgroundPanel">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
+        <Component class="javax.swing.JButton" name="eagleBoardBackgroundButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Choose"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eagleBoardBackgroundButtonActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="imageDpiPanel">
+    <Container class="javax.swing.JPanel" name="diffImagePanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Image DPI"/>
+            <TitledBorder title="Diff image"/>
           </Border>
         </Property>
       </Properties>
@@ -116,146 +252,127 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="imageDpiBoardLabel" min="-2" pref="48" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="imageDpiBoardTextField" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="imageDpiSchematicLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="imageDpiSchematicTextField" max="32767" attributes="0"/>
-                      </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="diffImageRemovedElementLabel" pref="107" max="32767" attributes="0"/>
+                      <Component id="diffImageAddedElementLabel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="diffImageUnchangedAlphaLabel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="diffImageBoardDpiLabel" max="32767" attributes="0"/>
+                      <Component id="diffImageUndefinedLabel" max="32767" attributes="0"/>
                   </Group>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="imageDpiSchematicTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="imageDpiSchematicLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="imageDpiBoardLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="imageDpiBoardTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="imageDpiSchematicLabel">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Schematic"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="imageDpiSchematicTextField">
-        </Component>
-        <Component class="javax.swing.JLabel" name="imageDpiBoardLabel">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Board"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="imageDpiBoardTextField">
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="diffImageColorsPanel">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Diff image colors"/>
-          </Border>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="dicRemovedElementLabel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="dicAddedElementLabel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="dicUndefinedLabel" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="dicRemovedElementTextField" alignment="0" pref="371" max="32767" attributes="0"/>
-                      <Component id="dicUndefinedTextField" max="32767" attributes="0"/>
-                      <Component id="dicAddedElementTextField" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="diffImageAddedElementTextField" max="32767" attributes="0"/>
+                              <Component id="diffImageRemovedElementTextField" max="32767" attributes="0"/>
+                              <Component id="diffImageUndefinedTextField" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="diffImageRemovedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="diffImageAddedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="diffImageUndefinedPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="diffImageAddedElementButton" alignment="1" pref="100" max="32767" attributes="0"/>
+                              <Component id="diffImageRemovedElementButton" alignment="1" max="32767" attributes="0"/>
+                              <Component id="diffImageUndefinedButton" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="diffImageUnchangedAlphaSpinner" alignment="1" max="32767" attributes="0"/>
+                      <Component id="diffImageBoardDpiSpinner" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dicRemovedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="dicAddedElementPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="dicUndefinedPanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="dicAddedElementButton" alignment="1" pref="100" max="32767" attributes="0"/>
-                      <Component id="dicRemovedElementButton" alignment="1" max="32767" attributes="0"/>
-                      <Component id="dicUndefinedButton" alignment="1" max="32767" attributes="0"/>
-                  </Group>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="diffImageSchematicDpiLabel" min="-2" pref="107" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="diffImageSchematicDpiSpinner" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="dicAddedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dicAddedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dicAddedElementButton" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="dicAddedElementPanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="diffImageSchematicDpiSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageSchematicDpiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="diffImageBoardDpiSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageBoardDpiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="diffImageUnchangedAlphaSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageUnchangedAlphaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dicRemovedElementPanel" min="-2" max="-2" attributes="0"/>
-                      <Component id="dicRemovedElementButton" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="dicRemovedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dicRemovedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="diffImageAddedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="diffImageAddedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Component id="diffImageAddedElementButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="diffImageAddedElementPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dicUndefinedPanel" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="dicUndefinedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dicUndefinedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageRemovedElementPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageRemovedElementButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="diffImageRemovedElementLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="diffImageRemovedElementTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="dicUndefinedButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="diffImageUndefinedPanel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="diffImageUndefinedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="diffImageUndefinedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="diffImageUndefinedButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="dicAddedElementLabel">
+        <Component class="javax.swing.JSpinner" name="diffImageSchematicDpiSpinner">
+        </Component>
+        <Component class="javax.swing.JLabel" name="diffImageBoardDpiLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Board DPI"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="diffImageBoardDpiSpinner">
+        </Component>
+        <Component class="javax.swing.JLabel" name="diffImageUnchangedAlphaLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Unchanged alpha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="diffImageUnchangedAlphaSpinner">
+        </Component>
+        <Component class="javax.swing.JLabel" name="diffImageAddedElementLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Added elements"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dicAddedElementTextField">
+        <Component class="javax.swing.JTextField" name="diffImageAddedElementTextField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="dicAddedElementPanel">
+        <Container class="javax.swing.JPanel" name="diffImageAddedElementPanel">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -277,26 +394,26 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="dicAddedElementButton">
+        <Component class="javax.swing.JButton" name="diffImageAddedElementButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dicAddedElementButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageAddedElementButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="dicRemovedElementLabel">
+        <Component class="javax.swing.JLabel" name="diffImageRemovedElementLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Removed elements"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dicRemovedElementTextField">
+        <Component class="javax.swing.JTextField" name="diffImageRemovedElementTextField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="dicRemovedElementPanel">
+        <Container class="javax.swing.JPanel" name="diffImageRemovedElementPanel">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -318,26 +435,26 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="dicRemovedElementButton">
+        <Component class="javax.swing.JButton" name="diffImageRemovedElementButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dicRemovedElementButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageRemovedElementButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="dicUndefinedLabel">
+        <Component class="javax.swing.JLabel" name="diffImageUndefinedLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Undefined"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dicUndefinedTextField">
+        <Component class="javax.swing.JTextField" name="diffImageUndefinedTextField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="dicUndefinedPanel">
+        <Container class="javax.swing.JPanel" name="diffImageUndefinedPanel">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -359,13 +476,19 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JButton" name="dicUndefinedButton">
+        <Component class="javax.swing.JButton" name="diffImageUndefinedButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dicUndefinedButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageUndefinedButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="diffImageSchematicDpiLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Schematic DPI"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

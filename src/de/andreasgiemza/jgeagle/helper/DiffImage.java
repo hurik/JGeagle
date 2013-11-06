@@ -21,7 +21,7 @@ public class DiffImage {
      * @param oldImageFile
      * @param newImageFile
      * @param diffImageFile
-     * @param background
+     * @param backgroundColorHex
      * @param alpha
      * @param addedElementColorHex
      * @param removedElementColorHex
@@ -32,7 +32,7 @@ public class DiffImage {
             Path oldImageFile,
             Path newImageFile,
             Path diffImageFile,
-            Color background,
+            String backgroundColorHex,
             double alpha,
             String addedElementColorHex,
             String removedElementColorHex,
@@ -45,27 +45,20 @@ public class DiffImage {
         BufferedImage oldImage = ImageIO.read(oldImageFile.toFile());
         BufferedImage newImage = ImageIO.read(newImageFile.toFile());
 
-        int minWidth = Math.min(oldImage.getWidth(),
-                newImage.getWidth());
-        int maxWidth = Math.max(oldImage.getWidth(),
-                newImage.getWidth());
+        int minWidth = Math.min(oldImage.getWidth(), newImage.getWidth());
+        int maxWidth = Math.max(oldImage.getWidth(), newImage.getWidth());
 
-        int minHeight = Math.min(oldImage.getHeight(),
-                newImage.getHeight());
-        int maxHeight = Math.max(oldImage.getHeight(),
-                newImage.getHeight());
+        int minHeight = Math.min(oldImage.getHeight(), newImage.getHeight());
+        int maxHeight = Math.max(oldImage.getHeight(), newImage.getHeight());
 
         BufferedImage diffImageData = new BufferedImage(
                 maxWidth, maxHeight, BufferedImage.TYPE_INT_RGB);
 
+        Color background = Color.decode(backgroundColorHex);
         int backgroundColor = background.getRGB();
-
-        int addedElementColor
-                = Color.decode(addedElementColorHex).getRGB();
-        int removedElementColor
-                = Color.decode(removedElementColorHex).getRGB();
-        int undefinedColor
-                = Color.decode(undefinedColorHex).getRGB();
+        int addedElementColor = Color.decode(addedElementColorHex).getRGB();
+        int removedElementColor = Color.decode(removedElementColorHex).getRGB();
+        int undefinedColor = Color.decode(undefinedColorHex).getRGB();
 
         for (int x = minWidth; x < maxWidth; x++) {
             for (int y = minHeight; y < maxHeight; y++) {

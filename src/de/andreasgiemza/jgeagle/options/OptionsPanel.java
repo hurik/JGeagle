@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -32,14 +33,19 @@ public class OptionsPanel extends javax.swing.JPanel {
 
     private void loadOptions() {
         eagleBinaryTextField.setText(options.getPropEagleBinary());
-        imageDpiSchematicTextField.setText(options.getPropSchematicDpi());
-        imageDpiBoardTextField.setText(options.getPropBoardDpi());
-        dicAddedElementTextField.setText(options.getPropAddedElementColor());
-        dicAddedElementPanel.setBackground(Color.decode(options.getPropAddedElementColor()));
-        dicRemovedElementTextField.setText(options.getPropRemovedElementColor());
-        dicRemovedElementPanel.setBackground(Color.decode(options.getPropRemovedElementColor()));
-        dicUndefinedTextField.setText(options.getPropUndefinedColor());
-        dicUndefinedPanel.setBackground(Color.decode(options.getPropUndefinedColor()));
+        eagleSchematicBackgroundTextField.setText(options.getPropSchematicBackground());
+        eagleSchematicBackgroundPanel.setBackground(Color.decode(options.getPropSchematicBackground()));
+        eagleBoardBackgroundTextField.setText(options.getPropBoardBackground());
+        eagleBoardBackgroundPanel.setBackground(Color.decode(options.getPropBoardBackground()));
+        diffImageSchematicDpiSpinner.setModel(new SpinnerNumberModel(options.getPropSchematicDpiAsInt(), 50, 600, 50));
+        diffImageBoardDpiSpinner.setModel(new SpinnerNumberModel(options.getPropBoardDpiAsInt(), 50, 600, 50));
+        diffImageUnchangedAlphaSpinner.setModel(new SpinnerNumberModel(options.getPropUnchangedAlphaAsDouble(), 0, 1, 0.01));
+        diffImageAddedElementTextField.setText(options.getPropAddedElementColor());
+        diffImageAddedElementPanel.setBackground(Color.decode(options.getPropAddedElementColor()));
+        diffImageRemovedElementTextField.setText(options.getPropRemovedElementColor());
+        diffImageRemovedElementPanel.setBackground(Color.decode(options.getPropRemovedElementColor()));
+        diffImageUndefinedTextField.setText(options.getPropUndefinedColor());
+        diffImageUndefinedPanel.setBackground(Color.decode(options.getPropUndefinedColor()));
     }
 
     private void close() {
@@ -57,33 +63,48 @@ public class OptionsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         eagleBinaryFileChooser = new javax.swing.JFileChooser();
-        eagleBinaryPanel = new javax.swing.JPanel();
-        eagleBinaryButton = new javax.swing.JButton();
+        eaglePanel = new javax.swing.JPanel();
+        eagleBinaryLabel = new javax.swing.JLabel();
         eagleBinaryTextField = new javax.swing.JTextField();
-        imageDpiPanel = new javax.swing.JPanel();
-        imageDpiSchematicLabel = new javax.swing.JLabel();
-        imageDpiSchematicTextField = new javax.swing.JTextField();
-        imageDpiBoardLabel = new javax.swing.JLabel();
-        imageDpiBoardTextField = new javax.swing.JTextField();
-        diffImageColorsPanel = new javax.swing.JPanel();
-        dicAddedElementLabel = new javax.swing.JLabel();
-        dicAddedElementTextField = new javax.swing.JTextField();
-        dicAddedElementPanel = new javax.swing.JPanel();
-        dicAddedElementButton = new javax.swing.JButton();
-        dicRemovedElementLabel = new javax.swing.JLabel();
-        dicRemovedElementTextField = new javax.swing.JTextField();
-        dicRemovedElementPanel = new javax.swing.JPanel();
-        dicRemovedElementButton = new javax.swing.JButton();
-        dicUndefinedLabel = new javax.swing.JLabel();
-        dicUndefinedTextField = new javax.swing.JTextField();
-        dicUndefinedPanel = new javax.swing.JPanel();
-        dicUndefinedButton = new javax.swing.JButton();
+        eagleBinaryButton = new javax.swing.JButton();
+        eagleSchematicBackgroundLabel = new javax.swing.JLabel();
+        eagleSchematicBackgroundTextField = new javax.swing.JTextField();
+        eagleSchematicBackgroundPanel = new javax.swing.JPanel();
+        eagleSchematicBackgroundButton = new javax.swing.JButton();
+        eagleBoardBackgroundLabel = new javax.swing.JLabel();
+        eagleBoardBackgroundTextField = new javax.swing.JTextField();
+        eagleBoardBackgroundPanel = new javax.swing.JPanel();
+        eagleBoardBackgroundButton = new javax.swing.JButton();
+        diffImagePanel = new javax.swing.JPanel();
+        diffImageSchematicDpiSpinner = new javax.swing.JSpinner();
+        diffImageBoardDpiLabel = new javax.swing.JLabel();
+        diffImageBoardDpiSpinner = new javax.swing.JSpinner();
+        diffImageUnchangedAlphaLabel = new javax.swing.JLabel();
+        diffImageUnchangedAlphaSpinner = new javax.swing.JSpinner();
+        diffImageAddedElementLabel = new javax.swing.JLabel();
+        diffImageAddedElementTextField = new javax.swing.JTextField();
+        diffImageAddedElementPanel = new javax.swing.JPanel();
+        diffImageAddedElementButton = new javax.swing.JButton();
+        diffImageRemovedElementLabel = new javax.swing.JLabel();
+        diffImageRemovedElementTextField = new javax.swing.JTextField();
+        diffImageRemovedElementPanel = new javax.swing.JPanel();
+        diffImageRemovedElementButton = new javax.swing.JButton();
+        diffImageUndefinedLabel = new javax.swing.JLabel();
+        diffImageUndefinedTextField = new javax.swing.JTextField();
+        diffImageUndefinedPanel = new javax.swing.JPanel();
+        diffImageUndefinedButton = new javax.swing.JButton();
+        diffImageSchematicDpiLabel = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
         eagleBinaryFileChooser.setDialogTitle("Select eagle binary ...");
 
-        eagleBinaryPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Eagle binary"));
+        eaglePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Eagle"));
+
+        eagleBinaryLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eagleBinaryLabel.setText("Binary");
+
+        eagleBinaryTextField.setEditable(false);
 
         eagleBinaryButton.setText("Select");
         eagleBinaryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -92,187 +113,267 @@ public class OptionsPanel extends javax.swing.JPanel {
             }
         });
 
-        eagleBinaryTextField.setEditable(false);
+        eagleSchematicBackgroundLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eagleSchematicBackgroundLabel.setText("Schematic background");
 
-        javax.swing.GroupLayout eagleBinaryPanelLayout = new javax.swing.GroupLayout(eagleBinaryPanel);
-        eagleBinaryPanel.setLayout(eagleBinaryPanelLayout);
-        eagleBinaryPanelLayout.setHorizontalGroup(
-            eagleBinaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eagleBinaryPanelLayout.createSequentialGroup()
-                .addComponent(eagleBinaryTextField)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eagleBinaryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        eagleSchematicBackgroundTextField.setEditable(false);
+
+        eagleSchematicBackgroundPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout eagleSchematicBackgroundPanelLayout = new javax.swing.GroupLayout(eagleSchematicBackgroundPanel);
+        eagleSchematicBackgroundPanel.setLayout(eagleSchematicBackgroundPanelLayout);
+        eagleSchematicBackgroundPanelLayout.setHorizontalGroup(
+            eagleSchematicBackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
-        eagleBinaryPanelLayout.setVerticalGroup(
-            eagleBinaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(eagleBinaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(eagleBinaryButton)
-                .addComponent(eagleBinaryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        eagleSchematicBackgroundPanelLayout.setVerticalGroup(
+            eagleSchematicBackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        imageDpiPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Image DPI"));
+        eagleSchematicBackgroundButton.setText("Choose");
+        eagleSchematicBackgroundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eagleSchematicBackgroundButtonActionPerformed(evt);
+            }
+        });
 
-        imageDpiSchematicLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        imageDpiSchematicLabel.setText("Schematic");
+        eagleBoardBackgroundLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eagleBoardBackgroundLabel.setText("Board background");
 
-        imageDpiBoardLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        imageDpiBoardLabel.setText("Board");
+        eagleBoardBackgroundTextField.setEditable(false);
 
-        javax.swing.GroupLayout imageDpiPanelLayout = new javax.swing.GroupLayout(imageDpiPanel);
-        imageDpiPanel.setLayout(imageDpiPanelLayout);
-        imageDpiPanelLayout.setHorizontalGroup(
-            imageDpiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(imageDpiPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(imageDpiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(imageDpiPanelLayout.createSequentialGroup()
-                        .addComponent(imageDpiBoardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+        eagleBoardBackgroundPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout eagleBoardBackgroundPanelLayout = new javax.swing.GroupLayout(eagleBoardBackgroundPanel);
+        eagleBoardBackgroundPanel.setLayout(eagleBoardBackgroundPanelLayout);
+        eagleBoardBackgroundPanelLayout.setHorizontalGroup(
+            eagleBoardBackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        eagleBoardBackgroundPanelLayout.setVerticalGroup(
+            eagleBoardBackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        eagleBoardBackgroundButton.setText("Choose");
+        eagleBoardBackgroundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eagleBoardBackgroundButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout eaglePanelLayout = new javax.swing.GroupLayout(eaglePanel);
+        eaglePanel.setLayout(eaglePanelLayout);
+        eaglePanelLayout.setHorizontalGroup(
+            eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eaglePanelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eaglePanelLayout.createSequentialGroup()
+                        .addComponent(eagleBinaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imageDpiBoardTextField))
-                    .addGroup(imageDpiPanelLayout.createSequentialGroup()
-                        .addComponent(imageDpiSchematicLabel)
+                        .addComponent(eagleBinaryTextField))
+                    .addGroup(eaglePanelLayout.createSequentialGroup()
+                        .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(eagleBoardBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eagleSchematicBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imageDpiSchematicTextField))))
-        );
-        imageDpiPanelLayout.setVerticalGroup(
-            imageDpiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(imageDpiPanelLayout.createSequentialGroup()
-                .addGroup(imageDpiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(imageDpiSchematicTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imageDpiSchematicLabel))
+                        .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(eaglePanelLayout.createSequentialGroup()
+                                .addComponent(eagleSchematicBackgroundTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(eagleSchematicBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(eaglePanelLayout.createSequentialGroup()
+                                .addComponent(eagleBoardBackgroundTextField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(eagleBoardBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(imageDpiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(imageDpiBoardLabel)
-                    .addComponent(imageDpiBoardTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(eagleBoardBackgroundButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eagleSchematicBackgroundButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eagleBinaryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+        );
+        eaglePanelLayout.setVerticalGroup(
+            eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eaglePanelLayout.createSequentialGroup()
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eagleBinaryButton)
+                    .addComponent(eagleBinaryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eagleBinaryLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eagleSchematicBackgroundButton)
+                    .addComponent(eagleSchematicBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(eagleSchematicBackgroundTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eagleSchematicBackgroundLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eagleBoardBackgroundButton)
+                    .addComponent(eagleBoardBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(eagleBoardBackgroundTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eagleBoardBackgroundLabel))))
         );
 
-        diffImageColorsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image colors"));
+        diffImagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image"));
 
-        dicAddedElementLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dicAddedElementLabel.setText("Added elements");
+        diffImageBoardDpiLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageBoardDpiLabel.setText("Board DPI");
 
-        dicAddedElementTextField.setEditable(false);
+        diffImageUnchangedAlphaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageUnchangedAlphaLabel.setText("Unchanged alpha");
 
-        dicAddedElementPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        diffImageAddedElementLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageAddedElementLabel.setText("Added elements");
 
-        javax.swing.GroupLayout dicAddedElementPanelLayout = new javax.swing.GroupLayout(dicAddedElementPanel);
-        dicAddedElementPanel.setLayout(dicAddedElementPanelLayout);
-        dicAddedElementPanelLayout.setHorizontalGroup(
-            dicAddedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        diffImageAddedElementTextField.setEditable(false);
+
+        diffImageAddedElementPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout diffImageAddedElementPanelLayout = new javax.swing.GroupLayout(diffImageAddedElementPanel);
+        diffImageAddedElementPanel.setLayout(diffImageAddedElementPanelLayout);
+        diffImageAddedElementPanelLayout.setHorizontalGroup(
+            diffImageAddedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
-        dicAddedElementPanelLayout.setVerticalGroup(
-            dicAddedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        diffImageAddedElementPanelLayout.setVerticalGroup(
+            diffImageAddedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        dicAddedElementButton.setText("Choose");
-        dicAddedElementButton.addActionListener(new java.awt.event.ActionListener() {
+        diffImageAddedElementButton.setText("Choose");
+        diffImageAddedElementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dicAddedElementButtonActionPerformed(evt);
+                diffImageAddedElementButtonActionPerformed(evt);
             }
         });
 
-        dicRemovedElementLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dicRemovedElementLabel.setText("Removed elements");
+        diffImageRemovedElementLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageRemovedElementLabel.setText("Removed elements");
 
-        dicRemovedElementTextField.setEditable(false);
+        diffImageRemovedElementTextField.setEditable(false);
 
-        dicRemovedElementPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        diffImageRemovedElementPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout dicRemovedElementPanelLayout = new javax.swing.GroupLayout(dicRemovedElementPanel);
-        dicRemovedElementPanel.setLayout(dicRemovedElementPanelLayout);
-        dicRemovedElementPanelLayout.setHorizontalGroup(
-            dicRemovedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout diffImageRemovedElementPanelLayout = new javax.swing.GroupLayout(diffImageRemovedElementPanel);
+        diffImageRemovedElementPanel.setLayout(diffImageRemovedElementPanelLayout);
+        diffImageRemovedElementPanelLayout.setHorizontalGroup(
+            diffImageRemovedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
-        dicRemovedElementPanelLayout.setVerticalGroup(
-            dicRemovedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        diffImageRemovedElementPanelLayout.setVerticalGroup(
+            diffImageRemovedElementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        dicRemovedElementButton.setText("Choose");
-        dicRemovedElementButton.addActionListener(new java.awt.event.ActionListener() {
+        diffImageRemovedElementButton.setText("Choose");
+        diffImageRemovedElementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dicRemovedElementButtonActionPerformed(evt);
+                diffImageRemovedElementButtonActionPerformed(evt);
             }
         });
 
-        dicUndefinedLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        dicUndefinedLabel.setText("Undefined");
+        diffImageUndefinedLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageUndefinedLabel.setText("Undefined");
 
-        dicUndefinedTextField.setEditable(false);
+        diffImageUndefinedTextField.setEditable(false);
 
-        dicUndefinedPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        diffImageUndefinedPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout dicUndefinedPanelLayout = new javax.swing.GroupLayout(dicUndefinedPanel);
-        dicUndefinedPanel.setLayout(dicUndefinedPanelLayout);
-        dicUndefinedPanelLayout.setHorizontalGroup(
-            dicUndefinedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout diffImageUndefinedPanelLayout = new javax.swing.GroupLayout(diffImageUndefinedPanel);
+        diffImageUndefinedPanel.setLayout(diffImageUndefinedPanelLayout);
+        diffImageUndefinedPanelLayout.setHorizontalGroup(
+            diffImageUndefinedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
-        dicUndefinedPanelLayout.setVerticalGroup(
-            dicUndefinedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        diffImageUndefinedPanelLayout.setVerticalGroup(
+            diffImageUndefinedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
-        dicUndefinedButton.setText("Choose");
-        dicUndefinedButton.addActionListener(new java.awt.event.ActionListener() {
+        diffImageUndefinedButton.setText("Choose");
+        diffImageUndefinedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dicUndefinedButtonActionPerformed(evt);
+                diffImageUndefinedButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout diffImageColorsPanelLayout = new javax.swing.GroupLayout(diffImageColorsPanel);
-        diffImageColorsPanel.setLayout(diffImageColorsPanelLayout);
-        diffImageColorsPanelLayout.setHorizontalGroup(
-            diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diffImageColorsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dicRemovedElementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dicAddedElementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dicUndefinedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        diffImageSchematicDpiLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageSchematicDpiLabel.setText("Schematic DPI");
+
+        javax.swing.GroupLayout diffImagePanelLayout = new javax.swing.GroupLayout(diffImagePanel);
+        diffImagePanel.setLayout(diffImagePanelLayout);
+        diffImagePanelLayout.setHorizontalGroup(
+            diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diffImagePanelLayout.createSequentialGroup()
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(diffImageRemovedElementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(diffImageAddedElementLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImageUnchangedAlphaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImageBoardDpiLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImageUndefinedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(diffImagePanelLayout.createSequentialGroup()
+                        .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diffImageAddedElementTextField)
+                            .addComponent(diffImageRemovedElementTextField)
+                            .addComponent(diffImageUndefinedTextField, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diffImageRemovedElementPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(diffImageAddedElementPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(diffImageUndefinedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(diffImageAddedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(diffImageRemovedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(diffImageUndefinedButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(diffImageUnchangedAlphaSpinner)
+                    .addComponent(diffImageBoardDpiSpinner, javax.swing.GroupLayout.Alignment.LEADING)))
+            .addGroup(diffImagePanelLayout.createSequentialGroup()
+                .addComponent(diffImageSchematicDpiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dicRemovedElementTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                    .addComponent(dicUndefinedTextField)
-                    .addComponent(dicAddedElementTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dicRemovedElementPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dicAddedElementPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dicUndefinedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dicAddedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(dicRemovedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dicUndefinedButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(diffImageSchematicDpiSpinner))
         );
-        diffImageColorsPanelLayout.setVerticalGroup(
-            diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(diffImageColorsPanelLayout.createSequentialGroup()
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dicAddedElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dicAddedElementLabel))
-                    .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dicAddedElementButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dicAddedElementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        diffImagePanelLayout.setVerticalGroup(
+            diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diffImagePanelLayout.createSequentialGroup()
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(diffImageSchematicDpiSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageSchematicDpiLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dicRemovedElementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dicRemovedElementButton)
-                    .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dicRemovedElementLabel)
-                        .addComponent(dicRemovedElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(diffImageBoardDpiSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageBoardDpiLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dicUndefinedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(diffImageColorsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dicUndefinedLabel)
-                        .addComponent(dicUndefinedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dicUndefinedButton)))
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(diffImageUnchangedAlphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageUnchangedAlphaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(diffImageAddedElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(diffImageAddedElementLabel))
+                    .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(diffImageAddedElementButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(diffImageAddedElementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(diffImageRemovedElementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageRemovedElementButton)
+                    .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(diffImageRemovedElementLabel)
+                        .addComponent(diffImageRemovedElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(diffImageUndefinedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(diffImageUndefinedLabel)
+                        .addComponent(diffImageUndefinedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(diffImageUndefinedButton)))
         );
 
         saveButton.setText("Save");
@@ -293,13 +394,12 @@ public class OptionsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eagleBinaryPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imageDpiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(diffImageColorsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(eaglePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -310,11 +410,9 @@ public class OptionsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(eagleBinaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eaglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imageDpiPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(diffImageColorsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(diffImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -335,50 +433,53 @@ public class OptionsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_eagleBinaryButtonActionPerformed
 
-    private void dicAddedElementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dicAddedElementButtonActionPerformed
+    private void diffImageAddedElementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageAddedElementButtonActionPerformed
         Color color
                 = JColorChooser.showDialog(this,
                         "Choose color for added elements ...",
-                        Color.decode(dicAddedElementTextField.getText()));
+                        Color.decode(diffImageAddedElementTextField.getText()));
 
         if (color != null) {
-            dicAddedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
-            dicAddedElementPanel.setBackground(color);
+            diffImageAddedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
+            diffImageAddedElementPanel.setBackground(color);
         }
-    }//GEN-LAST:event_dicAddedElementButtonActionPerformed
+    }//GEN-LAST:event_diffImageAddedElementButtonActionPerformed
 
-    private void dicUndefinedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dicUndefinedButtonActionPerformed
+    private void diffImageUndefinedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageUndefinedButtonActionPerformed
         Color color = JColorChooser.showDialog(
                 this,
                 "Choose color for undedined ...",
-                Color.decode(dicUndefinedTextField.getText()));
+                Color.decode(diffImageUndefinedTextField.getText()));
 
         if (color != null) {
-            dicUndefinedTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
-            dicUndefinedPanel.setBackground(color);
+            diffImageUndefinedTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
+            diffImageUndefinedPanel.setBackground(color);
         }
-    }//GEN-LAST:event_dicUndefinedButtonActionPerformed
+    }//GEN-LAST:event_diffImageUndefinedButtonActionPerformed
 
-    private void dicRemovedElementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dicRemovedElementButtonActionPerformed
+    private void diffImageRemovedElementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageRemovedElementButtonActionPerformed
         Color color = JColorChooser.showDialog(
                 this,
                 "Choose color for removed elements ...",
-                Color.decode(dicRemovedElementTextField.getText()));
+                Color.decode(diffImageRemovedElementTextField.getText()));
 
         if (color != null) {
-            dicRemovedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
-            dicRemovedElementPanel.setBackground(color);
+            diffImageRemovedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
+            diffImageRemovedElementPanel.setBackground(color);
         }
-    }//GEN-LAST:event_dicRemovedElementButtonActionPerformed
+    }//GEN-LAST:event_diffImageRemovedElementButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         options.save(
                 eagleBinaryTextField.getText(),
-                imageDpiSchematicTextField.getText(),
-                imageDpiBoardTextField.getText(),
-                dicAddedElementTextField.getText(),
-                dicRemovedElementTextField.getText(),
-                dicUndefinedTextField.getText());
+                eagleSchematicBackgroundTextField.getText(),
+                eagleBoardBackgroundTextField.getText(),
+                diffImageSchematicDpiSpinner.getValue().toString(),
+                diffImageBoardDpiSpinner.getValue().toString(),
+                diffImageUnchangedAlphaSpinner.getValue().toString(),
+                diffImageAddedElementTextField.getText(),
+                diffImageRemovedElementTextField.getText(),
+                diffImageUndefinedTextField.getText());
 
         close();
     }//GEN-LAST:event_saveButtonActionPerformed
@@ -387,31 +488,65 @@ public class OptionsPanel extends javax.swing.JPanel {
         close();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void eagleSchematicBackgroundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleSchematicBackgroundButtonActionPerformed
+        Color color
+                = JColorChooser.showDialog(this,
+                        "Choose color for schematic background ...",
+                        Color.decode(eagleSchematicBackgroundTextField.getText()));
+
+        if (color != null) {
+            eagleSchematicBackgroundTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
+            eagleSchematicBackgroundPanel.setBackground(color);
+        }
+    }//GEN-LAST:event_eagleSchematicBackgroundButtonActionPerformed
+
+    private void eagleBoardBackgroundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleBoardBackgroundButtonActionPerformed
+        Color color
+                = JColorChooser.showDialog(this,
+                        "Choose color for board background ...",
+                        Color.decode(eagleBoardBackgroundTextField.getText()));
+
+        if (color != null) {
+            eagleBoardBackgroundTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
+            eagleBoardBackgroundPanel.setBackground(color);
+        }
+    }//GEN-LAST:event_eagleBoardBackgroundButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JButton dicAddedElementButton;
-    private javax.swing.JLabel dicAddedElementLabel;
-    private javax.swing.JPanel dicAddedElementPanel;
-    private javax.swing.JTextField dicAddedElementTextField;
-    private javax.swing.JButton dicRemovedElementButton;
-    private javax.swing.JLabel dicRemovedElementLabel;
-    private javax.swing.JPanel dicRemovedElementPanel;
-    private javax.swing.JTextField dicRemovedElementTextField;
-    private javax.swing.JButton dicUndefinedButton;
-    private javax.swing.JLabel dicUndefinedLabel;
-    private javax.swing.JPanel dicUndefinedPanel;
-    private javax.swing.JTextField dicUndefinedTextField;
-    private javax.swing.JPanel diffImageColorsPanel;
+    private javax.swing.JButton diffImageAddedElementButton;
+    private javax.swing.JLabel diffImageAddedElementLabel;
+    private javax.swing.JPanel diffImageAddedElementPanel;
+    private javax.swing.JTextField diffImageAddedElementTextField;
+    private javax.swing.JLabel diffImageBoardDpiLabel;
+    private javax.swing.JSpinner diffImageBoardDpiSpinner;
+    private javax.swing.JPanel diffImagePanel;
+    private javax.swing.JButton diffImageRemovedElementButton;
+    private javax.swing.JLabel diffImageRemovedElementLabel;
+    private javax.swing.JPanel diffImageRemovedElementPanel;
+    private javax.swing.JTextField diffImageRemovedElementTextField;
+    private javax.swing.JLabel diffImageSchematicDpiLabel;
+    private javax.swing.JSpinner diffImageSchematicDpiSpinner;
+    private javax.swing.JLabel diffImageUnchangedAlphaLabel;
+    private javax.swing.JSpinner diffImageUnchangedAlphaSpinner;
+    private javax.swing.JButton diffImageUndefinedButton;
+    private javax.swing.JLabel diffImageUndefinedLabel;
+    private javax.swing.JPanel diffImageUndefinedPanel;
+    private javax.swing.JTextField diffImageUndefinedTextField;
     private javax.swing.JButton eagleBinaryButton;
     private javax.swing.JFileChooser eagleBinaryFileChooser;
-    private javax.swing.JPanel eagleBinaryPanel;
+    private javax.swing.JLabel eagleBinaryLabel;
     private javax.swing.JTextField eagleBinaryTextField;
-    private javax.swing.JLabel imageDpiBoardLabel;
-    private javax.swing.JTextField imageDpiBoardTextField;
-    private javax.swing.JPanel imageDpiPanel;
-    private javax.swing.JLabel imageDpiSchematicLabel;
-    private javax.swing.JTextField imageDpiSchematicTextField;
+    private javax.swing.JButton eagleBoardBackgroundButton;
+    private javax.swing.JLabel eagleBoardBackgroundLabel;
+    private javax.swing.JPanel eagleBoardBackgroundPanel;
+    private javax.swing.JTextField eagleBoardBackgroundTextField;
+    private javax.swing.JPanel eaglePanel;
+    private javax.swing.JButton eagleSchematicBackgroundButton;
+    private javax.swing.JLabel eagleSchematicBackgroundLabel;
+    private javax.swing.JPanel eagleSchematicBackgroundPanel;
+    private javax.swing.JTextField eagleSchematicBackgroundTextField;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
 }

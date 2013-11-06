@@ -28,8 +28,11 @@ public class Options {
     private final Properties properties = new Properties();
     // Constants
     public final static String EAGLE_BINARY = "eagleBinary";
+    public final static String SCHEMATIC_BACKGROUND = "schematicBackground";
+    public final static String BOARD_BACKGROUND = "boardBackground";
     public final static String SCHEMATIC_DPI = "schematicDPI";
     public final static String BOARD_DPI = "boardDPI";
+    public final static String UNCHANGED_ALPHA = "unchangedAlpha";
     public final static String ADDED_ELEMENTS_COLOR = "addedElementsColor";
     public final static String REMOVED_ELEMENT_COLOR = "removedElementsColor";
     public final static String UNDEFINED_COLOR = "undefinedColor";
@@ -97,52 +100,62 @@ public class Options {
 
     // Properties getter  
     public String getPropEagleBinary() {
-        return properties.getProperty(Options.EAGLE_BINARY);
+        return properties.getProperty(EAGLE_BINARY);
     }
 
     public Path getPropEagleBinaryAsPath() {
-        return Paths.get(properties.getProperty(Options.EAGLE_BINARY));
+        return Paths.get(properties.getProperty(EAGLE_BINARY));
     }
 
-    public String getPropSchematicDpi() {
-        return properties.getProperty(Options.SCHEMATIC_DPI);
+    public String getPropSchematicBackground() {
+        return properties.getProperty(SCHEMATIC_BACKGROUND);
+    }
+
+    public String getPropBoardBackground() {
+        return properties.getProperty(BOARD_BACKGROUND);
     }
 
     public int getPropSchematicDpiAsInt() {
-        return Integer.parseInt(properties.getProperty(Options.SCHEMATIC_DPI));
-    }
-
-    public String getPropBoardDpi() {
-        return properties.getProperty(Options.BOARD_DPI);
+        return Integer.parseInt(properties.getProperty(SCHEMATIC_DPI));
     }
 
     public int getPropBoardDpiAsInt() {
-        return Integer.parseInt(properties.getProperty(Options.BOARD_DPI));
+        return Integer.parseInt(properties.getProperty(BOARD_DPI));
+    }
+
+    public double getPropUnchangedAlphaAsDouble() {
+        return Double.parseDouble(properties.getProperty(UNCHANGED_ALPHA));
     }
 
     public String getPropAddedElementColor() {
-        return properties.getProperty(Options.ADDED_ELEMENTS_COLOR);
+        return properties.getProperty(ADDED_ELEMENTS_COLOR);
     }
 
     public String getPropRemovedElementColor() {
-        return properties.getProperty(Options.REMOVED_ELEMENT_COLOR);
+        return properties.getProperty(REMOVED_ELEMENT_COLOR);
     }
 
     public String getPropUndefinedColor() {
-        return properties.getProperty(Options.UNDEFINED_COLOR);
+        return properties.getProperty(UNDEFINED_COLOR);
     }
 
     // Save options
     void save(
             String eagleBinary,
+            String schematicBackground,
+            String boardBackground,
             String schematicDpi,
             String boardDpi,
+            String unchangedAlpha,
             String addedElementColor,
             String removedElementColor,
             String undefinedColor) {
         properties.setProperty(EAGLE_BINARY, eagleBinary);
+        properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
+        properties.setProperty(BOARD_BACKGROUND, boardBackground);
         properties.setProperty(SCHEMATIC_DPI, schematicDpi);
         properties.setProperty(BOARD_DPI, boardDpi);
+        properties.setProperty(UNCHANGED_ALPHA, unchangedAlpha);
         properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
         properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
         properties.setProperty(UNDEFINED_COLOR, undefinedColor);

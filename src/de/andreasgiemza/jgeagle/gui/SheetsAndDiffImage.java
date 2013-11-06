@@ -6,7 +6,6 @@ import de.andreasgiemza.jgeagle.helper.DiffImage;
 import de.andreasgiemza.jgeagle.helper.Eagle;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.repo.JGit;
-import java.awt.Color;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -55,7 +54,7 @@ public class SheetsAndDiffImage {
             RevCommit oldCommit,
             RevCommit newCommit) {
         reset();
-        
+
         Path oldCountFile = buildPath(oldCommit, eagleFile, ".txt");
         Path newCountFile = buildPath(newCommit, eagleFile, ".txt");
 
@@ -129,8 +128,7 @@ public class SheetsAndDiffImage {
             RevCommit newCommit)
             throws IOException, InterruptedException {
         Path oldImageFile, newImageFile, diffImageFile;
-        Color background;
-        String titleExtraText;
+        String background, titleExtraText;
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
             oldImageFile = buildPath(oldCommit, eagleFile, eagleFile.getFileName() + ".png");
@@ -174,7 +172,7 @@ public class SheetsAndDiffImage {
             }
 
             diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, ".png");
-            background = Color.BLACK;
+            background = options.getPropBoardBackground();
             titleExtraText = "";
         } else {
             int sheet = (int) sheetComboBox.getSelectedItem();
@@ -223,7 +221,7 @@ public class SheetsAndDiffImage {
             }
 
             diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-SHEET_" + sheet + ".png");
-            background = Color.WHITE;
+            background = options.getPropSchematicBackground();
             titleExtraText = " - Sheet " + sheet;
         }
 
@@ -233,7 +231,7 @@ public class SheetsAndDiffImage {
                     newImageFile,
                     diffImageFile,
                     background,
-                    0.3,
+                    options.getPropUnchangedAlphaAsDouble(),
                     options.getPropAddedElementColor(),
                     options.getPropRemovedElementColor(),
                     options.getPropUndefinedColor());
