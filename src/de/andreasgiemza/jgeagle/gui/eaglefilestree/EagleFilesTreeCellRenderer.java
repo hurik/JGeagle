@@ -41,12 +41,23 @@ public class EagleFilesTreeCellRenderer extends DefaultTreeCellRenderer {
     private final ImageIcon boardIcon;
 
     public EagleFilesTreeCellRenderer() {
-        schematicIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/resources/schematic.png")));
-        boardIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/resources/board.png")));
+        schematicIcon = new ImageIcon(Toolkit.getDefaultToolkit()
+                .getImage(getClass().getClassLoader()
+                        .getResource("de/andreasgiemza/jgeagle/resources/schematic.png")));
+        boardIcon = new ImageIcon(Toolkit.getDefaultToolkit()
+                .getImage(getClass().getClassLoader()
+                        .getResource("de/andreasgiemza/jgeagle/resources/board.png")));
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(
+            JTree tree,
+            Object value,
+            boolean sel,
+            boolean expanded,
+            boolean leaf,
+            int row,
+            boolean hasFocus) {
         if (leaf) {
             DefaultMutableTreeNode currentTreeNode = (DefaultMutableTreeNode) value;
             EagleFile eagleFile = (EagleFile) currentTreeNode.getUserObject();

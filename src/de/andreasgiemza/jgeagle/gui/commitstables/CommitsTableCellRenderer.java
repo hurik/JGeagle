@@ -35,14 +35,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class CommitsTableCellRenderer extends DefaultTableCellRenderer {
 
-    private final SimpleDateFormat f = new SimpleDateFormat("dd.MM.yy' - 'hh:mm:ss");
+    private final SimpleDateFormat f
+            = new SimpleDateFormat("dd.MM.yy' - 'hh:mm:ss");
 
     public CommitsTableCellRenderer() {
         super();
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+    public Component getTableCellRendererComponent(
+            JTable jtable,
+            Object o,
+            boolean bln,
+            boolean bln1,
+            int i,
+            int i1) {
         if (o instanceof Date) {
             o = f.format(o);
         }

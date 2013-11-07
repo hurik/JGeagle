@@ -67,16 +67,16 @@ public class ImageViewerPanel extends JPanel {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getScale() {
         return scale;
     }
 
     /**
-     * 
-     * @param scale 
+     *
+     * @param scale
      */
     public void setScale(double scale) {
         if (scale > 0.01) {
@@ -87,8 +87,8 @@ public class ImageViewerPanel extends JPanel {
     }
 
     /**
-     * 
-     * @param size 
+     *
+     * @param size
      */
     public void setFirstSize(Dimension size) {
         double xFactor = size.getWidth() / image.getWidth();

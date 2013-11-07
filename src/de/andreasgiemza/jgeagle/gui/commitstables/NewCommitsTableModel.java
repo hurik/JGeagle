@@ -129,25 +129,25 @@ public class NewCommitsTableModel extends AbstractTableModel {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public EagleFile getEagleFile() {
         return eagleFile;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public RevCommit getOldCommit() {
         return oldCommit;
     }
 
     /**
-     * 
+     *
      * @param i
-     * @return 
+     * @return
      */
     public RevCommit getElementAt(int i) {
         RevCommit commit;

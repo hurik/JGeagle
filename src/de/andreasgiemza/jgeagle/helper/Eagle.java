@@ -56,7 +56,8 @@ public class Eagle {
         }
 
         runComman(eagleBinary,
-                "RUN '" + countSheetsUlp.toString() + "' '" + targetSheetCount.toString() + "'; QUIT",
+                "RUN '" + countSheetsUlp.toString() + "' '"
+                + targetSheetCount.toString() + "'; QUIT",
                 tempSchematic);
     }
 
@@ -83,7 +84,8 @@ public class Eagle {
 
         runComman(
                 eagleBinary,
-                "EDIT .s" + sheet + "; EXPORT IMAGE '" + targetSheetImage.toString() + "' " + dpi + "; QUIT",
+                "EDIT .s" + sheet + "; EXPORT IMAGE '"
+                + targetSheetImage.toString() + "' " + dpi + "; QUIT",
                 tempSchematic);
     }
 
@@ -108,7 +110,8 @@ public class Eagle {
 
         runComman(
                 eagleBinary,
-                "EXPORT IMAGE '" + targetBoardImage.toString() + "' " + dpi + "; QUIT",
+                "EXPORT IMAGE '" + targetBoardImage.toString() + "' "
+                + dpi + "; QUIT",
                 tempBoard);
     }
 

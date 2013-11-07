@@ -95,7 +95,10 @@ public class JGeagle extends javax.swing.JFrame {
         sheetsAndDiffImage.reset();
     }
 
-    public void newCommitSelected(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
+    public void newCommitSelected(
+            EagleFile eagleFile,
+            RevCommit oldCommit,
+            RevCommit newCommit) {
         options.cleanTempDir();
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
@@ -409,7 +412,7 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_repositoryMenuItemActionPerformed
 
     private void preferencesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMenuItemActionPerformed
-        options.showOptionsPanel(this);
+        options.showPreferencesPanel(this);
     }//GEN-LAST:event_preferencesMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed

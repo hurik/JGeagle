@@ -110,10 +110,10 @@ public class Options {
         return properties;
     }
 
-    public void showOptionsPanel(JGeagle jGeagle) {
-        JDialog dialog = new JDialog(jGeagle, "Options", true);
+    public void showPreferencesPanel(JGeagle jGeagle) {
+        JDialog dialog = new JDialog(jGeagle, "Preferences", true);
         dialog.setResizable(false);
-        dialog.getContentPane().add(new OptionsPanel(dialog, this));
+        dialog.getContentPane().add(new PreferencesPanel(dialog, this));
         dialog.pack();
         dialog.setLocation(
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),

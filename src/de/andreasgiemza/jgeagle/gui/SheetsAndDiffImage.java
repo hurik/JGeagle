@@ -83,8 +83,14 @@ public class SheetsAndDiffImage {
 
         if (Files.exists(oldCountFile) && Files.exists(newCountFile)) {
             try {
-                int oldCount = Integer.parseInt(Files.readAllLines(oldCountFile, Charset.defaultCharset()).get(0));
-                int newCount = Integer.parseInt(Files.readAllLines(newCountFile, Charset.defaultCharset()).get(0));
+                int oldCount = Integer.parseInt(
+                        Files.readAllLines(
+                                oldCountFile,
+                                Charset.defaultCharset()).get(0));
+                int newCount = Integer.parseInt(
+                        Files.readAllLines(
+                                newCountFile,
+                                Charset.defaultCharset()).get(0));
 
                 for (int i = 1; i <= Math.min(oldCount, newCount); i++) {
                     sheetComboBox.addItem(i);
@@ -110,7 +116,11 @@ public class SheetsAndDiffImage {
 
         if (!Files.exists(oldCountFile)) {
             Path oldSchematicFile = options.getTempDir().resolve("old.sch");
-            jGit.extractFile(oldSchematicFile, oldCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+            jGit.extractFile(
+                    oldSchematicFile,
+                    oldCommit,
+                    eagleFile.getRepoFile(),
+                    eagleFile.getRenames());
 
             Eagle.countSheets(
                     options.getPropEagleBinaryAsPath(),
@@ -124,7 +134,11 @@ public class SheetsAndDiffImage {
         if (!Files.exists(newCountFile)) {
             if (newCommit != null) {
                 Path newSchematicFile = options.getTempDir().resolve("new.sch");
-                jGit.extractFile(newSchematicFile, newCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+                jGit.extractFile(
+                        newSchematicFile,
+                        newCommit,
+                        eagleFile.getRepoFile(),
+                        eagleFile.getRenames());
 
                 Eagle.countSheets(
                         options.getPropEagleBinaryAsPath(),
@@ -154,13 +168,20 @@ public class SheetsAndDiffImage {
         String background, titleExtraText;
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-            oldImageFile = buildPath(oldCommit, eagleFile, eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
+            oldImageFile = buildPath(
+                    oldCommit,
+                    eagleFile,
+                    eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
 
             if (!Files.exists(oldImageFile)) {
                 Path oldBoardFile = options.getTempDir().resolve("old.brd");
 
                 if (!Files.exists(oldBoardFile)) {
-                    jGit.extractFile(oldBoardFile, oldCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+                    jGit.extractFile(
+                            oldBoardFile,
+                            oldCommit,
+                            eagleFile.getRepoFile(),
+                            eagleFile.getRenames());
                 }
 
                 Eagle.extractBoardImage(
@@ -170,14 +191,21 @@ public class SheetsAndDiffImage {
                         oldBoardFile);
             }
 
-            newImageFile = buildPath(newCommit, eagleFile, eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
+            newImageFile = buildPath(
+                    newCommit,
+                    eagleFile,
+                    eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
 
             if (!Files.exists(newImageFile)) {
                 if (newCommit != null) {
                     Path newBoardFile = options.getTempDir().resolve("new.brd");
 
                     if (!Files.exists(newBoardFile)) {
-                        jGit.extractFile(newBoardFile, newCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+                        jGit.extractFile(
+                                newBoardFile,
+                                newCommit,
+                                eagleFile.getRepoFile(),
+                                eagleFile.getRenames());
                     }
 
                     Eagle.extractBoardImage(
@@ -194,19 +222,29 @@ public class SheetsAndDiffImage {
                 }
             }
 
-            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
+            diffImageFile = buildDiffPath(
+                    eagleFile,
+                    oldCommit,
+                    newCommit, "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
             background = options.getPropBoardBackground();
             titleExtraText = "";
         } else {
             int sheet = (int) sheetComboBox.getSelectedItem();
 
-            oldImageFile = buildPath(oldCommit, eagleFile, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
+            oldImageFile = buildPath(
+                    oldCommit,
+                    eagleFile,
+                    "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
 
             if (!Files.exists(oldImageFile)) {
                 Path oldSchematicFile = options.getTempDir().resolve("old.sch");
 
                 if (!Files.exists(oldSchematicFile)) {
-                    jGit.extractFile(oldSchematicFile, oldCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+                    jGit.extractFile(
+                            oldSchematicFile,
+                            oldCommit,
+                            eagleFile.getRepoFile(),
+                            eagleFile.getRenames());
                 }
 
                 Eagle.extractSheetImage(
@@ -217,14 +255,21 @@ public class SheetsAndDiffImage {
                         oldSchematicFile);
             }
 
-            newImageFile = buildPath(newCommit, eagleFile, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
+            newImageFile = buildPath(
+                    newCommit,
+                    eagleFile,
+                    "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
 
             if (!Files.exists(newImageFile)) {
                 if (newCommit != null) {
                     Path newSchematicFile = options.getTempDir().resolve("new.sch");
 
                     if (!Files.exists(newSchematicFile)) {
-                        jGit.extractFile(newSchematicFile, oldCommit, eagleFile.getRepoFile(), eagleFile.getRenames());
+                        jGit.extractFile(
+                                newSchematicFile,
+                                oldCommit,
+                                eagleFile.getRepoFile(),
+                                eagleFile.getRenames());
                     }
 
                     Eagle.extractSheetImage(
@@ -243,7 +288,11 @@ public class SheetsAndDiffImage {
                 }
             }
 
-            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
+            diffImageFile = buildDiffPath(
+                    eagleFile,
+                    oldCommit,
+                    newCommit,
+                    "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
             background = options.getPropSchematicBackground();
             titleExtraText = " - Sheet " + sheet;
         }
@@ -263,7 +312,10 @@ public class SheetsAndDiffImage {
         ImageViewer.showImageViewer(diffImageFile, eagleFile, titleExtraText);
     }
 
-    private Path buildPath(RevCommit revCommit, EagleFile eagleFile, String fileExtension) {
+    private Path buildPath(
+            RevCommit revCommit,
+            EagleFile eagleFile,
+            String fileExtension) {
         Path path;
 
         if (revCommit != null) {
@@ -282,7 +334,11 @@ public class SheetsAndDiffImage {
         return path.resolve(eagleFile.getFileName() + fileExtension);
     }
 
-    private Path buildDiffPath(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit, String fileExtension) {
+    private Path buildDiffPath(
+            EagleFile eagleFile,
+            RevCommit oldCommit,
+            RevCommit newCommit,
+            String fileExtension) {
         Path path;
 
         if (newCommit != null) {

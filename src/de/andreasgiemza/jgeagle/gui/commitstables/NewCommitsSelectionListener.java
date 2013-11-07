@@ -49,7 +49,8 @@ public class NewCommitsSelectionListener implements ListSelectionListener {
         if (newCommitsTable.getSelectedRow() != -1
                 && lse.getValueIsAdjusting()) {
             int newCommitsTableSelectedRow
-                    = newCommitsTable.convertRowIndexToModel(newCommitsTable.getSelectedRow());
+                    = newCommitsTable.convertRowIndexToModel(
+                            newCommitsTable.getSelectedRow());
             NewCommitsTableModel newCommitTableModel
                     = (NewCommitsTableModel) newCommitsTable.getModel();
 

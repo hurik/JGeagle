@@ -34,7 +34,7 @@ import javax.swing.SpinnerNumberModel;
  *
  * @author Andreas Giemza
  */
-public class OptionsPanel extends javax.swing.JPanel {
+public class PreferencesPanel extends javax.swing.JPanel {
 
     private final JDialog jDialog;
     private final Options options;
@@ -45,7 +45,7 @@ public class OptionsPanel extends javax.swing.JPanel {
      * @param jDialog
      * @param options
      */
-    public OptionsPanel(JDialog jDialog, Options options) {
+    public PreferencesPanel(JDialog jDialog, Options options) {
         initComponents();
 
         this.jDialog = jDialog;
@@ -534,7 +534,6 @@ public class OptionsPanel extends javax.swing.JPanel {
             eagleBoardBackgroundPanel.setBackground(color);
         }
     }//GEN-LAST:event_eagleBoardBackgroundButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

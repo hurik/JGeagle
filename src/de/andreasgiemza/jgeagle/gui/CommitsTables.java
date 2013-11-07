@@ -45,7 +45,10 @@ public class CommitsTables {
     private final CommitsTableCellRenderer commitsTableCellRenderer
             = new CommitsTableCellRenderer();
 
-    public CommitsTables(JGeagle jGeagle, JTable oldCommitsTable, JTable newCommitsTable) {
+    public CommitsTables(
+            JGeagle jGeagle,
+            JTable oldCommitsTable,
+            JTable newCommitsTable) {
         this.jGeagle = jGeagle;
         this.oldCommitsTable = oldCommitsTable;
         this.newCommitsTable = newCommitsTable;

@@ -49,11 +49,13 @@ public class OldCommitsSelectionListener implements ListSelectionListener {
         if (oldCommitsTable.getSelectedRow() != -1
                 && lse.getValueIsAdjusting()) {
             int oldCommitsTableSelectedRow
-                    = oldCommitsTable.convertRowIndexToModel(oldCommitsTable.getSelectedRow());
-            OldCommitsTableModel oldCommitTableModel = (OldCommitsTableModel) oldCommitsTable.getModel();
+                    = oldCommitsTable.convertRowIndexToModel(
+                            oldCommitsTable.getSelectedRow());
+            OldCommitsTableModel oldCommitTableModel
+                    = (OldCommitsTableModel) oldCommitsTable.getModel();
 
             jGeagle.oldCommitSelected(
-                    oldCommitTableModel.getEagleFile(), 
+                    oldCommitTableModel.getEagleFile(),
                     oldCommitTableModel.getElement(oldCommitsTableSelectedRow));
         }
     }

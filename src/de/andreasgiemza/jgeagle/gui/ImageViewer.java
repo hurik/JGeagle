@@ -53,11 +53,15 @@ public class ImageViewer {
      * @param sheet
      * @throws IOException
      */
-    public static void showImageViewer(Path diffImageFile, EagleFile eagleFile, String sheet) throws IOException {
+    public static void showImageViewer(
+            Path diffImageFile,
+            EagleFile eagleFile,
+            String sheet) throws IOException {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("JGeagle - " + eagleFile.getRepoFile() + sheet);
         ImageViewerPanel ivp = new ImageViewerPanel(
-                eagleFile.getFileExtension().equals(EagleFile.BRD) ? Color.BLACK : Color.WHITE,
+                eagleFile.getFileExtension().equals(
+                        EagleFile.BRD) ? Color.BLACK : Color.WHITE,
                 diffImageFile);
         JScrollPane scroll = new JScrollPane(ivp);
         jFrame.getContentPane().add(scroll);
@@ -76,8 +80,10 @@ public class ImageViewer {
                 new Double(size.getWidth() * 0.8).intValue(),
                 new Double(size.getHeight() * 0.8).intValue());
         jFrame.setLocation(
-                new Double((size.getWidth() / 2) - (jFrame.getWidth() / 2)).intValue(),
-                new Double((size.getHeight() / 2) - (jFrame.getHeight() / 2)).intValue());
+                new Double((size.getWidth() / 2)
+                        - (jFrame.getWidth() / 2)).intValue(),
+                new Double((size.getHeight() / 2)
+                        - (jFrame.getHeight() / 2)).intValue());
 
         jFrame.setVisible(true);
 

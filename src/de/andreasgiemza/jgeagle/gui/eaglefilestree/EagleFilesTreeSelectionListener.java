@@ -46,12 +46,13 @@ public class EagleFilesTreeSelectionListener implements TreeSelectionListener {
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
+        DefaultMutableTreeNode node
+                = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
 
         if (node.isLeaf()) {
             jGeagle.eagleFileSelected((EagleFile) node.getUserObject());
         } else {
             jGeagle.eagleFileSelected(null);
-        }      
+        }
     }
 }

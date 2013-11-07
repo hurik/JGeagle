@@ -38,14 +38,15 @@ public class GetWorkingCopyFiles extends SimpleFileVisitor<Path> {
 
     private final Path repoDirectory;
     private final List<EagleFile> eagleFiles;
-    
+
     public GetWorkingCopyFiles(Path repoDirectory, List<EagleFile> eagleFiles) {
         this.repoDirectory = repoDirectory;
         this.eagleFiles = eagleFiles;
     }
 
     @Override
-    public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes bfa) throws IOException {
+    public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes bfa)
+            throws IOException {
         if (path.endsWith(".git")) {
             return FileVisitResult.SKIP_SUBTREE;
         }
@@ -54,13 +55,14 @@ public class GetWorkingCopyFiles extends SimpleFileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes bfa) throws IOException {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes bfa)
+            throws IOException {
         if (file.getFileName().toString().toLowerCase().endsWith(".brd")
                 || file.getFileName().toString().toLowerCase().endsWith(".sch")) {
             Path repoFile = file.subpath(
                     repoDirectory.getNameCount(),
                     file.getNameCount());
-            
+
             eagleFiles.add(new EagleFile(file, repoFile));
         }
 
