@@ -154,7 +154,7 @@ public class SheetsAndDiffImage {
         String background, titleExtraText;
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-            oldImageFile = buildPath(oldCommit, eagleFile, eagleFile.getFileName() + ".png");
+            oldImageFile = buildPath(oldCommit, eagleFile, eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
 
             if (!Files.exists(oldImageFile)) {
                 Path oldBoardFile = options.getTempDir().resolve("old.brd");
@@ -170,7 +170,7 @@ public class SheetsAndDiffImage {
                         oldBoardFile);
             }
 
-            newImageFile = buildPath(newCommit, eagleFile, eagleFile.getFileName() + ".png");
+            newImageFile = buildPath(newCommit, eagleFile, eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
 
             if (!Files.exists(newImageFile)) {
                 if (newCommit != null) {
@@ -194,13 +194,13 @@ public class SheetsAndDiffImage {
                 }
             }
 
-            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, ".png");
+            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
             background = options.getPropBoardBackground();
             titleExtraText = "";
         } else {
             int sheet = (int) sheetComboBox.getSelectedItem();
 
-            oldImageFile = buildPath(oldCommit, eagleFile, "-SHEET_" + sheet + ".png");
+            oldImageFile = buildPath(oldCommit, eagleFile, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
 
             if (!Files.exists(oldImageFile)) {
                 Path oldSchematicFile = options.getTempDir().resolve("old.sch");
@@ -217,7 +217,7 @@ public class SheetsAndDiffImage {
                         oldSchematicFile);
             }
 
-            newImageFile = buildPath(newCommit, eagleFile, "-SHEET_" + sheet + ".png");
+            newImageFile = buildPath(newCommit, eagleFile, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
 
             if (!Files.exists(newImageFile)) {
                 if (newCommit != null) {
@@ -243,7 +243,7 @@ public class SheetsAndDiffImage {
                 }
             }
 
-            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-SHEET_" + sheet + ".png");
+            diffImageFile = buildDiffPath(eagleFile, oldCommit, newCommit, "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
             background = options.getPropSchematicBackground();
             titleExtraText = " - Sheet " + sheet;
         }
@@ -271,16 +271,15 @@ public class SheetsAndDiffImage {
                     .resolve(eagleFile.getRepoName())
                     .resolve("images")
                     .resolve(revCommit.getName());
+
             if (eagleFile.getRepoFile().getParent() != null) {
                 path = path.resolve(eagleFile.getRepoFile().getParent());
             }
-            path = path.resolve(eagleFile.getFileName() + fileExtension);
         } else {
-            path = options.getTempDir()
-                    .resolve(eagleFile.getFileName() + fileExtension);
+            path = options.getTempDir();
         }
 
-        return path;
+        return path.resolve(eagleFile.getFileName() + fileExtension);
     }
 
     private Path buildDiffPath(EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit, String fileExtension) {
