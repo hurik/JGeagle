@@ -30,6 +30,7 @@ import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URI;
@@ -39,6 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -54,6 +56,7 @@ public class JGeagle extends javax.swing.JFrame {
     private final CommitsTables commitsTables;
     private final SheetsAndDiffImage sheetsAndDiffImage;
     private JGit jGit;
+    private List<EagleFile> eagleFiles;
 
     /**
      * Creates new form JGeagle
@@ -147,6 +150,9 @@ public class JGeagle extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         repositoryMenu = new javax.swing.JMenu();
         repositoryMenuItem = new javax.swing.JMenuItem();
+        toolsMenu = new javax.swing.JMenu();
+        createImagesMenuItem = new javax.swing.JMenuItem();
+        deleteImagesMenuItem = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
         preferencesMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -267,7 +273,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         repositoryMenu.setText("Repository");
 
-        repositoryMenuItem.setText("Open...");
+        repositoryMenuItem.setText("Open");
         repositoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 repositoryMenuItemActionPerformed(evt);
@@ -276,6 +282,23 @@ public class JGeagle extends javax.swing.JFrame {
         repositoryMenu.add(repositoryMenuItem);
 
         menuBar.add(repositoryMenu);
+
+        toolsMenu.setText("Tools");
+
+        createImagesMenuItem.setText("Create images");
+        createImagesMenuItem.setEnabled(false);
+        createImagesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createImagesMenuItemActionPerformed(evt);
+            }
+        });
+        toolsMenu.add(createImagesMenuItem);
+
+        deleteImagesMenuItem.setText("Delete images");
+        deleteImagesMenuItem.setEnabled(false);
+        toolsMenu.add(deleteImagesMenuItem);
+
+        menuBar.add(toolsMenu);
 
         optionsMenu.setText("Options");
 
@@ -397,7 +420,7 @@ public class JGeagle extends javax.swing.JFrame {
 
             Path repoDirectory = repositoryFileChooser.getSelectedFile().toPath();
 
-            List<EagleFile> eagleFiles = new LinkedList<>();
+            eagleFiles = new LinkedList<>();
             GetWorkingCopyFiles gwcf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
 
             try {
@@ -405,6 +428,9 @@ public class JGeagle extends javax.swing.JFrame {
                 jGit = new JGit(repoDirectory);
 
                 eagleFilesTree.buildAndDisplayTree(repoDirectory, eagleFiles);
+
+                createImagesMenuItem.setEnabled(true);
+                deleteImagesMenuItem.setEnabled(true);
             } catch (IOException | GitAPIException ex) {
                 Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -418,6 +444,17 @@ public class JGeagle extends javax.swing.JFrame {
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void createImagesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createImagesMenuItemActionPerformed
+        JDialog dialog = new JDialog(this, "Create images", true);
+        dialog.getContentPane().add(new CreateImagesPanel(options, jGit, eagleFiles));
+        dialog.pack();
+        dialog.setLocation(
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setResizable(false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_createImagesMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,6 +489,8 @@ public class JGeagle extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JPanel commitsPanel;
+    private javax.swing.JMenuItem createImagesMenuItem;
+    private javax.swing.JMenuItem deleteImagesMenuItem;
     private javax.swing.JButton diffImageButton;
     private javax.swing.JPanel diffImagePanel;
     private javax.swing.JButton eagleFilesCollapseAllButton;
@@ -477,6 +516,7 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JButton sheetButton;
     private javax.swing.JComboBox sheetComboBox;
     private javax.swing.JPanel sheetPanel;
+    private javax.swing.JMenu toolsMenu;
     private javax.swing.JPanel variousPanel;
     private javax.swing.JMenuItem websiteMenuItem;
     // End of variables declaration//GEN-END:variables

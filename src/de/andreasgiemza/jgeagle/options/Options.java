@@ -112,12 +112,12 @@ public class Options {
 
     public void showPreferencesPanel(JGeagle jGeagle) {
         JDialog dialog = new JDialog(jGeagle, "Preferences", true);
-        dialog.setResizable(false);
         dialog.getContentPane().add(new PreferencesPanel(dialog, this));
         dialog.pack();
         dialog.setLocation(
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setResizable(false);
         dialog.setVisible(true);
     }
 
