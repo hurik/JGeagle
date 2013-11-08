@@ -23,21 +23,15 @@
  */
 package de.andreasgiemza.jgeagle;
 
-import de.andreasgiemza.jgeagle.data.EagleFile;
-import de.andreasgiemza.jgeagle.repo.JGit;
-import de.andreasgiemza.jgeagle.data.GetWorkingCopyFiles;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
-import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
+import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -55,8 +49,7 @@ public class JGeagle extends javax.swing.JFrame {
     private final EagleFilesTree eagleFilesTree;
     private final CommitsTables commitsTables;
     private final SheetsAndDiffImage sheetsAndDiffImage;
-    private JGit jGit;
-    private List<EagleFile> eagleFiles;
+    private Repo repo;
 
     /**
      * Creates new form JGeagle
@@ -84,7 +77,7 @@ public class JGeagle extends javax.swing.JFrame {
         }
 
         try {
-            eagleFile.getFileData(jGit);
+            repo.getEagleFileLogAndStatus(eagleFile);
             commitsTables.updateOldCommitsTable(eagleFile);
             commitsTables.resetNewCommitsTable();
             sheetsAndDiffImage.reset();
@@ -107,7 +100,7 @@ public class JGeagle extends javax.swing.JFrame {
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
             sheetsAndDiffImage.brdSelected();
         } else {
-            sheetsAndDiffImage.schSelected(eagleFile, oldCommit, newCommit);
+            sheetsAndDiffImage.schSelected(repo, eagleFile, oldCommit, newCommit);
         }
     }
 
@@ -379,22 +372,17 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_eagleFilesCollapseAllButtonActionPerformed
 
     private void sheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheetButtonActionPerformed
-        try {
-            sheetsAndDiffImage.countSheets(
-                    jGit,
-                    commitsTables.getEagleFile(),
-                    commitsTables.getOldCommit(),
-                    commitsTables.getNewCommit());
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sheetsAndDiffImage.countSheets(
+                repo,
+                commitsTables.getEagleFile(),
+                commitsTables.getOldCommit(),
+                commitsTables.getNewCommit());
     }//GEN-LAST:event_sheetButtonActionPerformed
 
     private void diffImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageButtonActionPerformed
         try {
             sheetsAndDiffImage.createDiffImage(
-                    this,
-                    jGit,
+                    repo,
                     commitsTables.getEagleFile(),
                     commitsTables.getOldCommit(),
                     commitsTables.getNewCommit());
@@ -418,16 +406,10 @@ public class JGeagle extends javax.swing.JFrame {
             eagleFilesTree.reset();
             commitsTables.reset();
 
-            Path repoDirectory = repositoryFileChooser.getSelectedFile().toPath();
-
-            eagleFiles = new LinkedList<>();
-            GetWorkingCopyFiles gwcf = new GetWorkingCopyFiles(repoDirectory, eagleFiles);
-
             try {
-                Files.walkFileTree(repoDirectory, gwcf);
-                jGit = new JGit(repoDirectory);
+                repo = new Repo(options, repositoryFileChooser.getSelectedFile().toPath());
 
-                eagleFilesTree.buildAndDisplayTree(repoDirectory, eagleFiles);
+                eagleFilesTree.buildAndDisplayTree(repo);
 
                 createImagesMenuItem.setEnabled(true);
                 deleteImagesMenuItem.setEnabled(true);
@@ -447,7 +429,7 @@ public class JGeagle extends javax.swing.JFrame {
 
     private void createImagesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createImagesMenuItemActionPerformed
         JDialog dialog = new JDialog(this, "Create images", true);
-        dialog.getContentPane().add(new CreateImagesPanel(options, jGit, eagleFiles));
+        //dialog.getContentPane().add(new CreateImagesPanel(options, jGit, eagleFiles));
         dialog.pack();
         dialog.setLocation(
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),

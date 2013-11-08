@@ -28,7 +28,7 @@ import de.andreasgiemza.jgeagle.gui.commitstables.OldCommitsSelectionListener;
 import de.andreasgiemza.jgeagle.gui.commitstables.NewCommitsTableModel;
 import de.andreasgiemza.jgeagle.gui.commitstables.NewCommitsSelectionListener;
 import de.andreasgiemza.jgeagle.JGeagle;
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.gui.commitstables.CommitsTableCellRenderer;
 import javax.swing.JTable;
 import org.eclipse.jgit.revwalk.RevCommit;

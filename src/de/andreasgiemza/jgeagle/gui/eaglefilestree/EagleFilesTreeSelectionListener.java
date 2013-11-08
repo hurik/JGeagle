@@ -24,7 +24,7 @@
 package de.andreasgiemza.jgeagle.gui.eaglefilestree;
 
 import de.andreasgiemza.jgeagle.JGeagle;
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;

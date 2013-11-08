@@ -24,11 +24,11 @@
 package de.andreasgiemza.jgeagle.gui;
 
 import de.andreasgiemza.jgeagle.JGeagle;
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.gui.eaglefilestree.EagleFilesTreeCellRenderer;
 import de.andreasgiemza.jgeagle.gui.eaglefilestree.EagleFilesTreeSelectionListener;
+import de.andreasgiemza.jgeagle.repo.Repo;
 import java.nio.file.Path;
-import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -56,20 +56,15 @@ public class EagleFilesTree {
         jTree.setCellRenderer(new EagleFilesTreeCellRenderer());
     }
 
-    public void buildAndDisplayTree(
-            Path repoDirectory,
-            List<EagleFile> eagleFiles) {
+    public void buildAndDisplayTree(Repo repo) {
         DefaultMutableTreeNode rootNode
-                = new DefaultMutableTreeNode(repoDirectory.subpath(
-                                repoDirectory.getNameCount() - 1,
-                                repoDirectory.getNameCount()
-                        ).toString());
+                = new DefaultMutableTreeNode(repo.getRepoName());
 
-        for (EagleFile file : eagleFiles) {
+        for (EagleFile eagleFile : repo.getEagleFiles()) {
             DefaultMutableTreeNode lastNode = rootNode;
 
-            for (Path pathPart : file.getRepoFile()) {
-                if (!pathPart.toString().equals(file.getRepoFile().getFileName().toString())) {
+            for (Path pathPart : eagleFile.getRepoFile()) {
+                if (!pathPart.toString().equals(eagleFile.getRepoFile().getFileName().toString())) {
                     Boolean found = false;
 
                     for (int i = 0; i < lastNode.getChildCount(); i++) {
@@ -86,7 +81,7 @@ public class EagleFilesTree {
                         lastNode = newNode;
                     }
                 } else {
-                    lastNode.add(new DefaultMutableTreeNode(file));
+                    lastNode.add(new DefaultMutableTreeNode(eagleFile));
                 }
             }
 

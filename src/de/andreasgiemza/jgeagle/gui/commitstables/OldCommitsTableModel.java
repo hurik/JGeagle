@@ -23,7 +23,7 @@
  */
 package de.andreasgiemza.jgeagle.gui.commitstables;
 
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

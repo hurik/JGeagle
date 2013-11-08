@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.repo;
+package de.andreasgiemza.jgeagle.repo.rcs;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

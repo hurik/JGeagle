@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.data;
+package de.andreasgiemza.jgeagle.repo;
 
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -34,12 +35,12 @@ import java.util.List;
  *
  * @author Andreas Giemza
  */
-public class GetWorkingCopyFiles extends SimpleFileVisitor<Path> {
+public class GetRepoFiles extends SimpleFileVisitor<Path> {
 
     private final Path repoDirectory;
     private final List<EagleFile> eagleFiles;
 
-    public GetWorkingCopyFiles(Path repoDirectory, List<EagleFile> eagleFiles) {
+    public GetRepoFiles(Path repoDirectory, List<EagleFile> eagleFiles) {
         this.repoDirectory = repoDirectory;
         this.eagleFiles = eagleFiles;
     }

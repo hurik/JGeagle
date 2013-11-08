@@ -23,7 +23,7 @@
  */
 package de.andreasgiemza.jgeagle.gui;
 
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.gui.imageviewer.HandScrollListener;
 import de.andreasgiemza.jgeagle.gui.imageviewer.ImageViewerPanel;
 import de.andreasgiemza.jgeagle.gui.imageviewer.MouseZoomListener;

@@ -23,7 +23,7 @@
  */
 package de.andreasgiemza.jgeagle.gui.eaglefilestree;
 
-import de.andreasgiemza.jgeagle.data.EagleFile;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import java.awt.Component;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;

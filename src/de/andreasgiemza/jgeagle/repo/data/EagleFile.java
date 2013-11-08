@@ -21,18 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.data;
+package de.andreasgiemza.jgeagle.repo.data;
 
-import de.andreasgiemza.jgeagle.repo.JGit;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
@@ -45,22 +41,17 @@ public class EagleFile {
     private final Path repoFile;
     private final String fileName;
     private final String fileExtension;
-    private final String repoName;
     private Boolean workingCopychanges;
     private Date workingCopyLastModified;
     private final List<RevCommit> commits = new LinkedList<>();
     private final Map<RevCommit, String> renames = new HashMap<>();
-    // constants
+    // Constants
     public final static String BRD = ".brd";
     public final static String SCH = ".sch";
 
     public EagleFile(Path file, Path repoFile) {
         this.file = file;
         this.repoFile = repoFile;
-
-        repoName = file.subpath(
-                file.getNameCount() - (repoFile.getNameCount() + 1),
-                file.getNameCount() - repoFile.getNameCount()).toString();
 
         fileName = repoFile.getFileName().toString().substring(
                 0, repoFile.getFileName().toString().length() - 4);
@@ -69,14 +60,6 @@ public class EagleFile {
             fileExtension = BRD;
         } else {
             fileExtension = SCH;
-        }
-    }
-
-    public void getFileData(JGit jGit) throws IOException, GitAPIException {
-        if (workingCopychanges == null) {
-            workingCopychanges = jGit.checkForWorkingCopyChanges(repoFile);
-            workingCopyLastModified = new Date(Files.getLastModifiedTime(file).toMillis());
-            jGit.getFileHistory(repoFile, commits, renames);
         }
     }
 
@@ -96,16 +79,20 @@ public class EagleFile {
         return fileExtension;
     }
 
-    public String getRepoName() {
-        return repoName;
-    }
-
     public Boolean isWorkingCopychanges() {
         return workingCopychanges;
     }
 
+    public void setWorkingCopychanges(Boolean workingCopychanges) {
+        this.workingCopychanges = workingCopychanges;
+    }
+
     public Date getWorkingCopyLastModified() {
         return workingCopyLastModified;
+    }
+
+    public void setWorkingCopyLastModified(Date workingCopyLastModified) {
+        this.workingCopyLastModified = workingCopyLastModified;
     }
 
     public List<RevCommit> getCommits() {
