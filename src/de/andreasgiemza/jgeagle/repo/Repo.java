@@ -65,22 +65,25 @@ public class Repo {
         return eagleFiles;
     }
 
-    public void getEagleFileLogAndStatus(EagleFile eagleFile)
-            throws IOException, GitAPIException {
+    public void getEagleFileLogAndStatus(EagleFile eagleFile) {
         if (eagleFile.isWorkingCopychanges() == null) {
-            eagleFile.setWorkingCopychanges(
-                    jGit.checkForWorkingCopyChanges(eagleFile.getRepoFile()));
+            try {
+                eagleFile.setWorkingCopychanges(
+                        jGit.checkForWorkingCopyChanges(eagleFile.getRepoFile()));
 
-            if (eagleFile.isWorkingCopychanges()) {
-                eagleFile.setWorkingCopyLastModified(
-                        new Date(Files.getLastModifiedTime(
-                                        eagleFile.getFile()).toMillis()));
+                if (eagleFile.isWorkingCopychanges()) {
+                    eagleFile.setWorkingCopyLastModified(
+                            new Date(Files.getLastModifiedTime(
+                                            eagleFile.getFile()).toMillis()));
+                }
+
+                jGit.getFileHistory(
+                        eagleFile.getRepoFile(),
+                        eagleFile.getCommits(),
+                        eagleFile.getRenames());
+            } catch (IOException | GitAPIException ex) {
+                Logger.getLogger(Repo.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            jGit.getFileHistory(
-                    eagleFile.getRepoFile(),
-                    eagleFile.getCommits(),
-                    eagleFile.getRenames());
         }
     }
 
@@ -122,20 +125,6 @@ public class Repo {
         } else {
             return 0;
         }
-    }
-
-    public int getSheetCount(Path countFile) {
-        try {
-            if (Files.exists(countFile)) {
-                return Integer.parseInt(
-                        Files.readAllLines(
-                                countFile,
-                                Charset.defaultCharset()).get(0));
-            }
-        } catch (IOException ex) {
-        }
-
-        return 0;
     }
 
     public void createSheetCountFile(
@@ -212,7 +201,7 @@ public class Repo {
         return diffImageFile;
     }
 
-    private Path getOrCreateBoardImage(
+    public Path getOrCreateBoardImage(
             Options options,
             RevCommit revCommit,
             EagleFile eagleFile,

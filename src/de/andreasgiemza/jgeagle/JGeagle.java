@@ -28,6 +28,7 @@ import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -76,14 +77,10 @@ public class JGeagle extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            repo.getEagleFileLogAndStatus(eagleFile);
-            commitsTables.updateOldCommitsTable(eagleFile);
-            commitsTables.resetNewCommitsTable();
-            sheetsAndDiffImage.reset();
-        } catch (IOException | GitAPIException ex) {
-            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        repo.getEagleFileLogAndStatus(eagleFile);
+        commitsTables.updateOldCommitsTable(eagleFile);
+        commitsTables.resetNewCommitsTable();
+        sheetsAndDiffImage.reset();
     }
 
     public void oldCommitSelected(EagleFile eagleFile, RevCommit oldCommit) {
@@ -429,7 +426,7 @@ public class JGeagle extends javax.swing.JFrame {
 
     private void createImagesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createImagesMenuItemActionPerformed
         JDialog dialog = new JDialog(this, "Create images", true);
-        //dialog.getContentPane().add(new CreateImagesPanel(options, jGit, eagleFiles));
+        dialog.getContentPane().add(new CreateImagesPanel(options, repo));
         dialog.pack();
         dialog.setLocation(
                 new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),

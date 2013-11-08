@@ -25,13 +25,8 @@ package de.andreasgiemza.jgeagle.panels;
 
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.options.Options;
-import de.andreasgiemza.jgeagle.repo.rcs.JGit;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.andreasgiemza.jgeagle.repo.Repo;
 import javax.swing.SwingUtilities;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
@@ -41,24 +36,21 @@ import org.eclipse.jgit.revwalk.RevCommit;
 public class CreateImagesPanel extends javax.swing.JPanel {
 
     private final Options options;
-    private final JGit jGit;
-    private final List<EagleFile> eagleFiles;
+    private final Repo repo;
 
     /**
      * Creates new form CreateImagesPanel
      *
-     * @param jGit
-     * @param eagleFiles
+     * @param options
+     * @param repo
      */
     public CreateImagesPanel(
             Options options,
-            JGit jGit,
-            List<EagleFile> eagleFiles) {
+            Repo repo) {
         initComponents();
 
         this.options = options;
-        this.jGit = jGit;
-        this.eagleFiles = eagleFiles;
+        this.repo = repo;
     }
 
     /**
@@ -143,44 +135,54 @@ public class CreateImagesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                int eagleFilesCount = eagleFiles.size();
-//                filesProgressBar.setMinimum(0);
-//                filesProgressBar.setMaximum(eagleFilesCount);
-//
-//                for (EagleFile eagleFile : eagleFiles) {
-//                    int currentEagleFile = eagleFiles.indexOf(eagleFile);
-//                    filesProgressBar.setString((currentEagleFile + 1) + " of " + eagleFilesCount + " files");
-//                    filesProgressBar.setValue(currentEagleFile + 1);
-//                    filesProgressBar.update(filesProgressBar.getGraphics());
-//
-//                    try {
-//                        eagleFile.getFileData(jGit);
-//                    } catch (IOException | GitAPIException ex) {
-//                        Logger.getLogger(CreateImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                    int commitsCount = eagleFile.getCommits().size();
-//                    commitsProgressBar.setMinimum(0);
-//                    commitsProgressBar.setMaximum(commitsCount);
-//
-//                    for (RevCommit commit : eagleFile.getCommits()) {
-//                        int currentCommit = eagleFile.getCommits().indexOf(commit);
-//                        commitsProgressBar.setString((currentCommit + 1) + " of " + commitsCount + " commits");
-//                        commitsProgressBar.setValue(currentCommit + 1);
-//                        commitsProgressBar.update(commitsProgressBar.getGraphics());
-//
-//                        if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-//                            
-//                        } else {
-//                            
-//                        }
-//                    }
-//                }
-//            }
-//        });
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int eagleFilesCount = repo.getEagleFiles().size();
+                filesProgressBar.setMinimum(0);
+                filesProgressBar.setMaximum(eagleFilesCount);
+
+                for (EagleFile eagleFile : repo.getEagleFiles()) {
+                    int currentEagleFile = repo.getEagleFiles().indexOf(eagleFile);
+                    filesProgressBar.setString((currentEagleFile + 1) + " of " + eagleFilesCount + " files");
+                    filesProgressBar.setValue(currentEagleFile + 1);
+                    filesProgressBar.update(filesProgressBar.getGraphics());
+
+                    repo.getEagleFileLogAndStatus(eagleFile);
+
+                    int commitsCount = eagleFile.getCommits().size();
+                    commitsProgressBar.setMinimum(0);
+                    commitsProgressBar.setMaximum(commitsCount);
+
+                    for (RevCommit commit : eagleFile.getCommits()) {
+                        int currentCommit = eagleFile.getCommits().indexOf(commit);
+                        commitsProgressBar.setString((currentCommit + 1) + " of " + commitsCount + " commits");
+                        commitsProgressBar.setValue(currentCommit + 1);
+                        commitsProgressBar.update(commitsProgressBar.getGraphics());
+
+                        options.cleanTempDir();
+
+                        if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
+                            repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd");
+                        } else {
+                            repo.createSheetCountFile(options, eagleFile, commit, "schematic.sch");
+
+                            int sheetCount = repo.getSheetCount(options, commit, eagleFile);
+                            sheetsProgressBar.setMinimum(0);
+                            sheetsProgressBar.setMaximum(sheetCount);
+
+                            for (int sheet = 1; sheet <= sheetCount; sheet++) {
+                                sheetsProgressBar.setString(sheet + " of " + sheetCount + " sheets");
+                                sheetsProgressBar.setValue(sheet);
+                                sheetsProgressBar.update(sheetsProgressBar.getGraphics());
+
+                                repo.getOrCreateSchematicImage(options, commit, eagleFile, "schematic.sch", sheet);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
