@@ -29,6 +29,7 @@ import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
+import de.andreasgiemza.jgeagle.panels.DeleteImagesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -286,6 +287,11 @@ public class JGeagle extends javax.swing.JFrame {
 
         deleteImagesMenuItem.setText("Delete images");
         deleteImagesMenuItem.setEnabled(false);
+        deleteImagesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteImagesMenuItemActionPerformed(evt);
+            }
+        });
         toolsMenu.add(deleteImagesMenuItem);
 
         menuBar.add(toolsMenu);
@@ -434,6 +440,17 @@ public class JGeagle extends javax.swing.JFrame {
         dialog.setResizable(false);
         dialog.setVisible(true);
     }//GEN-LAST:event_createImagesMenuItemActionPerformed
+
+    private void deleteImagesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteImagesMenuItemActionPerformed
+        JDialog dialog = new JDialog(this, "Delete images", true);
+        dialog.getContentPane().add(new DeleteImagesPanel(options, repo));
+        dialog.pack();
+        dialog.setLocation(
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setResizable(false);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_deleteImagesMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
