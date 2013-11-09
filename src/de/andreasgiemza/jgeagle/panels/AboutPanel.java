@@ -26,7 +26,6 @@ package de.andreasgiemza.jgeagle.panels;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

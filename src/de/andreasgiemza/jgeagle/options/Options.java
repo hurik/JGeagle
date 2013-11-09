@@ -87,7 +87,9 @@ public class Options {
 
     public void cleanTempDir() {
         try {
-            FileUtils.deleteDirectory(tempDir.toFile());
+            if (Files.exists(tempDir)) {
+                FileUtils.deleteDirectory(tempDir.toFile());
+            }
             Files.createDirectories(tempDir);
         } catch (IOException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);

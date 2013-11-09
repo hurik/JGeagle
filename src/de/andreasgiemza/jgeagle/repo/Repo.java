@@ -184,7 +184,8 @@ public class Repo {
                 eagleFile,
                 oldCommit,
                 newCommit,
-                "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
+                "-DPI_" + options.getPropBoardDpiAsInt() + "-ALPHA_"
+                + options.getPropUnchangedAlphaAsDouble() + ".png");
 
         if (!Files.exists(diffImageFile)
                 && Files.exists(oldImageFile)
@@ -263,7 +264,8 @@ public class Repo {
                 eagleFile,
                 oldCommit,
                 newCommit,
-                "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt() + ".png");
+                "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt()
+                + "-ALPHA_" + options.getPropUnchangedAlphaAsDouble() + ".png");
 
         if (!Files.exists(diffImageFile)
                 && Files.exists(oldImageFile)

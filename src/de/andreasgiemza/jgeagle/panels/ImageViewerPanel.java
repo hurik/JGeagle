@@ -23,16 +23,26 @@
  */
 package de.andreasgiemza.jgeagle.panels;
 
+import de.andreasgiemza.jgeagle.JGeagle;
+import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.panels.imageviewer.HandScrollListener;
+import de.andreasgiemza.jgeagle.panels.imageviewer.MouseZoomListener;
+import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
 /**
  *
@@ -46,6 +56,60 @@ public class ImageViewerPanel extends JPanel {
     public ImageViewerPanel(Color background, Path file) throws IOException {
         setBackground(background);
         image = ImageIO.read(file.toFile());
+    }
+
+    /**
+     *
+     * @param options
+     * @param diffImageFile
+     * @param eagleFile
+     * @param sheet
+     * @throws IOException
+     */
+    public static void showImageViewer(
+            Options options,
+            Path diffImageFile,
+            EagleFile eagleFile,
+            String sheet) throws IOException {
+        JFrame jFrame = new JFrame();
+        jFrame.setTitle("JGeagle - " + eagleFile.getRepoFile() + sheet);
+        jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("de/andreasgiemza/jgeagle/gui/icons/jgeagle.png")));
+        
+        Color background;
+        if (eagleFile.getFileExtension().equals(EagleFile.SCH)) {
+            background = Color.decode(options.getPropSchematicBackground());
+        } else {
+            background = Color.decode(options.getPropBoardBackground());
+        }
+        
+        ImageViewerPanel ivp = new ImageViewerPanel(
+                background,
+                diffImageFile);
+        JScrollPane scroll = new JScrollPane(ivp);
+        jFrame.getContentPane().add(scroll);
+
+        scroll.removeMouseWheelListener(scroll.getMouseWheelListeners()[0]);
+
+        JViewport vport = scroll.getViewport();
+        MouseAdapter ma = new HandScrollListener();
+        MouseZoomListener mzl = new MouseZoomListener(ivp);
+        vport.addMouseMotionListener(ma);
+        vport.addMouseWheelListener(mzl);
+        vport.addMouseListener(ma);
+
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        jFrame.setSize(
+                new Double(size.getWidth() * 0.8).intValue(),
+                new Double(size.getHeight() * 0.8).intValue());
+        jFrame.setLocation(
+                new Double((size.getWidth() / 2)
+                        - (jFrame.getWidth() / 2)).intValue(),
+                new Double((size.getHeight() / 2)
+                        - (jFrame.getHeight() / 2)).intValue());
+
+        jFrame.setVisible(true);
+
+        ivp.setFirstSize(vport.getSize());
     }
 
     @Override

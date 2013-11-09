@@ -64,6 +64,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         informationLabel = new javax.swing.JLabel();
+        filetypeComboBox = new javax.swing.JComboBox();
         createButton = new javax.swing.JButton();
         progressPanel = new javax.swing.JPanel();
         filesProgressBar = new javax.swing.JProgressBar();
@@ -71,8 +72,11 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         sheetsProgressBar = new javax.swing.JProgressBar();
         cancelButton = new javax.swing.JButton();
 
+        informationLabel.setForeground(new java.awt.Color(204, 0, 0));
         informationLabel.setText("<html>\n<p><strong>ATTENTION:</strong></p>\n<p>This machine is not usable while performing this task, because the eagle window while constantly open and gets the focus.</p>\n</html>");
         informationLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        filetypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All images", "Schematic images", "Board images" }));
 
         createButton.setText("Create");
         createButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +109,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         progressPanel.setLayout(progressPanelLayout);
         progressPanelLayout.setHorizontalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(filesProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+            .addComponent(filesProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
             .addComponent(commitsProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sheetsProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -129,10 +133,11 @@ public class CreateImagesPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(filetypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(progressPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,6 +145,8 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(filetypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(createButton)
                 .addGap(18, 18, 18)
                 .addComponent(progressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +160,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
 
         interrupted = false;
 
-        thread = new Thread(new Worker());
+        thread = new Thread(new Worker(filetypeComboBox.getSelectedIndex()));
         thread.start();
     }//GEN-LAST:event_createButtonActionPerformed
 
@@ -167,6 +174,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
     private javax.swing.JProgressBar commitsProgressBar;
     private javax.swing.JButton createButton;
     private javax.swing.JProgressBar filesProgressBar;
+    private javax.swing.JComboBox filetypeComboBox;
     private javax.swing.JLabel informationLabel;
     private javax.swing.JPanel progressPanel;
     private javax.swing.JProgressBar sheetsProgressBar;
@@ -174,21 +182,55 @@ public class CreateImagesPanel extends javax.swing.JPanel {
 
     private class Worker implements Runnable {
 
+        private final int filetype;
+
+        private Worker(int filetype) {
+            this.filetype = filetype;
+        }
+
         @Override
         public void run() {
-            int eagleFilesCount = repo.getEagleFiles().size();
+
             filesProgressBar.setMinimum(0);
+
+            int eagleFilesCount = 0;
+
+            if (filetype == 0) {
+                eagleFilesCount = repo.getEagleFiles().size();
+            } else {
+                for (EagleFile eagleFile : repo.getEagleFiles()) {
+                    if (eagleFile.getFileExtension().equals(EagleFile.SCH)
+                            && filetype == 1) {
+                        eagleFilesCount++;
+                    } else if (eagleFile.getFileExtension().equals(EagleFile.BRD)
+                            && filetype == 2) {
+                        eagleFilesCount++;
+                    }
+                }
+            }
+
             filesProgressBar.setMaximum(eagleFilesCount);
 
+            int currentEagleFile = 0;
             for (EagleFile eagleFile : repo.getEagleFiles()) {
                 if (interrupted) {
                     updateGui();
                     return;
                 }
 
-                int currentEagleFile = repo.getEagleFiles().indexOf(eagleFile);
-                filesProgressBar.setString((currentEagleFile + 1) + " of " + eagleFilesCount + " files");
-                filesProgressBar.setValue(currentEagleFile + 1);
+                if (filetype != 0) {
+                    if (eagleFile.getFileExtension().equals(EagleFile.SCH)
+                            && filetype != 1) {
+                        continue;
+                    } else if (eagleFile.getFileExtension().equals(EagleFile.BRD)
+                            && filetype != 2) {
+                        continue;
+                    }
+                }
+
+                currentEagleFile++;
+                filesProgressBar.setString(currentEagleFile + " of " + eagleFilesCount + " files");
+                filesProgressBar.setValue(currentEagleFile);
 
                 repo.getEagleFileLogAndStatus(options, eagleFile);
 
@@ -231,7 +273,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                     }
                 }
             }
-            
+
             updateGui();
         }
 

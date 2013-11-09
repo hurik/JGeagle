@@ -19,12 +19,13 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="progressPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="informationLabel" alignment="0" pref="0" max="32767" attributes="0"/>
                   <Component id="createButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="filetypeComboBox" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="progressPanel" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -33,6 +34,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="informationLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="filetypeComboBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="createButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="progressPanel" min="-2" max="-2" attributes="0"/>
@@ -44,8 +47,22 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="informationLabel">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="cc" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;&lt;strong&gt;ATTENTION:&lt;/strong&gt;&lt;/p&gt;&#xa;&lt;p&gt;This machine is not usable while performing this task, because the eagle window while constantly open and gets the focus.&lt;/p&gt;&#xa;&lt;/html&gt;"/>
         <Property name="verticalAlignment" type="int" value="1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="filetypeComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="All images"/>
+            <StringItem index="1" value="Schematic images"/>
+            <StringItem index="2" value="Board images"/>
+          </StringArray>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="createButton">
@@ -68,7 +85,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="filesProgressBar" pref="288" max="32767" attributes="0"/>
+              <Component id="filesProgressBar" pref="308" max="32767" attributes="0"/>
               <Component id="commitsProgressBar" alignment="0" max="32767" attributes="0"/>
               <Component id="sheetsProgressBar" alignment="0" max="32767" attributes="0"/>
               <Component id="cancelButton" alignment="0" max="32767" attributes="0"/>

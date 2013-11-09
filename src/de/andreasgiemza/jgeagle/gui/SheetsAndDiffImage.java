@@ -25,6 +25,7 @@ package de.andreasgiemza.jgeagle.gui;
 
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.panels.ImageViewerPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -130,7 +131,7 @@ public class SheetsAndDiffImage {
         }
 
         if (diffImageFile != null) {
-            ImageViewer.showImageViewer(diffImageFile, eagleFile, titleExtraText);
+            ImageViewerPanel.showImageViewer(options, diffImageFile, eagleFile, titleExtraText);
         }
     }
 }

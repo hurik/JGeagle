@@ -40,6 +40,7 @@ import org.apache.commons.io.FileUtils;
 public class DeleteImagesPanel extends javax.swing.JPanel {
 
     private final Path directory;
+    private final DecimalFormat f = new DecimalFormat("#0.00");
 
     /**
      * Creates new form DeleteImagesPanel
@@ -63,7 +64,6 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
         }
 
         double sizeInMB = (double) size / 1024 / 1024;
-        DecimalFormat f = new DecimalFormat("#0.00");
 
         sizeLabel.setText(f.format(sizeInMB) + " MB");
     }
@@ -79,6 +79,7 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
 
         descriptionLabel = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
+        imagesComboBox = new javax.swing.JComboBox();
         deleteButton = new javax.swing.JButton();
 
         descriptionLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -86,6 +87,8 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
 
         sizeLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         sizeLabel.setForeground(new java.awt.Color(204, 0, 0));
+
+        imagesComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All images", "Diff images" }));
 
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +104,7 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imagesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(descriptionLabel)
@@ -116,6 +120,8 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
                     .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
+                .addComponent(imagesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -123,7 +129,12 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
-            FileUtils.deleteDirectory(directory.toFile());
+
+            if (imagesComboBox.getSelectedIndex() == 0) {
+                FileUtils.deleteDirectory(directory.toFile());
+            } else {
+                FileUtils.deleteDirectory(directory.resolve("diffImages").toFile());
+            }
         } catch (IOException ex) {
             Logger.getLogger(DeleteImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,6 +146,7 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JComboBox imagesComboBox;
     private javax.swing.JLabel sizeLabel;
     // End of variables declaration//GEN-END:variables
 }
