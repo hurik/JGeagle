@@ -7,8 +7,8 @@ You can test it with the [testrepo](https://github.com/hurik/visual-diffs-for-ea
 
 
 ## Notes
-# Git repo must be in a directory! This will be the repo name!
-# Renames only working when commited. Can't get this working [http://stackoverflow.com/a/17302068/2246865](http://stackoverflow.com/a/17302068/2246865)!
+* Git repo must be in a directory! This will be the repo name!
+* Renames only working when commited. Can't get this working [http://stackoverflow.com/a/17302068/2246865](http://stackoverflow.com/a/17302068/2246865)!
 
 
 ## Download
