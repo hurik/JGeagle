@@ -14,8 +14,10 @@ You can test it with the [testrepo](https://github.com/hurik/visual-diffs-for-ea
 * Red elements were deleted
 * Green elements are new
 * Red and green elements which are connected, can be moved elements
+
 ### Schematic diff image
 ![Schematic diff image](https://raw.github.com/hurik/JGeagle/master/images/schematic-diff.png)
+
 ### Board diff image
 ![Board diff image](https://raw.github.com/hurik/JGeagle/master/images/board-diff.png)
 
@@ -23,8 +25,11 @@ You can test it with the [testrepo](https://github.com/hurik/visual-diffs-for-ea
 ## Program screen shots
 ### JGeagle
 ![JGeagle](https://raw.github.com/hurik/JGeagle/master/images/jgeagle.png)
+
 ### Preferences
 ![JGeagle](https://raw.github.com/hurik/JGeagle/master/images/jgeagle-preferences.png)
+
 ### Image viewer
 * With mouse zoom and pan!
+
 ![JGeagle](https://raw.github.com/hurik/JGeagle/master/images/jgeagle-imageviewer.png)
