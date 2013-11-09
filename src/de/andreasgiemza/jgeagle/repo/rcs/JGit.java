@@ -79,6 +79,7 @@ public class JGit {
      * Based on http://stackoverflow.com/a/11504177/2246865 by OneWorld
      *
      * @param repoFile
+     * @param follow
      * @param commits
      * @param renames
      * @return
@@ -87,6 +88,7 @@ public class JGit {
      * @throws org.eclipse.jgit.api.errors.GitAPIException
      */
     public List<RevCommit> getFileHistory(
+            boolean follow,
             Path repoFile,
             List<RevCommit> commits,
             Map<RevCommit, String> renames)
@@ -114,7 +116,7 @@ public class JGit {
             if (start == null) {
                 return commits;
             }
-        } while ((path = getRenamedPath(start, path)) != null);
+        } while ((path = getRenamedPath(follow, start, path)) != null);
 
         return commits;
     }
@@ -123,14 +125,22 @@ public class JGit {
      *
      * Based on http://stackoverflow.com/a/11504177/2246865 by OneWorld
      *
+     * @param follow
      * @param start
      * @param path
      * @return
      * @throws IOException
      * @throws GitAPIException
      */
-    private String getRenamedPath(RevCommit start, String path)
+    private String getRenamedPath(
+            boolean follow,
+            RevCommit start,
+            String path)
             throws IOException, GitAPIException {
+        if (!follow) {
+            return null;
+        }
+
         Iterable<RevCommit> allCommitsLater = git.log().add(start).call();
 
         for (RevCommit commit : allCommitsLater) {

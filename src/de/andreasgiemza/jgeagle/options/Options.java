@@ -62,6 +62,7 @@ public class Options {
     public final static String ADDED_ELEMENTS_COLOR = "addedElementsColor";
     public final static String REMOVED_ELEMENT_COLOR = "removedElementsColor";
     public final static String UNDEFINED_COLOR = "undefinedColor";
+    public final static String FOLLOW_GIT = "followGit";
 
     public Options() {
         try {
@@ -170,6 +171,10 @@ public class Options {
     public String getPropUndefinedColor() {
         return properties.getProperty(UNDEFINED_COLOR);
     }
+    
+    public Boolean getPropFollowGitAsBoolean() {
+        return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
+    }
 
     // Save options
     void save(
@@ -181,7 +186,8 @@ public class Options {
             String unchangedAlpha,
             String addedElementColor,
             String removedElementColor,
-            String undefinedColor) {
+            String undefinedColor,
+            Boolean followGit) {
         properties.setProperty(EAGLE_BINARY, eagleBinary);
         properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
         properties.setProperty(BOARD_BACKGROUND, boardBackground);
@@ -191,6 +197,7 @@ public class Options {
         properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
         properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
         properties.setProperty(UNDEFINED_COLOR, undefinedColor);
+        properties.setProperty(FOLLOW_GIT, followGit.toString());
 
         try {
             properties.store(new FileOutputStream(optionsFile.toFile()), null);

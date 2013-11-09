@@ -65,8 +65,12 @@ public class Repo {
         return eagleFiles;
     }
 
-    public void getEagleFileLogAndStatus(EagleFile eagleFile) {
-        if (eagleFile.isWorkingCopychanges() == null) {
+    public void getEagleFileLogAndStatus(Options options, EagleFile eagleFile) {
+        if (eagleFile.isWorkingCopychanges() == null
+                || options.getPropFollowGitAsBoolean() != eagleFile.isFollow()) {
+            eagleFile.setFollow(options.getPropFollowGitAsBoolean());
+            eagleFile.clearData();
+
             try {
                 eagleFile.setWorkingCopychanges(
                         jGit.checkForWorkingCopyChanges(eagleFile.getRepoFile()));
@@ -78,6 +82,7 @@ public class Repo {
                 }
 
                 jGit.getFileHistory(
+                        options.getPropFollowGitAsBoolean(),
                         eagleFile.getRepoFile(),
                         eagleFile.getCommits(),
                         eagleFile.getRenames());

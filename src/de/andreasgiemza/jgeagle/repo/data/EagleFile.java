@@ -45,6 +45,7 @@ public class EagleFile {
     private Date workingCopyLastModified;
     private final List<RevCommit> commits = new LinkedList<>();
     private final Map<RevCommit, String> renames = new HashMap<>();
+    private boolean follow;
     // Constants
     public final static String BRD = ".brd";
     public final static String SCH = ".sch";
@@ -61,6 +62,11 @@ public class EagleFile {
         } else {
             fileExtension = SCH;
         }
+    }
+
+    public void clearData() {
+        commits.clear();
+        renames.clear();
     }
 
     public Path getFile() {
@@ -101,6 +107,14 @@ public class EagleFile {
 
     public Map<RevCommit, String> getRenames() {
         return renames;
+    }
+
+    public boolean isFollow() {
+        return follow;
+    }
+
+    public void setFollow(boolean follow) {
+        this.follow = follow;
     }
 
     @Override

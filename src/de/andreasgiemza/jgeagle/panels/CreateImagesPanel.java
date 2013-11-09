@@ -190,7 +190,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                 filesProgressBar.setString((currentEagleFile + 1) + " of " + eagleFilesCount + " files");
                 filesProgressBar.setValue(currentEagleFile + 1);
 
-                repo.getEagleFileLogAndStatus(eagleFile);
+                repo.getEagleFileLogAndStatus(options, eagleFile);
 
                 int commitsCount = eagleFile.getCommits().size();
                 commitsProgressBar.setMinimum(0);

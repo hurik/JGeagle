@@ -78,7 +78,7 @@ public class JGeagle extends javax.swing.JFrame {
             return;
         }
 
-        repo.getEagleFileLogAndStatus(eagleFile);
+        repo.getEagleFileLogAndStatus(options, eagleFile);
         commitsTables.updateOldCommitsTable(eagleFile);
         commitsTables.resetNewCommitsTable();
         sheetsAndDiffImage.reset();

@@ -35,7 +35,7 @@ import javax.swing.SpinnerNumberModel;
  * @author Andreas Giemza
  */
 public class PreferencesPanel extends javax.swing.JPanel {
-
+    
     private final JDialog jDialog;
     private final Options options;
 
@@ -47,13 +47,13 @@ public class PreferencesPanel extends javax.swing.JPanel {
      */
     public PreferencesPanel(JDialog jDialog, Options options) {
         initComponents();
-
+        
         this.jDialog = jDialog;
         this.options = options;
-
+        
         loadOptions();
     }
-
+    
     private void loadOptions() {
         eagleBinaryTextField.setText(options.getPropEagleBinary());
         eagleSchematicBackgroundTextField.setText(options.getPropSchematicBackground());
@@ -69,8 +69,9 @@ public class PreferencesPanel extends javax.swing.JPanel {
         diffImageRemovedElementPanel.setBackground(Color.decode(options.getPropRemovedElementColor()));
         diffImageUndefinedTextField.setText(options.getPropUndefinedColor());
         diffImageUndefinedPanel.setBackground(Color.decode(options.getPropUndefinedColor()));
+        gitFollowCheckBox.setSelected(options.getPropFollowGitAsBoolean());
     }
-
+    
     private void close() {
         jDialog.dispose();
         jDialog.setVisible(false);
@@ -117,6 +118,8 @@ public class PreferencesPanel extends javax.swing.JPanel {
         diffImageUndefinedPanel = new javax.swing.JPanel();
         diffImageUndefinedButton = new javax.swing.JButton();
         diffImageSchematicDpiLabel = new javax.swing.JLabel();
+        gitPanel = new javax.swing.JPanel();
+        gitFollowCheckBox = new javax.swing.JCheckBox();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -399,6 +402,21 @@ public class PreferencesPanel extends javax.swing.JPanel {
                     .addComponent(diffImageUndefinedButton)))
         );
 
+        gitPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Git"));
+
+        gitFollowCheckBox.setText("Continue listing the history of a file beyond renames.");
+
+        javax.swing.GroupLayout gitPanelLayout = new javax.swing.GroupLayout(gitPanel);
+        gitPanel.setLayout(gitPanelLayout);
+        gitPanelLayout.setHorizontalGroup(
+            gitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gitFollowCheckBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        gitPanelLayout.setVerticalGroup(
+            gitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gitFollowCheckBox)
+        );
+
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,16 +435,17 @@ public class PreferencesPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(eaglePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(diffImagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eaglePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -437,6 +456,8 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(diffImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(saveButton))
@@ -446,10 +467,10 @@ public class PreferencesPanel extends javax.swing.JPanel {
 
     private void eagleBinaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eagleBinaryButtonActionPerformed
         int returnVal = eagleBinaryFileChooser.showOpenDialog(this);
-
+        
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File eagleBinary = eagleBinaryFileChooser.getSelectedFile();
-
+            
             if (eagleBinary.exists()) {
                 eagleBinaryTextField.setText(eagleBinaryFileChooser.getSelectedFile().toString());
             }
@@ -461,7 +482,7 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 = JColorChooser.showDialog(this,
                         "Choose color for added elements ...",
                         Color.decode(diffImageAddedElementTextField.getText()));
-
+        
         if (color != null) {
             diffImageAddedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
             diffImageAddedElementPanel.setBackground(color);
@@ -473,7 +494,7 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 this,
                 "Choose color for undedined ...",
                 Color.decode(diffImageUndefinedTextField.getText()));
-
+        
         if (color != null) {
             diffImageUndefinedTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
             diffImageUndefinedPanel.setBackground(color);
@@ -485,7 +506,7 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 this,
                 "Choose color for removed elements ...",
                 Color.decode(diffImageRemovedElementTextField.getText()));
-
+        
         if (color != null) {
             diffImageRemovedElementTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
             diffImageRemovedElementPanel.setBackground(color);
@@ -502,8 +523,9 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 diffImageUnchangedAlphaSpinner.getValue().toString(),
                 diffImageAddedElementTextField.getText(),
                 diffImageRemovedElementTextField.getText(),
-                diffImageUndefinedTextField.getText());
-
+                diffImageUndefinedTextField.getText(),
+                gitFollowCheckBox.isSelected());
+        
         close();
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -516,7 +538,7 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 = JColorChooser.showDialog(this,
                         "Choose color for schematic background ...",
                         Color.decode(eagleSchematicBackgroundTextField.getText()));
-
+        
         if (color != null) {
             eagleSchematicBackgroundTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
             eagleSchematicBackgroundPanel.setBackground(color);
@@ -528,7 +550,7 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 = JColorChooser.showDialog(this,
                         "Choose color for board background ...",
                         Color.decode(eagleBoardBackgroundTextField.getText()));
-
+        
         if (color != null) {
             eagleBoardBackgroundTextField.setText("#" + Integer.toHexString(color.getRGB()).substring(2, 8));
             eagleBoardBackgroundPanel.setBackground(color);
@@ -569,6 +591,8 @@ public class PreferencesPanel extends javax.swing.JPanel {
     private javax.swing.JLabel eagleSchematicBackgroundLabel;
     private javax.swing.JPanel eagleSchematicBackgroundPanel;
     private javax.swing.JTextField eagleSchematicBackgroundTextField;
+    private javax.swing.JCheckBox gitFollowCheckBox;
+    private javax.swing.JPanel gitPanel;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
 }
