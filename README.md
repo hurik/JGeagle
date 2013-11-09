@@ -3,7 +3,7 @@
 ## Information
 If you are working on an [CadSoft EAGLE](http://www.cadsoftusa.com/eagle-pcb-design-software/) project with a team and you are tracking your progress with [Git](http://git-scm.com/), this little program can help you to see what your team has changed. It makes an diff image which shows the changes on the schematics and boards between the commits.
 
-You can test it with the [testrepo](https://github.com/hurik/visual-diffs-for-eagle-and-git_testrepo).
+You can test it with the [testrepo](https://github.com/hurik/JGeagle-testrepo).
 
 
 ## Notes
@@ -20,6 +20,7 @@ Download: [Latest version](http://www.andreasgiemza.de/wp-content/uploads/2013/1
 
 
 ## Example image
+
 **Description**
 * Brightened elements were not changed
 * Red elements were deleted
@@ -34,6 +35,7 @@ Download: [Latest version](http://www.andreasgiemza.de/wp-content/uploads/2013/1
 
 
 ## Program screen shots
+
 ### JGeagle
 ![JGeagle](https://raw.github.com/hurik/JGeagle/master/images/jgeagle.png)
 
