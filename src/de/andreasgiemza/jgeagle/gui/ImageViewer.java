@@ -24,9 +24,9 @@
 package de.andreasgiemza.jgeagle.gui;
 
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
-import de.andreasgiemza.jgeagle.gui.imageviewer.HandScrollListener;
-import de.andreasgiemza.jgeagle.gui.imageviewer.ImageViewerPanel;
-import de.andreasgiemza.jgeagle.gui.imageviewer.MouseZoomListener;
+import de.andreasgiemza.jgeagle.panels.imageviewer.HandScrollListener;
+import de.andreasgiemza.jgeagle.panels.ImageViewerPanel;
+import de.andreasgiemza.jgeagle.panels.imageviewer.MouseZoomListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;

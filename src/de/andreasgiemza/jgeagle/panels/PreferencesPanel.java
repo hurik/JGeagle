@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.options;
+package de.andreasgiemza.jgeagle.panels;
 
+import de.andreasgiemza.jgeagle.options.Options;
 import java.awt.Color;
 import java.io.File;
 import javax.swing.JColorChooser;

@@ -21,12 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.gui.imageviewer;
+package de.andreasgiemza.jgeagle.panels.imageviewer;
 
+import de.andreasgiemza.jgeagle.panels.ImageViewerPanel;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.JComponent;
 import javax.swing.JViewport;
 
@@ -34,25 +35,39 @@ import javax.swing.JViewport;
  *
  * @author Andreas Giemza
  *
- * Based on http://stackoverflow.com/a/13344337/2246865 by aterai
+ * Based on http://stackoverflow.com/a/14085161/2246865 by Absolom
  */
-public class HandScrollListener extends MouseAdapter {
+public class MouseZoomListener implements MouseWheelListener {
 
-    private final Point pp = new Point();
+    private final ImageViewerPanel ivp;
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        JViewport vport = (JViewport) e.getSource();
-        JComponent comp = (JComponent) vport.getView();
-        Point cp = e.getPoint();
-        Point vp = vport.getViewPosition();
-        vp.translate(pp.x - cp.x, pp.y - cp.y);
-        comp.scrollRectToVisible(new Rectangle(vp, vport.getSize()));
-        pp.setLocation(cp);
+    public MouseZoomListener(ImageViewerPanel Imadsfsdfsdfge) {
+        this.ivp = Imadsfsdfsdfge;
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        pp.setLocation(e.getPoint());
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        JViewport vport = (JViewport) e.getSource();
+        JComponent comp = (JComponent) vport.getView();
+
+        Point mp = e.getPoint();
+        Point vp = vport.getViewPosition();
+        Point newVP;
+
+        if (e.getWheelRotation() < 0) {
+            ivp.setScale(ivp.getScale() * 1.1);
+
+            newVP = new Point(
+                    (int) ((mp.x + vp.x) * 1.1) - mp.x,
+                    (int) ((mp.y + vp.y) * 1.1) - mp.y);
+        } else {
+            ivp.setScale(ivp.getScale() * 0.9);
+
+            newVP = new Point(
+                    (int) ((mp.x + vp.x) * 0.9) - mp.x,
+                    (int) ((mp.y + vp.y) * 0.9) - mp.y);
+        }
+
+        comp.scrollRectToVisible(new Rectangle(newVP, vport.getSize()));
     }
 }

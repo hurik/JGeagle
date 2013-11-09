@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.andreasgiemza.jgeagle.gui.imageviewer;
+package de.andreasgiemza.jgeagle.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;

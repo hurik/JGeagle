@@ -23,22 +23,17 @@
  */
 package de.andreasgiemza.jgeagle.options;
 
-import de.andreasgiemza.jgeagle.JGeagle;
-import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -92,13 +87,8 @@ public class Options {
 
     public void cleanTempDir() {
         try {
-            Files.walkFileTree(tempDir, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes bfa) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
+            FileUtils.deleteDirectory(tempDir.toFile());
+            Files.createDirectories(tempDir);
         } catch (IOException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,17 +108,6 @@ public class Options {
 
     public Properties getProperties() {
         return properties;
-    }
-
-    public void showPreferencesPanel(JGeagle jGeagle) {
-        JDialog dialog = new JDialog(jGeagle, "Preferences", true);
-        dialog.getContentPane().add(new PreferencesPanel(dialog, this));
-        dialog.pack();
-        dialog.setLocation(
-                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
-                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
-        dialog.setResizable(false);
-        dialog.setVisible(true);
     }
 
     // Properties getter  
@@ -171,13 +150,13 @@ public class Options {
     public String getPropUndefinedColor() {
         return properties.getProperty(UNDEFINED_COLOR);
     }
-    
+
     public Boolean getPropFollowGitAsBoolean() {
         return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
     }
 
     // Save options
-    void save(
+    public void save(
             String eagleBinary,
             String schematicBackground,
             String boardBackground,

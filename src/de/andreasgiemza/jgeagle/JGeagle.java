@@ -28,12 +28,13 @@ import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
 import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
+import de.andreasgiemza.jgeagle.panels.AboutPanel;
 import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
 import de.andreasgiemza.jgeagle.panels.DeleteImagesPanel;
+import de.andreasgiemza.jgeagle.panels.PreferencesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -102,14 +103,6 @@ public class JGeagle extends javax.swing.JFrame {
         }
     }
 
-    private void openWebsite(String site) {
-        try {
-            java.awt.Desktop.getDesktop().browse(URI.create(site));
-        } catch (IOException ex) {
-            Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,16 +140,13 @@ public class JGeagle extends javax.swing.JFrame {
         optionsMenu = new javax.swing.JMenu();
         preferencesMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        websiteMenuItem = new javax.swing.JMenuItem();
-        githubMenuItem = new javax.swing.JMenuItem();
-        helpSeparator = new javax.swing.JPopupMenu.Separator();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         repositoryFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JGeagle");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/resources/jgeagle.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/gui/icons/jgeagle.png")));
 
         eagleFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Files"));
 
@@ -264,6 +254,8 @@ public class JGeagle extends javax.swing.JFrame {
 
         repositoryMenu.setText("Repository");
 
+        repositoryMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        repositoryMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/open.png"))); // NOI18N
         repositoryMenuItem.setText("Open");
         repositoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +268,8 @@ public class JGeagle extends javax.swing.JFrame {
 
         toolsMenu.setText("Tools");
 
+        createImagesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        createImagesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/createimages.png"))); // NOI18N
         createImagesMenuItem.setText("Create images");
         createImagesMenuItem.setEnabled(false);
         createImagesMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +279,8 @@ public class JGeagle extends javax.swing.JFrame {
         });
         toolsMenu.add(createImagesMenuItem);
 
+        deleteImagesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        deleteImagesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/deleteimages.png"))); // NOI18N
         deleteImagesMenuItem.setText("Delete images");
         deleteImagesMenuItem.setEnabled(false);
         deleteImagesMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -298,6 +294,8 @@ public class JGeagle extends javax.swing.JFrame {
 
         optionsMenu.setText("Options");
 
+        preferencesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        preferencesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/preferences.png"))); // NOI18N
         preferencesMenuItem.setText("Preferences");
         preferencesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,23 +308,8 @@ public class JGeagle extends javax.swing.JFrame {
 
         helpMenu.setText("Help");
 
-        websiteMenuItem.setText("Website (German)");
-        websiteMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                websiteMenuItemActionPerformed(evt);
-            }
-        });
-        helpMenu.add(websiteMenuItem);
-
-        githubMenuItem.setText("GitHub (English)");
-        githubMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                githubMenuItemActionPerformed(evt);
-            }
-        });
-        helpMenu.add(githubMenuItem);
-        helpMenu.add(helpSeparator);
-
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/about.png"))); // NOI18N
         aboutMenuItem.setText("About");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,14 +377,6 @@ public class JGeagle extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_diffImageButtonActionPerformed
 
-    private void websiteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_websiteMenuItemActionPerformed
-        openWebsite("http://www.andreasgiemza.de/jgeagle/");
-    }//GEN-LAST:event_websiteMenuItemActionPerformed
-
-    private void githubMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_githubMenuItemActionPerformed
-        openWebsite("https://github.com/hurik/JGeagle");
-    }//GEN-LAST:event_githubMenuItemActionPerformed
-
     private void repositoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repositoryMenuItemActionPerformed
         int returnVal = repositoryFileChooser.showOpenDialog(this);
 
@@ -423,11 +398,25 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_repositoryMenuItemActionPerformed
 
     private void preferencesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMenuItemActionPerformed
-        options.showPreferencesPanel(this);
+        JDialog dialog = new JDialog(this, "Preferences", true);
+        dialog.getContentPane().add(new PreferencesPanel(dialog, options));
+        dialog.pack();
+        dialog.setLocation(
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setResizable(false);
+        dialog.setVisible(true);
     }//GEN-LAST:event_preferencesMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        // TODO add your handling code here:
+        JDialog dialog = new JDialog(this, "About", true);
+        dialog.getContentPane().add(new AboutPanel());
+        dialog.pack();
+        dialog.setLocation(
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - (dialog.getWidth() / 2)).intValue(),
+                new Double((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (dialog.getHeight() / 2)).intValue());
+        dialog.setResizable(false);
+        dialog.setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     private void createImagesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createImagesMenuItemActionPerformed
@@ -494,9 +483,7 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JTree eagleFilesJTree;
     private javax.swing.JPanel eagleFilesPanel;
     private javax.swing.JScrollPane eagleFilesScrollPane;
-    private javax.swing.JMenuItem githubMenuItem;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JPopupMenu.Separator helpSeparator;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel newCommitsPanel;
     private javax.swing.JScrollPane newCommitsScrollPane;
@@ -514,6 +501,5 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JPanel sheetPanel;
     private javax.swing.JMenu toolsMenu;
     private javax.swing.JPanel variousPanel;
-    private javax.swing.JMenuItem websiteMenuItem;
     // End of variables declaration//GEN-END:variables
 }

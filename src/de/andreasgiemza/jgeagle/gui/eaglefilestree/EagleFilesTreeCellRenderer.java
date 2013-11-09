@@ -43,10 +43,10 @@ public class EagleFilesTreeCellRenderer extends DefaultTreeCellRenderer {
     public EagleFilesTreeCellRenderer() {
         schematicIcon = new ImageIcon(Toolkit.getDefaultToolkit()
                 .getImage(getClass().getClassLoader()
-                        .getResource("de/andreasgiemza/jgeagle/resources/schematic.png")));
+                        .getResource("de/andreasgiemza/jgeagle/gui/eaglefilestree/icons/schematic.png")));
         boardIcon = new ImageIcon(Toolkit.getDefaultToolkit()
                 .getImage(getClass().getClassLoader()
-                        .getResource("de/andreasgiemza/jgeagle/resources/board.png")));
+                        .getResource("de/andreasgiemza/jgeagle/gui/eaglefilestree/icons/board.png")));
     }
 
     @Override

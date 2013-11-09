@@ -23,6 +23,7 @@
  */
 package de.andreasgiemza.jgeagle.repo;
 
+import de.andreasgiemza.jgeagle.repo.data.GetRepoFiles;
 import de.andreasgiemza.jgeagle.helper.DiffImage;
 import de.andreasgiemza.jgeagle.helper.Eagle;
 import de.andreasgiemza.jgeagle.options.Options;
