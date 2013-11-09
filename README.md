@@ -5,8 +5,19 @@ If you are working on an [CadSoft EAGLE](http://www.cadsoftusa.com/eagle-pcb-des
 
 You can test it with the [testrepo](https://github.com/hurik/visual-diffs-for-eagle-and-git_testrepo).
 
+
+## Notes
+# Git repo must be in a directory! This will be the repo name!
+# Renames only working when commited. Can't get this working [http://stackoverflow.com/a/17302068/2246865](http://stackoverflow.com/a/17302068/2246865)!
+
+
+## Download
+Download: [Latest version](http://www.andreasgiemza.de/wp-content/uploads/2013/11/jgeagle.zip)
+
+
 ## Requirements
 * Java 7
+
 
 ## Example image
 **Description**
