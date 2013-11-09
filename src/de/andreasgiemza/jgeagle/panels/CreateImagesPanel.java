@@ -231,6 +231,8 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                     }
                 }
             }
+            
+            updateGui();
         }
 
         private void updateGui() {
