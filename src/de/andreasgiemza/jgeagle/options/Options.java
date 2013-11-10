@@ -52,8 +52,9 @@ public class Options {
     public final static String SCHEMATIC_BACKGROUND = "schematicBackground";
     public final static String BOARD_BACKGROUND = "boardBackground";
     public final static String SCHEMATIC_DPI = "schematicDPI";
+    public final static String UNCHANGED_SCHEMATIC_ALPHA = "unchangedSchematicAlpha";
     public final static String BOARD_DPI = "boardDPI";
-    public final static String UNCHANGED_ALPHA = "unchangedAlpha";
+    public final static String UNCHANGED_BOARD_ALPHA = "unchangedBoardAlpha";
     public final static String ADDED_ELEMENTS_COLOR = "addedElementsColor";
     public final static String REMOVED_ELEMENT_COLOR = "removedElementsColor";
     public final static String UNDEFINED_COLOR = "undefinedColor";
@@ -134,12 +135,24 @@ public class Options {
         return Integer.parseInt(properties.getProperty(SCHEMATIC_DPI));
     }
 
+    public double getPropUnchangedSchematicAlphaAsDouble() {
+        if (properties.getProperty(UNCHANGED_SCHEMATIC_ALPHA) != null) {
+            return Double.parseDouble(properties.getProperty(UNCHANGED_SCHEMATIC_ALPHA));
+        } else {
+            return 0.3;
+        }
+    }
+
     public int getPropBoardDpiAsInt() {
         return Integer.parseInt(properties.getProperty(BOARD_DPI));
     }
 
-    public double getPropUnchangedAlphaAsDouble() {
-        return Double.parseDouble(properties.getProperty(UNCHANGED_ALPHA));
+    public double getPropUnchangedBoardAlphaAsDouble() {
+        if (properties.getProperty(UNCHANGED_BOARD_ALPHA) != null) {
+            return Double.parseDouble(properties.getProperty(UNCHANGED_BOARD_ALPHA));
+        } else {
+            return 0.2;
+        }
     }
 
     public String getPropAddedElementColor() {
@@ -155,7 +168,11 @@ public class Options {
     }
 
     public String getPropPresetRepo() {
-        return properties.getProperty(PRESET_REPO);
+        if (properties.getProperty(PRESET_REPO) != null) {
+            return properties.getProperty(PRESET_REPO);
+        } else {
+            return "";
+        }
     }
 
     public Boolean getPropFollowGitAsBoolean() {
@@ -168,8 +185,9 @@ public class Options {
             String schematicBackground,
             String boardBackground,
             String schematicDpi,
+            String unchangedSchematicAlpha,
             String boardDpi,
-            String unchangedAlpha,
+            String unchangedBoardAlpha,
             String addedElementColor,
             String removedElementColor,
             String undefinedColor,
@@ -179,8 +197,9 @@ public class Options {
         properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
         properties.setProperty(BOARD_BACKGROUND, boardBackground);
         properties.setProperty(SCHEMATIC_DPI, schematicDpi);
+        properties.setProperty(UNCHANGED_SCHEMATIC_ALPHA, unchangedSchematicAlpha);
         properties.setProperty(BOARD_DPI, boardDpi);
-        properties.setProperty(UNCHANGED_ALPHA, unchangedAlpha);
+        properties.setProperty(UNCHANGED_BOARD_ALPHA, unchangedBoardAlpha);
         properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
         properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
         properties.setProperty(UNDEFINED_COLOR, undefinedColor);

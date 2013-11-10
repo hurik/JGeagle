@@ -191,7 +191,7 @@ public class Repo {
                 oldCommit,
                 newCommit,
                 "-DPI_" + options.getPropBoardDpiAsInt() + "-ALPHA_"
-                + options.getPropUnchangedAlphaAsDouble() + ".png");
+                + options.getPropUnchangedBoardAlphaAsDouble() + ".png");
 
         if (!Files.exists(diffImageFile)
                 && Files.exists(oldImageFile)
@@ -202,7 +202,7 @@ public class Repo {
                         newImageFile,
                         diffImageFile,
                         options.getPropBoardBackground(),
-                        options.getPropUnchangedAlphaAsDouble(),
+                        options.getPropUnchangedBoardAlphaAsDouble(),
                         options.getPropAddedElementColor(),
                         options.getPropRemovedElementColor(),
                         options.getPropUndefinedColor());
@@ -271,7 +271,7 @@ public class Repo {
                 oldCommit,
                 newCommit,
                 "-SHEET_" + sheet + "-DPI_" + options.getPropSchematicDpiAsInt()
-                + "-ALPHA_" + options.getPropUnchangedAlphaAsDouble() + ".png");
+                + "-ALPHA_" + options.getPropUnchangedSchematicAlphaAsDouble() + ".png");
 
         if (!Files.exists(diffImageFile)
                 && Files.exists(oldImageFile)
@@ -282,7 +282,7 @@ public class Repo {
                         newImageFile,
                         diffImageFile,
                         options.getPropSchematicBackground(),
-                        options.getPropUnchangedAlphaAsDouble(),
+                        options.getPropUnchangedSchematicAlphaAsDouble(),
                         options.getPropAddedElementColor(),
                         options.getPropRemovedElementColor(),
                         options.getPropUndefinedColor());

@@ -83,28 +83,24 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="eagleBinaryLabel" min="-2" pref="107" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="eagleBinaryTextField" max="32767" attributes="0"/>
+                      <Component id="eagleBinaryLabel" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="eagleSchematicBackgroundLabel" pref="133" max="32767" attributes="0"/>
+                          <Component id="eagleBoardBackgroundLabel" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="eagleBoardBackgroundLabel" max="32767" attributes="0"/>
-                              <Component id="eagleSchematicBackgroundLabel" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="eagleBinaryTextField" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="eagleSchematicBackgroundTextField" max="32767" attributes="0"/>
+                              <Component id="eagleBoardBackgroundTextField" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="eagleSchematicBackgroundTextField" pref="365" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="eagleSchematicBackgroundPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="eagleBoardBackgroundTextField" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="eagleBoardBackgroundPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="eagleBoardBackgroundPanel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="eagleSchematicBackgroundPanel" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -265,9 +261,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="diffImageRemovedElementLabel" pref="107" max="32767" attributes="0"/>
+                      <Component id="diffImageRemovedElementLabel" max="32767" attributes="0"/>
                       <Component id="diffImageAddedElementLabel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="diffImageUnchangedAlphaLabel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="diffImageUnchangedBoardAlphaLabel" alignment="0" pref="133" max="32767" attributes="0"/>
                       <Component id="diffImageBoardDpiLabel" max="32767" attributes="0"/>
                       <Component id="diffImageUndefinedLabel" max="32767" attributes="0"/>
                   </Group>
@@ -275,9 +271,9 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="diffImageAddedElementTextField" max="32767" attributes="0"/>
-                              <Component id="diffImageRemovedElementTextField" max="32767" attributes="0"/>
+                              <Component id="diffImageRemovedElementTextField" pref="339" max="32767" attributes="0"/>
                               <Component id="diffImageUndefinedTextField" alignment="1" max="32767" attributes="0"/>
+                              <Component id="diffImageAddedElementTextField" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -292,14 +288,20 @@
                               <Component id="diffImageUndefinedButton" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="diffImageUnchangedAlphaSpinner" alignment="1" max="32767" attributes="0"/>
+                      <Component id="diffImageUnchangedBoardAlphaSpinner" alignment="1" max="32767" attributes="0"/>
                       <Component id="diffImageBoardDpiSpinner" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="diffImageSchematicDpiLabel" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="diffImageSchematicDpiSpinner" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="diffImageUnchangedSchematicAlphaLabel" max="32767" attributes="0"/>
+                      <Component id="diffImageSchematicDpiLabel" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="diffImageSchematicDpiSpinner" max="32767" attributes="0"/>
+                      <Component id="diffImageUnchangedSchematicAlphaSpinner" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -312,13 +314,18 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="diffImageUnchangedSchematicAlphaSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageUnchangedSchematicAlphaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="diffImageBoardDpiSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="diffImageBoardDpiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="diffImageUnchangedAlphaSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="diffImageUnchangedAlphaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageUnchangedBoardAlphaSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diffImageUnchangedBoardAlphaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -354,7 +361,21 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="diffImageSchematicDpiLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Schematic DPI"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JSpinner" name="diffImageSchematicDpiSpinner">
+        </Component>
+        <Component class="javax.swing.JLabel" name="diffImageUnchangedSchematicAlphaLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Unchanged schematic alpha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="diffImageUnchangedSchematicAlphaSpinner">
         </Component>
         <Component class="javax.swing.JLabel" name="diffImageBoardDpiLabel">
           <Properties>
@@ -364,13 +385,13 @@
         </Component>
         <Component class="javax.swing.JSpinner" name="diffImageBoardDpiSpinner">
         </Component>
-        <Component class="javax.swing.JLabel" name="diffImageUnchangedAlphaLabel">
+        <Component class="javax.swing.JLabel" name="diffImageUnchangedBoardAlphaLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Unchanged alpha"/>
+            <Property name="text" type="java.lang.String" value="Unchanged board alpha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="diffImageUnchangedAlphaSpinner">
+        <Component class="javax.swing.JSpinner" name="diffImageUnchangedBoardAlphaSpinner">
         </Component>
         <Component class="javax.swing.JLabel" name="diffImageAddedElementLabel">
           <Properties>
@@ -494,12 +515,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageUndefinedButtonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="diffImageSchematicDpiLabel">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Schematic DPI"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

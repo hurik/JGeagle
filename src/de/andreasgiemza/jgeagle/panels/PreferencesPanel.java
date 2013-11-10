@@ -68,17 +68,16 @@ public class PreferencesPanel extends javax.swing.JPanel {
         eagleBoardBackgroundTextField.setText(options.getPropBoardBackground());
         eagleBoardBackgroundPanel.setBackground(Color.decode(options.getPropBoardBackground()));
         diffImageSchematicDpiSpinner.setModel(new SpinnerNumberModel(options.getPropSchematicDpiAsInt(), 50, 600, 50));
+        diffImageUnchangedSchematicAlphaSpinner.setModel(new SpinnerNumberModel(options.getPropUnchangedSchematicAlphaAsDouble(), 0, 1, 0.01));
         diffImageBoardDpiSpinner.setModel(new SpinnerNumberModel(options.getPropBoardDpiAsInt(), 50, 600, 50));
-        diffImageUnchangedAlphaSpinner.setModel(new SpinnerNumberModel(options.getPropUnchangedAlphaAsDouble(), 0, 1, 0.01));
+        diffImageUnchangedBoardAlphaSpinner.setModel(new SpinnerNumberModel(options.getPropUnchangedBoardAlphaAsDouble(), 0, 1, 0.01));
         diffImageAddedElementTextField.setText(options.getPropAddedElementColor());
         diffImageAddedElementPanel.setBackground(Color.decode(options.getPropAddedElementColor()));
         diffImageRemovedElementTextField.setText(options.getPropRemovedElementColor());
         diffImageRemovedElementPanel.setBackground(Color.decode(options.getPropRemovedElementColor()));
         diffImageUndefinedTextField.setText(options.getPropUndefinedColor());
         diffImageUndefinedPanel.setBackground(Color.decode(options.getPropUndefinedColor()));
-        if (options.getPropPresetRepo() != null) {
-            presetRepoTextField.setText(options.getPropPresetRepo());
-        }
+        presetRepoTextField.setText(options.getPropPresetRepo());
         gitFollowCheckBox.setSelected(options.getPropFollowGitAsBoolean());
     }
 
@@ -111,11 +110,14 @@ public class PreferencesPanel extends javax.swing.JPanel {
         eagleBoardBackgroundPanel = new javax.swing.JPanel();
         eagleBoardBackgroundButton = new javax.swing.JButton();
         diffImagePanel = new javax.swing.JPanel();
+        diffImageSchematicDpiLabel = new javax.swing.JLabel();
         diffImageSchematicDpiSpinner = new javax.swing.JSpinner();
+        diffImageUnchangedSchematicAlphaLabel = new javax.swing.JLabel();
+        diffImageUnchangedSchematicAlphaSpinner = new javax.swing.JSpinner();
         diffImageBoardDpiLabel = new javax.swing.JLabel();
         diffImageBoardDpiSpinner = new javax.swing.JSpinner();
-        diffImageUnchangedAlphaLabel = new javax.swing.JLabel();
-        diffImageUnchangedAlphaSpinner = new javax.swing.JSpinner();
+        diffImageUnchangedBoardAlphaLabel = new javax.swing.JLabel();
+        diffImageUnchangedBoardAlphaSpinner = new javax.swing.JSpinner();
         diffImageAddedElementLabel = new javax.swing.JLabel();
         diffImageAddedElementTextField = new javax.swing.JTextField();
         diffImageAddedElementPanel = new javax.swing.JPanel();
@@ -128,7 +130,6 @@ public class PreferencesPanel extends javax.swing.JPanel {
         diffImageUndefinedTextField = new javax.swing.JTextField();
         diffImageUndefinedPanel = new javax.swing.JPanel();
         diffImageUndefinedButton = new javax.swing.JButton();
-        diffImageSchematicDpiLabel = new javax.swing.JLabel();
         presetRepoPanel = new javax.swing.JPanel();
         presetRepoTextField = new javax.swing.JTextField();
         presetRepoButton = new javax.swing.JButton();
@@ -212,24 +213,21 @@ public class PreferencesPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eaglePanelLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eaglePanelLayout.createSequentialGroup()
-                        .addComponent(eagleBinaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eagleBinaryTextField))
+                    .addComponent(eagleBinaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(eagleSchematicBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                        .addComponent(eagleBoardBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eagleBinaryTextField)
                     .addGroup(eaglePanelLayout.createSequentialGroup()
-                        .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(eagleBoardBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(eagleSchematicBackgroundLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(eagleSchematicBackgroundTextField)
+                            .addComponent(eagleBoardBackgroundTextField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(eaglePanelLayout.createSequentialGroup()
-                                .addComponent(eagleSchematicBackgroundTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eagleSchematicBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(eaglePanelLayout.createSequentialGroup()
-                                .addComponent(eagleBoardBackgroundTextField)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eagleBoardBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(eagleBoardBackgroundPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eagleSchematicBackgroundPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(eaglePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(eagleBoardBackgroundButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -261,11 +259,17 @@ public class PreferencesPanel extends javax.swing.JPanel {
 
         diffImagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image"));
 
+        diffImageSchematicDpiLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageSchematicDpiLabel.setText("Schematic DPI");
+
+        diffImageUnchangedSchematicAlphaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageUnchangedSchematicAlphaLabel.setText("Unchanged schematic alpha");
+
         diffImageBoardDpiLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         diffImageBoardDpiLabel.setText("Board DPI");
 
-        diffImageUnchangedAlphaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        diffImageUnchangedAlphaLabel.setText("Unchanged alpha");
+        diffImageUnchangedBoardAlphaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        diffImageUnchangedBoardAlphaLabel.setText("Unchanged board alpha");
 
         diffImageAddedElementLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         diffImageAddedElementLabel.setText("Added elements");
@@ -342,27 +346,24 @@ public class PreferencesPanel extends javax.swing.JPanel {
             }
         });
 
-        diffImageSchematicDpiLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        diffImageSchematicDpiLabel.setText("Schematic DPI");
-
         javax.swing.GroupLayout diffImagePanelLayout = new javax.swing.GroupLayout(diffImagePanel);
         diffImagePanel.setLayout(diffImagePanelLayout);
         diffImagePanelLayout.setHorizontalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(diffImagePanelLayout.createSequentialGroup()
                 .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(diffImageRemovedElementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(diffImageRemovedElementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(diffImageAddedElementLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(diffImageUnchangedAlphaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImageUnchangedBoardAlphaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addComponent(diffImageBoardDpiLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(diffImageUndefinedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(4, 4, 4)
                 .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(diffImagePanelLayout.createSequentialGroup()
                         .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(diffImageAddedElementTextField)
-                            .addComponent(diffImageRemovedElementTextField)
-                            .addComponent(diffImageUndefinedTextField, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(diffImageRemovedElementTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                            .addComponent(diffImageUndefinedTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(diffImageAddedElementTextField, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(diffImageRemovedElementPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,12 +374,16 @@ public class PreferencesPanel extends javax.swing.JPanel {
                             .addComponent(diffImageAddedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(diffImageRemovedElementButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(diffImageUndefinedButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(diffImageUnchangedAlphaSpinner)
+                    .addComponent(diffImageUnchangedBoardAlphaSpinner)
                     .addComponent(diffImageBoardDpiSpinner, javax.swing.GroupLayout.Alignment.LEADING)))
             .addGroup(diffImagePanelLayout.createSequentialGroup()
-                .addComponent(diffImageSchematicDpiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(diffImageUnchangedSchematicAlphaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImageSchematicDpiLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(diffImageSchematicDpiSpinner))
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(diffImageSchematicDpiSpinner)
+                    .addComponent(diffImageUnchangedSchematicAlphaSpinner)))
         );
         diffImagePanelLayout.setVerticalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,12 +393,16 @@ public class PreferencesPanel extends javax.swing.JPanel {
                     .addComponent(diffImageSchematicDpiLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(diffImageUnchangedSchematicAlphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageUnchangedSchematicAlphaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diffImageBoardDpiSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(diffImageBoardDpiLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(diffImageUnchangedAlphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(diffImageUnchangedAlphaLabel))
+                    .addComponent(diffImageUnchangedBoardAlphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diffImageUnchangedBoardAlphaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -570,8 +579,9 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 eagleSchematicBackgroundTextField.getText(),
                 eagleBoardBackgroundTextField.getText(),
                 diffImageSchematicDpiSpinner.getValue().toString(),
+                diffImageUnchangedSchematicAlphaSpinner.getValue().toString(),
                 diffImageBoardDpiSpinner.getValue().toString(),
-                diffImageUnchangedAlphaSpinner.getValue().toString(),
+                diffImageUnchangedBoardAlphaSpinner.getValue().toString(),
                 diffImageAddedElementTextField.getText(),
                 diffImageRemovedElementTextField.getText(),
                 diffImageUndefinedTextField.getText(),
@@ -648,8 +658,10 @@ public class PreferencesPanel extends javax.swing.JPanel {
     private javax.swing.JTextField diffImageRemovedElementTextField;
     private javax.swing.JLabel diffImageSchematicDpiLabel;
     private javax.swing.JSpinner diffImageSchematicDpiSpinner;
-    private javax.swing.JLabel diffImageUnchangedAlphaLabel;
-    private javax.swing.JSpinner diffImageUnchangedAlphaSpinner;
+    private javax.swing.JLabel diffImageUnchangedBoardAlphaLabel;
+    private javax.swing.JSpinner diffImageUnchangedBoardAlphaSpinner;
+    private javax.swing.JLabel diffImageUnchangedSchematicAlphaLabel;
+    private javax.swing.JSpinner diffImageUnchangedSchematicAlphaSpinner;
     private javax.swing.JButton diffImageUndefinedButton;
     private javax.swing.JLabel diffImageUndefinedLabel;
     private javax.swing.JPanel diffImageUndefinedPanel;
