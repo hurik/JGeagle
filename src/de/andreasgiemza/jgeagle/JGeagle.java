@@ -269,7 +269,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         toolsMenu.setText("Tools");
 
-        createImagesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        createImagesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         createImagesMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/createimages.png"))); // NOI18N
         createImagesMenuItem.setText("Create images");
         createImagesMenuItem.setEnabled(false);
@@ -309,7 +309,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         helpMenu.setText("Help");
 
-        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/andreasgiemza/jgeagle/gui/icons/about.png"))); // NOI18N
         aboutMenuItem.setText("About");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
