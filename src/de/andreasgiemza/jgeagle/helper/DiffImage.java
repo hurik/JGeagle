@@ -78,16 +78,15 @@ public class DiffImage {
                 maxWidth, maxHeight, BufferedImage.TYPE_INT_RGB);
 
         Color background = Color.decode(backgroundColorHex);
+        
         int backgroundColor = background.getRGB();
         int addedElementColor = Color.decode(addedElementColorHex).getRGB();
         int removedElementColor = Color.decode(removedElementColorHex).getRGB();
         int undefinedColor = Color.decode(undefinedColorHex).getRGB();
 
-        for (int x = minWidth; x < maxWidth; x++) {
-            for (int y = minHeight; y < maxHeight; y++) {
-                diffImageData.setRGB(x, y, backgroundColor);
-            }
-        }
+        int precalculatedBackgroundRed = (int) ((1 - alpha) * background.getRed());
+        int precalculatedBackgroundGreen = (int) ((1 - alpha) * background.getGreen());
+        int precalculatedBackgroundBlue = (int) ((1 - alpha) * background.getBlue());
 
         for (int x = 0; x < minWidth; x++) {
             for (int y = 0; y < minHeight; y++) {
@@ -95,11 +94,11 @@ public class DiffImage {
                     Color color = new Color(oldImage.getRGB(x, y));
 
                     int red = (int) ((color.getRed() * alpha)
-                            + (int) ((1 - alpha) * background.getRed()));
+                            + precalculatedBackgroundRed);
                     int green = (int) ((color.getGreen() * alpha)
-                            + (int) ((1 - alpha) * background.getGreen()));
+                            + precalculatedBackgroundGreen);
                     int blue = (int) ((color.getBlue() * alpha)
-                            + (int) ((1 - alpha) * background.getBlue()));
+                            + precalculatedBackgroundBlue);
 
                     diffImageData.setRGB(
                             x, y,
