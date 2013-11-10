@@ -155,6 +155,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+        filetypeComboBox.setEnabled(false);
         createButton.setEnabled(false);
         cancelButton.setEnabled(true);
 
@@ -278,6 +279,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         }
 
         private void updateGui() {
+            filetypeComboBox.setEnabled(true);
             createButton.setEnabled(true);
             cancelButton.setEnabled(false);
         }
