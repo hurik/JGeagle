@@ -74,14 +74,14 @@ public class ImageViewerPanel extends JPanel {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("JGeagle - " + eagleFile.getRepoFile() + sheet);
         jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("de/andreasgiemza/jgeagle/gui/icons/jgeagle.png")));
-        
+
         Color background;
         if (eagleFile.getFileExtension().equals(EagleFile.SCH)) {
             background = Color.decode(options.getPropSchematicBackground());
         } else {
             background = Color.decode(options.getPropBoardBackground());
         }
-        
+
         ImageViewerPanel ivp = new ImageViewerPanel(
                 background,
                 diffImageFile);

@@ -142,7 +142,6 @@ public class DeleteImagesPanel extends javax.swing.JPanel {
         updateSize();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel descriptionLabel;

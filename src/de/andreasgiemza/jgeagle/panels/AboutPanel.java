@@ -165,7 +165,6 @@ public class AboutPanel extends javax.swing.JPanel {
         openWebsite("https://github.com/hurik/JGeagle");
     }//GEN-LAST:event_githubClickableLabelMouseClicked
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel copyrightLabel;
     private javax.swing.JLabel emailClickableLabel;

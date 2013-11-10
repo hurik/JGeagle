@@ -78,7 +78,7 @@ public class DiffImage {
                 maxWidth, maxHeight, BufferedImage.TYPE_INT_RGB);
 
         Color background = Color.decode(backgroundColorHex);
-        
+
         int backgroundColor = background.getRGB();
         int addedElementColor = Color.decode(addedElementColorHex).getRGB();
         int removedElementColor = Color.decode(removedElementColorHex).getRGB();

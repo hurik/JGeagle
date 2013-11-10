@@ -170,7 +170,6 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         interrupted = true;
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JProgressBar commitsProgressBar;
