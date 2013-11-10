@@ -53,9 +53,15 @@ public class Repo {
 
     public Repo(Options options, Path directory)
             throws IOException, GitAPIException {
-        jGit = new JGit(directory);
-        repoName = directory.getName(directory.getNameCount() - 1).toString();
-        Files.walkFileTree(directory, new GetRepoFiles(directory, eagleFiles));
+        Path gitDirectory = directory.resolve(".git");
+
+        if (Files.exists(gitDirectory)) {
+            jGit = new JGit(gitDirectory);
+            repoName = directory.getName(directory.getNameCount() - 1).toString();
+            Files.walkFileTree(directory, new GetRepoFiles(directory, eagleFiles));
+        } else {
+            throw new IOException();
+        }
     }
 
     public String getRepoName() {

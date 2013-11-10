@@ -39,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
 
@@ -386,14 +387,18 @@ public class JGeagle extends javax.swing.JFrame {
 
             try {
                 repo = new Repo(options, repositoryFileChooser.getSelectedFile().toPath());
-
-                eagleFilesTree.buildAndDisplayTree(repo);
-
-                createImagesMenuItem.setEnabled(true);
-                deleteImagesMenuItem.setEnabled(true);
             } catch (IOException | GitAPIException ex) {
-                Logger.getLogger(JGeagle.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this,
+                        "Please select a valid git repository!",
+                        "Not a valid git repository!",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            eagleFilesTree.buildAndDisplayTree(repo);
+
+            createImagesMenuItem.setEnabled(true);
+            deleteImagesMenuItem.setEnabled(true);
         }
     }//GEN-LAST:event_repositoryMenuItemActionPerformed
 

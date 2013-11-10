@@ -57,7 +57,7 @@ public class JGit {
      * @throws GitAPIException
      */
     public JGit(Path directory) throws IOException, GitAPIException {
-        repository = new FileRepository(directory.resolve(".git").toFile());
+        repository = new FileRepository(directory.toFile());
         git = new Git(repository);
     }
 
