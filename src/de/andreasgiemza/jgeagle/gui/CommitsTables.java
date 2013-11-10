@@ -101,7 +101,7 @@ public class CommitsTables {
     public void updateNewCommitsTable(EagleFile eagleFile, RevCommit oldCommit) {
         newCommitsTable.setModel(new NewCommitsTableModel(eagleFile, oldCommit));
         newCommitsTable.getColumnModel().getColumn(0).setCellRenderer(dateCellRenderer);
-        oldCommitsTable.getColumnModel().getColumn(2).setCellRenderer(messageCellRenderer);
+        newCommitsTable.getColumnModel().getColumn(2).setCellRenderer(messageCellRenderer);
         newCommitsTableAdjuster.adjustColumn(0);
         newCommitsTableAdjuster.adjustColumn(1);
     }
