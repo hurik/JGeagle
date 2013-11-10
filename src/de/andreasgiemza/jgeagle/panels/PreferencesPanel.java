@@ -519,6 +519,11 @@ public class PreferencesPanel extends javax.swing.JPanel {
 
             if (eagleBinary.exists()) {
                 eagleBinaryTextField.setText(eagleBinaryFileChooser.getSelectedFile().toString());
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Please select a valid eagle binary!",
+                        "Eagle binary doesn't exist!",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_eagleBinaryButtonActionPerformed
