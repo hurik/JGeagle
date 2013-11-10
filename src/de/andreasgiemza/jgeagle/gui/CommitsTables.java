@@ -29,7 +29,8 @@ import de.andreasgiemza.jgeagle.gui.commitstables.NewCommitsTableModel;
 import de.andreasgiemza.jgeagle.gui.commitstables.NewCommitsSelectionListener;
 import de.andreasgiemza.jgeagle.JGeagle;
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
-import de.andreasgiemza.jgeagle.gui.commitstables.CommitsTableCellRenderer;
+import de.andreasgiemza.jgeagle.gui.commitstables.DateCellRenderer;
+import de.andreasgiemza.jgeagle.gui.commitstables.MessageCellRenderer;
 import de.andreasgiemza.jgeagle.gui.commitstables.TableColumnAdjuster;
 import javax.swing.JTable;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -45,8 +46,10 @@ public class CommitsTables {
     private final TableColumnAdjuster oldCommitsTableAdjuster;
     private final JTable newCommitsTable;
     private final TableColumnAdjuster newCommitsTableAdjuster;
-    private final CommitsTableCellRenderer commitsTableCellRenderer
-            = new CommitsTableCellRenderer();
+    private final DateCellRenderer dateCellRenderer
+            = new DateCellRenderer();
+    private final MessageCellRenderer messageCellRenderer
+            = new MessageCellRenderer();
 
     public CommitsTables(
             JGeagle jGeagle,
@@ -89,14 +92,16 @@ public class CommitsTables {
 
     public void updateOldCommitsTable(EagleFile eagleFile) {
         oldCommitsTable.setModel(new OldCommitsTableModel(eagleFile));
-        oldCommitsTable.getColumnModel().getColumn(0).setCellRenderer(commitsTableCellRenderer);
+        oldCommitsTable.getColumnModel().getColumn(0).setCellRenderer(dateCellRenderer);
+        oldCommitsTable.getColumnModel().getColumn(2).setCellRenderer(messageCellRenderer);
         oldCommitsTableAdjuster.adjustColumn(0);
         oldCommitsTableAdjuster.adjustColumn(1);
     }
 
     public void updateNewCommitsTable(EagleFile eagleFile, RevCommit oldCommit) {
         newCommitsTable.setModel(new NewCommitsTableModel(eagleFile, oldCommit));
-        newCommitsTable.getColumnModel().getColumn(0).setCellRenderer(commitsTableCellRenderer);
+        newCommitsTable.getColumnModel().getColumn(0).setCellRenderer(dateCellRenderer);
+        oldCommitsTable.getColumnModel().getColumn(2).setCellRenderer(messageCellRenderer);
         newCommitsTableAdjuster.adjustColumn(0);
         newCommitsTableAdjuster.adjustColumn(1);
     }

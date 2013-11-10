@@ -33,27 +33,24 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Andreas Giemza
  */
-public class CommitsTableCellRenderer extends DefaultTableCellRenderer {
+public class DateCellRenderer extends DefaultTableCellRenderer {
 
     private final SimpleDateFormat f
             = new SimpleDateFormat("dd.MM.yy' - 'hh:mm:ss");
 
-    public CommitsTableCellRenderer() {
+    public DateCellRenderer() {
         super();
     }
 
     @Override
-    public Component getTableCellRendererComponent(
-            JTable jtable,
-            Object o,
-            boolean bln,
-            boolean bln1,
-            int i,
-            int i1) {
-        if (o instanceof Date) {
-            o = f.format(o);
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+        if (value instanceof Date) {
+            value = f.format(value);
         }
-        return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+
+        return super.getTableCellRendererComponent(table, value, isSelected,
+                hasFocus, row, column);
     }
 
 }
