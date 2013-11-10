@@ -72,9 +72,10 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         sheetsProgressBar = new javax.swing.JProgressBar();
         cancelButton = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(320, 289));
+
         informationLabel.setForeground(new java.awt.Color(204, 0, 0));
-        informationLabel.setText("<html>\n<p><strong>ATTENTION:</strong></p>\n<p>This machine is not usable while performing this task, because the eagle window while constantly open and gets the focus.</p>\n</html>");
-        informationLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        informationLabel.setText("<html>\n<p><strong>ATTENTION:</strong></p>\n<p>This machine is not usable while performing this task, because the eagle window will constantly open and close while getting the focus.</p>\n</html>");
 
         filetypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All images", "Schematic images", "Board images" }));
 
@@ -109,7 +110,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         progressPanel.setLayout(progressPanelLayout);
         progressPanelLayout.setHorizontalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(filesProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+            .addComponent(filesProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(commitsProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sheetsProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,11 +134,11 @@ public class CreateImagesPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(progressPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(filetypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(filetypeComboBox, 0, 300, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(progressPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
