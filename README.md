@@ -21,6 +21,7 @@ Download: [Latest version](http://www.andreasgiemza.de/wp-content/uploads/2013/1
 * Renames only working when committed. Can't get this working [http://stackoverflow.com/a/17302068/2246865](http://stackoverflow.com/a/17302068/2246865)!
 * While counting sheets or exporting images, eagle opens for a second and closes right after it. Under Linux it sometimes takes some time until it closes. Don't know why ...
 * The JGeagle temp files are in HOME/.JGeagle/*
+* Board diff images are less useful, because with every commit the displayed layer are also saved. I need some method to get the layer count and switch through each layer to get useful images. Anybody an idea?
 
 
 ## Todo
