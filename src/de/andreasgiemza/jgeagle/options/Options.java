@@ -57,6 +57,7 @@ public class Options {
     public final static String ADDED_ELEMENTS_COLOR = "addedElementsColor";
     public final static String REMOVED_ELEMENT_COLOR = "removedElementsColor";
     public final static String UNDEFINED_COLOR = "undefinedColor";
+    public final static String PRESET_REPO = "presetRepo";
     public final static String FOLLOW_GIT = "followGit";
 
     public Options() {
@@ -153,6 +154,10 @@ public class Options {
         return properties.getProperty(UNDEFINED_COLOR);
     }
 
+    public String getPropPresetRepo() {
+        return properties.getProperty(PRESET_REPO);
+    }
+
     public Boolean getPropFollowGitAsBoolean() {
         return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
     }
@@ -168,6 +173,7 @@ public class Options {
             String addedElementColor,
             String removedElementColor,
             String undefinedColor,
+            String presetRepo,
             Boolean followGit) {
         properties.setProperty(EAGLE_BINARY, eagleBinary);
         properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
@@ -178,6 +184,7 @@ public class Options {
         properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
         properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
         properties.setProperty(UNDEFINED_COLOR, undefinedColor);
+        properties.setProperty(PRESET_REPO, presetRepo);
         properties.setProperty(FOLLOW_GIT, followGit.toString());
 
         try {

@@ -35,6 +35,8 @@ import de.andreasgiemza.jgeagle.panels.PreferencesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -72,6 +74,10 @@ public class JGeagle extends javax.swing.JFrame {
                 sheetComboBox,
                 sheetButton,
                 diffImageButton);
+
+        if (!"".equals(options.getPropPresetRepo())) {
+            openRepo(Paths.get(options.getPropPresetRepo()));
+        }
     }
 
     public void eagleFileSelected(EagleFile eagleFile) {
@@ -102,6 +108,26 @@ public class JGeagle extends javax.swing.JFrame {
         } else {
             sheetsAndDiffImage.schSelected(repo, eagleFile, oldCommit, newCommit);
         }
+    }
+
+    private void openRepo(Path directory) {
+        eagleFilesTree.reset();
+        commitsTables.reset();
+
+        try {
+            repo = new Repo(options, directory);
+        } catch (IOException | GitAPIException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please select a valid git repository!",
+                    "Not a valid git repository!",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        eagleFilesTree.buildAndDisplayTree(repo);
+
+        createImagesMenuItem.setEnabled(true);
+        deleteImagesMenuItem.setEnabled(true);
     }
 
     /**
@@ -382,23 +408,7 @@ public class JGeagle extends javax.swing.JFrame {
         int returnVal = repositoryFileChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            eagleFilesTree.reset();
-            commitsTables.reset();
-
-            try {
-                repo = new Repo(options, repositoryFileChooser.getSelectedFile().toPath());
-            } catch (IOException | GitAPIException ex) {
-                JOptionPane.showMessageDialog(this,
-                        "Please select a valid git repository!",
-                        "Not a valid git repository!",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            eagleFilesTree.buildAndDisplayTree(repo);
-
-            createImagesMenuItem.setEnabled(true);
-            deleteImagesMenuItem.setEnabled(true);
+            openRepo(repositoryFileChooser.getSelectedFile().toPath());
         }
     }//GEN-LAST:event_repositoryMenuItemActionPerformed
 

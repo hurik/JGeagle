@@ -53,10 +53,10 @@ public class Repo {
 
     public Repo(Options options, Path directory)
             throws IOException, GitAPIException {
-        Path gitDirectory = directory.resolve(".git");
+        Path repoDirectory = directory.resolve(".git");
 
-        if (Files.exists(gitDirectory)) {
-            jGit = new JGit(gitDirectory);
+        if (Files.exists(repoDirectory)) {
+            jGit = new JGit(repoDirectory);
             repoName = directory.getName(directory.getNameCount() - 1).toString();
             Files.walkFileTree(directory, new GetRepoFiles(directory, eagleFiles));
         } else {
