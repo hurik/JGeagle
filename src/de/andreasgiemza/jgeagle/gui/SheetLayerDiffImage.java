@@ -74,13 +74,13 @@ public class SheetLayerDiffImage {
             RevCommit oldCommit,
             RevCommit newCommit) {
         reset();
-        
+
         List<String> layers = repo.getSameLayers(options, repo, eagleFile, oldCommit, newCommit);
-        
+
         for (String layer : layers) {
             layerComboBox.addItem(layer);
         }
-        
+
         layerComboBox.setEnabled(true);
         diffImageButton.setEnabled(true);
     }
@@ -129,7 +129,7 @@ public class SheetLayerDiffImage {
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
             String layer = (String) layerComboBox.getSelectedItem();
-            
+
             diffImageFile = repo.getOrCreateBoardDiffImage(
                     options,
                     eagleFile,
@@ -146,7 +146,7 @@ public class SheetLayerDiffImage {
                     eagleFile,
                     oldCommit,
                     newCommit,
-                    sheet            );
+                    sheet);
 
             titleExtraText = " - Sheet " + sheet;
         }

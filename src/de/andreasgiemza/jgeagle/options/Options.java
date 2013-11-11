@@ -119,7 +119,11 @@ public class Options {
 
     // Properties getter  
     public String getPropEagleBinary() {
-        return properties.getProperty(EAGLE_BINARY);
+        if (properties.getProperty(EAGLE_BINARY) != null) {
+            return properties.getProperty(EAGLE_BINARY);
+        } else {
+            return "";
+        }
     }
 
     public Path getPropEagleBinaryAsPath() {
@@ -127,15 +131,27 @@ public class Options {
     }
 
     public String getPropSchematicBackground() {
-        return properties.getProperty(SCHEMATIC_BACKGROUND);
+        if (properties.getProperty(SCHEMATIC_BACKGROUND) != null) {
+            return properties.getProperty(SCHEMATIC_BACKGROUND);
+        } else {
+            return "#FFFFFF";
+        }
     }
 
     public String getPropBoardBackground() {
-        return properties.getProperty(BOARD_BACKGROUND);
+        if (properties.getProperty(BOARD_BACKGROUND) != null) {
+            return properties.getProperty(BOARD_BACKGROUND);
+        } else {
+            return "#000000";
+        }
     }
 
     public int getPropSchematicDpiAsInt() {
-        return Integer.parseInt(properties.getProperty(SCHEMATIC_DPI));
+        if (properties.getProperty(SCHEMATIC_DPI) != null) {
+            return Integer.parseInt(properties.getProperty(SCHEMATIC_DPI));
+        } else {
+            return 150;
+        }
     }
 
     public double getPropUnchangedSchematicAlphaAsDouble() {
@@ -147,7 +163,11 @@ public class Options {
     }
 
     public int getPropBoardDpiAsInt() {
-        return Integer.parseInt(properties.getProperty(BOARD_DPI));
+        if (properties.getProperty(BOARD_DPI) != null) {
+            return Integer.parseInt(properties.getProperty(BOARD_DPI));
+        } else {
+            return 300;
+        }
     }
 
     public double getPropUnchangedBoardAlphaAsDouble() {
@@ -159,15 +179,28 @@ public class Options {
     }
 
     public String getPropAddedElementColor() {
-        return properties.getProperty(ADDED_ELEMENTS_COLOR);
+        if (properties.getProperty(ADDED_ELEMENTS_COLOR) != null) {
+            return properties.getProperty(ADDED_ELEMENTS_COLOR);
+        } else {
+            return "#008000";
+        }
     }
 
     public String getPropRemovedElementColor() {
-        return properties.getProperty(REMOVED_ELEMENT_COLOR);
+
+        if (properties.getProperty(REMOVED_ELEMENT_COLOR) != null) {
+            return properties.getProperty(REMOVED_ELEMENT_COLOR);
+        } else {
+            return "#FF0000";
+        }
     }
 
     public String getPropUndefinedColor() {
-        return properties.getProperty(UNDEFINED_COLOR);
+        if (properties.getProperty(UNDEFINED_COLOR) != null) {
+            return properties.getProperty(UNDEFINED_COLOR);
+        } else {
+            return "#808080";
+        }
     }
 
     public String getPropPresetRepo() {
@@ -182,7 +215,7 @@ public class Options {
         if (properties.getProperty(LAYERS_TOP) != null) {
             return properties.getProperty(LAYERS_TOP);
         } else {
-            return "";
+            return "17 18 19 20 21 23 25 51";
         }
     }
 
@@ -190,7 +223,7 @@ public class Options {
         if (properties.getProperty(LAYERS_OTHER) != null) {
             return properties.getProperty(LAYERS_OTHER);
         } else {
-            return "";
+            return "17 18 19 20";
         }
     }
 
@@ -198,12 +231,16 @@ public class Options {
         if (properties.getProperty(LAYERS_BOTTOM) != null) {
             return properties.getProperty(LAYERS_BOTTOM);
         } else {
-            return "";
+            return "17 18 19 20 22 24 26 52";
         }
     }
 
     public Boolean getPropFollowGitAsBoolean() {
-        return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
+        if (properties.getProperty(FOLLOW_GIT) != null) {
+            return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
+        } else {
+            return true;
+        }
     }
 
     // Save options
@@ -224,7 +261,7 @@ public class Options {
             String presetRepo,
             Boolean followGit) {
         properties.clear();
-        
+
         properties.setProperty(EAGLE_BINARY, eagleBinary);
         properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
         properties.setProperty(BOARD_BACKGROUND, boardBackground);
