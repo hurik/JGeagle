@@ -75,7 +75,7 @@ public class SheetLayerDiffImage {
             RevCommit newCommit) {
         reset();
         
-        List<String> layers = repo.getLayers(options, repo, eagleFile, oldCommit, newCommit);
+        List<String> layers = repo.getSameLayers(options, repo, eagleFile, oldCommit, newCommit);
         
         for (String layer : layers) {
             layerComboBox.addItem(layer);

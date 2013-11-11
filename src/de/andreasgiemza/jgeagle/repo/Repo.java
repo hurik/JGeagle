@@ -388,20 +388,20 @@ public class Repo {
         return path;
     }
 
-    public List<String> getLayers(Options options, Repo repo, EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
+    public List<String> getSameLayers(Options options, Repo repo, EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
         Path oldLayersFile = buildPath(options, oldCommit, eagleFile, "-LAYERS.txt");
         if (!Files.exists(oldLayersFile)) {
             createLayersFile(options, eagleFile, oldCommit, "old.brd");
         }
 
-        List<String> oldLayers = Arrays.asList(getLayers(options, oldCommit, eagleFile).split(";"));
+        List<String> oldLayers = getLayers(options, oldCommit, eagleFile);
 
         Path newLayersFile = buildPath(options, newCommit, eagleFile, "-LAYERS.txt");
         if (!Files.exists(newLayersFile)) {
             createLayersFile(options, eagleFile, newCommit, "new.brd");
         }
 
-        List<String> newLayers = Arrays.asList(getLayers(options, newCommit, eagleFile).split(";"));
+        List<String> newLayers = getLayers(options, newCommit, eagleFile);
 
         List<String> layers = new LinkedList<>();
 
@@ -414,19 +414,19 @@ public class Repo {
         return layers;
     }
 
-    public String getLayers(Options options, RevCommit revCommit, EagleFile eagleFile) {
+    public List<String> getLayers(Options options, RevCommit revCommit, EagleFile eagleFile) {
         Path countFile = buildPath(options, revCommit, eagleFile, "-LAYERS.txt");
 
         if (Files.exists(countFile)) {
             try {
-                return Files.readAllLines(
+                return Arrays.asList(Files.readAllLines(
                         countFile,
-                        Charset.defaultCharset()).get(0);
+                        Charset.defaultCharset()).get(0).split(";"));
             } catch (IOException ex) {
-                return "";
+                return new LinkedList<>();
             }
         } else {
-            return "";
+            return new LinkedList<>();
         }
     }
 

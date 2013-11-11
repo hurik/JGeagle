@@ -223,6 +223,8 @@ public class Options {
             String layersBottom,
             String presetRepo,
             Boolean followGit) {
+        properties.clear();
+        
         properties.setProperty(EAGLE_BINARY, eagleBinary);
         properties.setProperty(SCHEMATIC_BACKGROUND, schematicBackground);
         properties.setProperty(BOARD_BACKGROUND, boardBackground);

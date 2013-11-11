@@ -26,6 +26,7 @@ package de.andreasgiemza.jgeagle.panels;
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.repo.Repo;
+import java.util.List;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 /**
@@ -252,7 +253,23 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                     options.cleanTempDir();
 
                     if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-                        //repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd");
+                        repo.createLayersFile(options, eagleFile, commit, "board.brd");
+
+                        List<String> layers = repo.getLayers(options, commit, eagleFile);
+                        sheetsProgressBar.setMinimum(0);
+                        sheetsProgressBar.setMaximum(layers.size());
+
+                        for (String layer : layers) {
+                            if (interrupted) {
+                                updateGui();
+                                return;
+                            }
+
+                            sheetsProgressBar.setString(layers.indexOf(layer) + 1 + " of " + layers.size() + " layers");
+                            sheetsProgressBar.setValue(layers.indexOf(layer) + 1);
+
+                            repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd", layer);
+                        }
                     } else {
                         repo.createSheetCountFile(options, eagleFile, commit, "schematic.sch");
 
