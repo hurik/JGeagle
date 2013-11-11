@@ -58,6 +58,9 @@ public class Options {
     public final static String ADDED_ELEMENTS_COLOR = "addedElementsColor";
     public final static String REMOVED_ELEMENT_COLOR = "removedElementsColor";
     public final static String UNDEFINED_COLOR = "undefinedColor";
+    public final static String LAYERS_TOP = "layersTop";
+    public final static String LAYERS_OTHER = "layersOther";
+    public final static String LAYERS_BOTTOM = "layersBottom";
     public final static String PRESET_REPO = "presetRepo";
     public final static String FOLLOW_GIT = "followGit";
 
@@ -175,6 +178,30 @@ public class Options {
         }
     }
 
+    public String getPropLayersTop() {
+        if (properties.getProperty(LAYERS_TOP) != null) {
+            return properties.getProperty(LAYERS_TOP);
+        } else {
+            return "";
+        }
+    }
+
+    public String getPropLayersOther() {
+        if (properties.getProperty(LAYERS_OTHER) != null) {
+            return properties.getProperty(LAYERS_OTHER);
+        } else {
+            return "";
+        }
+    }
+
+    public String getPropLayersBottom() {
+        if (properties.getProperty(LAYERS_BOTTOM) != null) {
+            return properties.getProperty(LAYERS_BOTTOM);
+        } else {
+            return "";
+        }
+    }
+
     public Boolean getPropFollowGitAsBoolean() {
         return Boolean.parseBoolean(properties.getProperty(FOLLOW_GIT));
     }
@@ -191,6 +218,9 @@ public class Options {
             String addedElementColor,
             String removedElementColor,
             String undefinedColor,
+            String layersTop,
+            String layersOther,
+            String layersBottom,
             String presetRepo,
             Boolean followGit) {
         properties.setProperty(EAGLE_BINARY, eagleBinary);
@@ -203,6 +233,9 @@ public class Options {
         properties.setProperty(ADDED_ELEMENTS_COLOR, addedElementColor);
         properties.setProperty(REMOVED_ELEMENT_COLOR, removedElementColor);
         properties.setProperty(UNDEFINED_COLOR, undefinedColor);
+        properties.setProperty(LAYERS_TOP, layersTop);
+        properties.setProperty(LAYERS_OTHER, layersOther);
+        properties.setProperty(LAYERS_BOTTOM, layersBottom);
         properties.setProperty(PRESET_REPO, presetRepo);
         properties.setProperty(FOLLOW_GIT, followGit.toString());
 

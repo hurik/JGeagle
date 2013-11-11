@@ -77,6 +77,9 @@ public class PreferencesPanel extends javax.swing.JPanel {
         diffImageRemovedElementPanel.setBackground(Color.decode(options.getPropRemovedElementColor()));
         diffImageUndefinedTextField.setText(options.getPropUndefinedColor());
         diffImageUndefinedPanel.setBackground(Color.decode(options.getPropUndefinedColor()));
+        layersTopTextField.setText(options.getPropLayersTop());
+        layersOtherTextField.setText(options.getPropLayersOther());
+        layersBottomTextField.setText(options.getPropLayersBottom());
         presetRepoTextField.setText(options.getPropPresetRepo());
         gitFollowCheckBox.setSelected(options.getPropFollowGitAsBoolean());
     }
@@ -130,6 +133,13 @@ public class PreferencesPanel extends javax.swing.JPanel {
         diffImageUndefinedTextField = new javax.swing.JTextField();
         diffImageUndefinedPanel = new javax.swing.JPanel();
         diffImageUndefinedButton = new javax.swing.JButton();
+        layersPanel = new javax.swing.JPanel();
+        layersTopLabel = new javax.swing.JLabel();
+        layersTopTextField = new javax.swing.JTextField();
+        layersOtherLabel = new javax.swing.JLabel();
+        layersOtherTextField = new javax.swing.JTextField();
+        layersBottomLabel = new javax.swing.JLabel();
+        layersBottomTextField = new javax.swing.JTextField();
         presetRepoPanel = new javax.swing.JPanel();
         presetRepoTextField = new javax.swing.JTextField();
         presetRepoButton = new javax.swing.JButton();
@@ -427,6 +437,54 @@ public class PreferencesPanel extends javax.swing.JPanel {
                     .addComponent(diffImageUndefinedButton)))
         );
 
+        layersPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Layers"));
+
+        layersTopLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        layersTopLabel.setText("Top");
+
+        layersTopTextField.setText("17 18 19 20 21 23 25 51");
+
+        layersOtherLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        layersOtherLabel.setText("Other");
+
+        layersOtherTextField.setText("17 18 19 20");
+
+        layersBottomLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        layersBottomLabel.setText("Bottom");
+
+        layersBottomTextField.setText("17 18 19 20 22 24 26 52");
+
+        javax.swing.GroupLayout layersPanelLayout = new javax.swing.GroupLayout(layersPanel);
+        layersPanel.setLayout(layersPanelLayout);
+        layersPanelLayout.setHorizontalGroup(
+            layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layersPanelLayout.createSequentialGroup()
+                .addGroup(layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(layersTopLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(layersBottomLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(layersOtherLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(layersBottomTextField)
+                    .addComponent(layersOtherTextField)
+                    .addComponent(layersTopTextField)))
+        );
+        layersPanelLayout.setVerticalGroup(
+            layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layersPanelLayout.createSequentialGroup()
+                .addGroup(layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(layersTopTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(layersTopLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(layersOtherLabel)
+                    .addComponent(layersOtherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(layersBottomLabel)
+                    .addComponent(layersBottomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
         presetRepoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Preset repository"));
 
         presetRepoTextField.setEditable(false);
@@ -487,18 +545,19 @@ public class PreferencesPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eaglePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(diffImagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(layersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eaglePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(diffImagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(gitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(presetRepoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(gitPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(presetRepoPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -508,6 +567,8 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 .addComponent(eaglePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(diffImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(layersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(presetRepoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -585,6 +646,9 @@ public class PreferencesPanel extends javax.swing.JPanel {
                 diffImageAddedElementTextField.getText(),
                 diffImageRemovedElementTextField.getText(),
                 diffImageUndefinedTextField.getText(),
+                layersTopTextField.getText(),
+                layersOtherTextField.getText(),
+                layersBottomTextField.getText(),
                 presetRepoTextField.getText(),
                 gitFollowCheckBox.isSelected());
 
@@ -681,6 +745,13 @@ public class PreferencesPanel extends javax.swing.JPanel {
     private javax.swing.JTextField eagleSchematicBackgroundTextField;
     private javax.swing.JCheckBox gitFollowCheckBox;
     private javax.swing.JPanel gitPanel;
+    private javax.swing.JLabel layersBottomLabel;
+    private javax.swing.JTextField layersBottomTextField;
+    private javax.swing.JLabel layersOtherLabel;
+    private javax.swing.JTextField layersOtherTextField;
+    private javax.swing.JPanel layersPanel;
+    private javax.swing.JLabel layersTopLabel;
+    private javax.swing.JTextField layersTopTextField;
     private javax.swing.JButton presetRepoButton;
     private javax.swing.JPanel presetRepoPanel;
     private javax.swing.JTextField presetRepoTextField;

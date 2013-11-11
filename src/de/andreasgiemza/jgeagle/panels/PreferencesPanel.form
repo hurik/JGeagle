@@ -28,9 +28,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="layersPanel" max="32767" attributes="0"/>
                   <Component id="eaglePanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="diffImagePanel" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
@@ -53,6 +54,8 @@
               <Component id="eaglePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="diffImagePanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="layersPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="presetRepoPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -515,6 +518,90 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="diffImageUndefinedButtonActionPerformed"/>
           </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="layersPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Layers"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="layersTopLabel" alignment="0" pref="133" max="32767" attributes="0"/>
+                      <Component id="layersBottomLabel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="layersOtherLabel" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="layersBottomTextField" max="32767" attributes="0"/>
+                      <Component id="layersOtherTextField" max="32767" attributes="0"/>
+                      <Component id="layersTopTextField" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="layersTopTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="layersTopLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="layersOtherLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="layersOtherTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="layersBottomLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="layersBottomTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="layersTopLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Top"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="layersTopTextField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="17 18 19 20 21 23 25 51"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="layersOtherLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Other"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="layersOtherTextField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="17 18 19 20"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="layersBottomLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Bottom"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="layersBottomTextField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="17 18 19 20 22 24 26 52"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
