@@ -92,6 +92,7 @@ public class Eagle {
     /**
      *
      * @param eagleBinary
+     * @param layers
      * @param targetBoardImage
      * @param dpi
      * @param tempBoard
@@ -100,6 +101,7 @@ public class Eagle {
      */
     public static void extractBoardImage(
             Path eagleBinary,
+            String layers,
             Path targetBoardImage,
             int dpi,
             Path tempBoard)
@@ -110,8 +112,8 @@ public class Eagle {
 
         runComman(
                 eagleBinary,
-                "EXPORT IMAGE '" + targetBoardImage.toString() + "' "
-                + dpi + "; QUIT",
+                "display none " + layers + "; EXPORT IMAGE '"
+                + targetBoardImage.toString() + "' " + dpi + "; QUIT",
                 tempBoard);
     }
 

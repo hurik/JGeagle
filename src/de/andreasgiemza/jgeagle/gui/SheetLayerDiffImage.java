@@ -63,6 +63,8 @@ public class SheetLayerDiffImage {
         sheetComboBox.setEnabled(false);
         sheetComboBox.removeAllItems();
         sheetButton.setEnabled(false);
+        layerComboBox.removeAllItems();
+        layerComboBox.setEnabled(false);
         diffImageButton.setEnabled(false);
     }
 
@@ -71,7 +73,15 @@ public class SheetLayerDiffImage {
             EagleFile eagleFile,
             RevCommit oldCommit,
             RevCommit newCommit) {
+        reset();
+        
         List<String> layers = repo.getLayers(options, repo, eagleFile, oldCommit, newCommit);
+        
+        for (String layer : layers) {
+            layerComboBox.addItem(layer);
+        }
+        
+        layerComboBox.setEnabled(true);
         diffImageButton.setEnabled(true);
     }
 
@@ -118,13 +128,16 @@ public class SheetLayerDiffImage {
         String titleExtraText;
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
+            String layer = (String) layerComboBox.getSelectedItem();
+            
             diffImageFile = repo.getOrCreateBoardDiffImage(
                     options,
                     eagleFile,
                     oldCommit,
-                    newCommit);
+                    newCommit,
+                    layer);
 
-            titleExtraText = "";
+            titleExtraText = " - Layer " + layer;
         } else {
             int sheet = (int) sheetComboBox.getSelectedItem();
 
@@ -133,8 +146,7 @@ public class SheetLayerDiffImage {
                     eagleFile,
                     oldCommit,
                     newCommit,
-                    sheet
-            );
+                    sheet            );
 
             titleExtraText = " - Sheet " + sheet;
         }

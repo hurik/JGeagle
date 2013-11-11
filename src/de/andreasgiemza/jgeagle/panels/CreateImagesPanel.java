@@ -252,7 +252,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                     options.cleanTempDir();
 
                     if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-                        repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd");
+                        //repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd");
                     } else {
                         repo.createSheetCountFile(options, eagleFile, commit, "schematic.sch");
 

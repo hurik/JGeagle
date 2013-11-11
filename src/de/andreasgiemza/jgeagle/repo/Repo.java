@@ -189,17 +189,18 @@ public class Repo {
             Options options,
             EagleFile eagleFile,
             RevCommit oldCommit,
-            RevCommit newCommit) {
-        Path oldImageFile = getOrCreateBoardImage(options, oldCommit, eagleFile, "old.brd");
-        Path newImageFile = getOrCreateBoardImage(options, newCommit, eagleFile, "new.brd");
+            RevCommit newCommit,
+            String layer) {
+        Path oldImageFile = getOrCreateBoardImage(options, oldCommit, eagleFile, "old.brd", layer);
+        Path newImageFile = getOrCreateBoardImage(options, newCommit, eagleFile, "new.brd", layer);
 
         Path diffImageFile = buildDiffPath(
                 options,
                 eagleFile,
                 oldCommit,
                 newCommit,
-                "-DPI_" + options.getPropBoardDpiAsInt() + "-ALPHA_"
-                + options.getPropUnchangedBoardAlphaAsDouble() + ".png");
+                "-LAYER_" + layer + "-DPI_" + options.getPropBoardDpiAsInt()
+                + "-ALPHA_" + options.getPropUnchangedBoardAlphaAsDouble() + ".png");
 
         if (!Files.exists(diffImageFile)
                 && Files.exists(oldImageFile)
@@ -226,13 +227,15 @@ public class Repo {
             Options options,
             RevCommit revCommit,
             EagleFile eagleFile,
-            String tempFile) {
+            String tempFile,
+            String layer) {
         try {
             Path imageFile = buildPath(
                     options,
                     revCommit,
                     eagleFile,
-                    eagleFile.getFileName() + "-DPI_" + options.getPropBoardDpiAsInt() + ".png");
+                    eagleFile.getFileName() + "-LAYER_" + layer + "-DPI_"
+                    + options.getPropBoardDpiAsInt() + ".png");
 
             if (!Files.exists(imageFile)) {
                 Path boardFile;
@@ -251,8 +254,22 @@ public class Repo {
                             eagleFile.getRenames());
                 }
 
+                String allLayers;
+                switch (layer) {
+                    case "1":
+                        allLayers = layer + " " + options.getPropLayersTop();
+                        break;
+                    case "16":
+                        allLayers = layer + " " + options.getPropLayersBottom();
+                        break;
+                    default:
+                        allLayers = layer + " " + options.getPropLayersOther();
+                        break;
+                }
+
                 Eagle.extractBoardImage(
                         options.getPropEagleBinaryAsPath(),
+                        allLayers,
                         imageFile,
                         options.getPropBoardDpiAsInt(),
                         boardFile);
@@ -468,6 +485,10 @@ public class Repo {
 
                         layerString += layer.getAttribute("number");
                     }
+                }
+
+                if (!Files.exists(layersFile)) {
+                    Files.createDirectories(layersFile.getParent());
                 }
 
                 try (FileOutputStream fos = new FileOutputStream(layersFile.toFile())) {
