@@ -29,6 +29,7 @@ import de.andreasgiemza.jgeagle.panels.ImageViewerPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -37,21 +38,24 @@ import org.eclipse.jgit.revwalk.RevCommit;
  *
  * @author Andreas Giemza
  */
-public class SheetsAndDiffImage {
+public class SheetLayerDiffImage {
 
     private final Options options;
     private final JComboBox sheetComboBox;
     private final JButton sheetButton;
+    private final JComboBox layerComboBox;
     private final JButton diffImageButton;
 
-    public SheetsAndDiffImage(
+    public SheetLayerDiffImage(
             Options options,
             JComboBox sheetComboBox,
             JButton sheetButton,
+            JComboBox layerComboBox,
             JButton diffImageButton) {
         this.options = options;
         this.sheetComboBox = sheetComboBox;
         this.sheetButton = sheetButton;
+        this.layerComboBox = layerComboBox;
         this.diffImageButton = diffImageButton;
     }
 
@@ -62,7 +66,12 @@ public class SheetsAndDiffImage {
         diffImageButton.setEnabled(false);
     }
 
-    public void brdSelected() {
+    public void brdSelected(Options options,
+            Repo repo,
+            EagleFile eagleFile,
+            RevCommit oldCommit,
+            RevCommit newCommit) {
+        List<String> layers = repo.getLayers(options, repo, eagleFile, oldCommit, newCommit);
         diffImageButton.setEnabled(true);
     }
 

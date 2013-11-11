@@ -26,7 +26,7 @@ package de.andreasgiemza.jgeagle;
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.gui.EagleFilesTree;
 import de.andreasgiemza.jgeagle.gui.CommitsTables;
-import de.andreasgiemza.jgeagle.gui.SheetsAndDiffImage;
+import de.andreasgiemza.jgeagle.gui.SheetLayerDiffImage;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.panels.AboutPanel;
 import de.andreasgiemza.jgeagle.panels.CreateImagesPanel;
@@ -54,7 +54,7 @@ public class JGeagle extends javax.swing.JFrame {
     private final Options options;
     private final EagleFilesTree eagleFilesTree;
     private final CommitsTables commitsTables;
-    private final SheetsAndDiffImage sheetsAndDiffImage;
+    private final SheetLayerDiffImage sheetLayerDiffImage;
     private Repo repo;
 
     /**
@@ -69,10 +69,11 @@ public class JGeagle extends javax.swing.JFrame {
         options = new Options();
         eagleFilesTree = new EagleFilesTree(this, eagleFilesJTree);
         commitsTables = new CommitsTables(this, oldCommitsTable, newCommitsTable);
-        sheetsAndDiffImage = new SheetsAndDiffImage(
+        sheetLayerDiffImage = new SheetLayerDiffImage(
                 options,
                 sheetComboBox,
                 sheetButton,
+                layerComboBox,
                 diffImageButton);
 
         if (!"".equals(options.getPropPresetRepo())) {
@@ -89,12 +90,12 @@ public class JGeagle extends javax.swing.JFrame {
         repo.getEagleFileLogAndStatus(options, eagleFile);
         commitsTables.updateOldCommitsTable(eagleFile);
         commitsTables.resetNewCommitsTable();
-        sheetsAndDiffImage.reset();
+        sheetLayerDiffImage.reset();
     }
 
     public void oldCommitSelected(EagleFile eagleFile, RevCommit oldCommit) {
         commitsTables.updateNewCommitsTable(eagleFile, oldCommit);
-        sheetsAndDiffImage.reset();
+        sheetLayerDiffImage.reset();
     }
 
     public void newCommitSelected(
@@ -104,9 +105,9 @@ public class JGeagle extends javax.swing.JFrame {
         options.cleanTempDir();
 
         if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-            sheetsAndDiffImage.brdSelected();
+            sheetLayerDiffImage.brdSelected(options, repo, eagleFile, oldCommit, newCommit);
         } else {
-            sheetsAndDiffImage.schSelected(repo, eagleFile, oldCommit, newCommit);
+            sheetLayerDiffImage.schSelected(repo, eagleFile, oldCommit, newCommit);
         }
     }
 
@@ -156,6 +157,8 @@ public class JGeagle extends javax.swing.JFrame {
         sheetPanel = new javax.swing.JPanel();
         sheetButton = new javax.swing.JButton();
         sheetComboBox = new javax.swing.JComboBox();
+        layerPanel = new javax.swing.JPanel();
+        layerComboBox = new javax.swing.JComboBox();
         diffImagePanel = new javax.swing.JPanel();
         diffImageButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
@@ -237,7 +240,7 @@ public class JGeagle extends javax.swing.JFrame {
 
         commitsPanel.add(newCommitsPanel);
 
-        variousPanel.setLayout(new java.awt.GridLayout(1, 0));
+        variousPanel.setLayout(new java.awt.GridLayout());
 
         sheetPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sheet"));
         sheetPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -256,6 +259,14 @@ public class JGeagle extends javax.swing.JFrame {
 
         variousPanel.add(sheetPanel);
 
+        layerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Layer"));
+        layerPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+
+        layerComboBox.setEnabled(false);
+        layerPanel.add(layerComboBox);
+
+        variousPanel.add(layerPanel);
+
         diffImagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Diff image"));
 
         diffImageButton.setText("Make and/or show");
@@ -270,7 +281,7 @@ public class JGeagle extends javax.swing.JFrame {
         diffImagePanel.setLayout(diffImagePanelLayout);
         diffImagePanelLayout.setHorizontalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(diffImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+            .addComponent(diffImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
         );
         diffImagePanelLayout.setVerticalGroup(
             diffImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +378,7 @@ public class JGeagle extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(eagleFilesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(commitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addComponent(commitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(variousPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -385,7 +396,7 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_eagleFilesCollapseAllButtonActionPerformed
 
     private void sheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheetButtonActionPerformed
-        sheetsAndDiffImage.countSheets(
+        sheetLayerDiffImage.countSheets(
                 repo,
                 commitsTables.getEagleFile(),
                 commitsTables.getOldCommit(),
@@ -394,7 +405,7 @@ public class JGeagle extends javax.swing.JFrame {
 
     private void diffImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageButtonActionPerformed
         try {
-            sheetsAndDiffImage.createDiffImage(
+            sheetLayerDiffImage.createDiffImage(
                     repo,
                     commitsTables.getEagleFile(),
                     commitsTables.getOldCommit(),
@@ -499,6 +510,8 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JPanel eagleFilesPanel;
     private javax.swing.JScrollPane eagleFilesScrollPane;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JComboBox layerComboBox;
+    private javax.swing.JPanel layerPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel newCommitsPanel;
     private javax.swing.JScrollPane newCommitsScrollPane;

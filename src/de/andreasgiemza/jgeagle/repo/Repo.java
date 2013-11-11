@@ -29,17 +29,27 @@ import de.andreasgiemza.jgeagle.helper.Eagle;
 import de.andreasgiemza.jgeagle.options.Options;
 import de.andreasgiemza.jgeagle.repo.data.EagleFile;
 import de.andreasgiemza.jgeagle.repo.rcs.JGit;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -123,7 +133,7 @@ public class Repo {
     }
 
     public int getSheetCount(Options options, RevCommit revCommit, EagleFile eagleFile) {
-        Path countFile = buildPath(options, revCommit, eagleFile, ".txt");
+        Path countFile = buildPath(options, revCommit, eagleFile, "-SHEETCOUNT.txt");
 
         if (Files.exists(countFile)) {
             try {
@@ -144,10 +154,9 @@ public class Repo {
             EagleFile eagleFile,
             RevCommit revCommit,
             String fileName) {
-        Path countFile = buildPath(options, revCommit, eagleFile, ".txt");
+        Path countFile = buildPath(options, revCommit, eagleFile, "-SHEETCOUNT.txt");
 
         try {
-
             if (!Files.exists(countFile)) {
                 Path schematicFile;
 
@@ -171,7 +180,6 @@ public class Repo {
                         countFile,
                         schematicFile);
             }
-
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Repo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -362,4 +370,114 @@ public class Repo {
 
         return path;
     }
+
+    public List<String> getLayers(Options options, Repo repo, EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
+        Path oldLayersFile = buildPath(options, oldCommit, eagleFile, "-LAYERS.txt");
+        if (!Files.exists(oldLayersFile)) {
+            createLayersFile(options, eagleFile, oldCommit, "old.brd");
+        }
+
+        List<String> oldLayers = Arrays.asList(getLayers(options, oldCommit, eagleFile).split(";"));
+
+        Path newLayersFile = buildPath(options, newCommit, eagleFile, "-LAYERS.txt");
+        if (!Files.exists(newLayersFile)) {
+            createLayersFile(options, eagleFile, newCommit, "new.brd");
+        }
+
+        List<String> newLayers = Arrays.asList(getLayers(options, newCommit, eagleFile).split(";"));
+
+        List<String> layers = new LinkedList<>();
+
+        for (String layer : oldLayers) {
+            if (newLayers.contains(layer)) {
+                layers.add(layer);
+            }
+        }
+
+        return layers;
+    }
+
+    public String getLayers(Options options, RevCommit revCommit, EagleFile eagleFile) {
+        Path countFile = buildPath(options, revCommit, eagleFile, "-LAYERS.txt");
+
+        if (Files.exists(countFile)) {
+            try {
+                return Files.readAllLines(
+                        countFile,
+                        Charset.defaultCharset()).get(0);
+            } catch (IOException ex) {
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
+
+    public void createLayersFile(
+            Options options,
+            EagleFile eagleFile,
+            RevCommit revCommit,
+            String fileName) {
+        Path layersFile = buildPath(options, revCommit, eagleFile, "-LAYERS.txt");
+
+        try {
+            if (!Files.exists(layersFile)) {
+                Path boardFile;
+
+                if (revCommit != null) {
+                    boardFile = options.getTempDir().resolve(fileName);
+                } else {
+                    boardFile = eagleFile.getFile();
+                }
+
+                if (!Files.exists(boardFile)) {
+                    jGit.extractFile(
+                            boardFile,
+                            revCommit,
+                            eagleFile.getRepoFile(),
+                            eagleFile.getRenames());
+                }
+
+                try {
+                    Files.copy(
+                            options.getPropEagleBinaryAsPath().getParent().resolve("..").normalize().resolve("doc").resolve("eagle.dtd"),
+                            options.getTempDir().resolve("eagle.dtd"));
+                } catch (FileAlreadyExistsException ex) {
+                }
+
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document document = db.parse(boardFile.toFile());
+                document.getDocumentElement().normalize();
+
+                NodeList layers = document.getElementsByTagName("layer");
+
+                String layerString = "";
+                boolean first = true;
+
+                for (int i = 0; i < layers.getLength(); i++) {
+                    Element layer = (Element) layers.item(i);
+
+                    if (Integer.parseInt(layer.getAttribute("number")) <= 16
+                            && "yes".equals(layer.getAttribute("active"))) {
+                        if (first) {
+                            first = false;
+                        } else {
+                            layerString += ";";
+                        }
+
+                        layerString += layer.getAttribute("number");
+                    }
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(layersFile.toFile())) {
+                    fos.write(layerString.getBytes());
+                    fos.flush();
+                }
+            }
+        } catch (IOException | SAXException | ParserConfigurationException ex) {
+            Logger.getLogger(Repo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
