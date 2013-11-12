@@ -35,7 +35,6 @@ import de.andreasgiemza.jgeagle.panels.PreferencesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
@@ -175,7 +174,7 @@ public class JGeagle extends javax.swing.JFrame {
         repositoryFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("JGeagle");
+        setTitle("JGeagle v1.0.0");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("de/andreasgiemza/jgeagle/gui/icons/jgeagle.png")));
 
         eagleFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Files"));
