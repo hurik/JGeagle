@@ -74,7 +74,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         cancelButton = new javax.swing.JButton();
 
         informationLabel.setForeground(new java.awt.Color(204, 0, 0));
-        informationLabel.setText("<html>\n<p><strong>ATTENTION:</strong></p>\n<p>This machine is not usable while performing this task, because the eagle window will constantly open and close while getting the focus.</p>\n</html>");
+        informationLabel.setText("<html><table cols=1 width=300><td><strong>ATTENTION:</strong><br \\>This machine is not usable while performing this task, because the eagle window will constantly open and close while getting the focus.</td></table></html>");
 
         filetypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All images", "Schematic images", "Board images" }));
 
@@ -134,9 +134,9 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(progressPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(filetypeComboBox, 0, 300, Short.MAX_VALUE))
+                    .addComponent(filetypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(informationLabel))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
