@@ -27,13 +27,13 @@
                           <Component id="githubLabel" alignment="0" max="32767" attributes="0"/>
                           <Component id="emailLabel" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="emailClickableLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="websiteClickableLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="githubClickableLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -85,12 +85,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="emailLabel">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="emailClickableLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;a href=&quot;mailto:andreas@giemza.net&quot;&gt;andreas@giemza.net&lt;/a&gt;&lt;/html&gt;"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Handcursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="emailClickableLabelMouseClicked"/>
@@ -98,12 +102,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="websiteLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Website (German)"/>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Website"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="websiteClickableLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;a href=&quot;http://www.andreasgiemza.de/jgeagle/&quot;&gt;http://www.andreasgiemza.de/jgeagle/&lt;/a&gt;&lt;/html&gt;"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Handcursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="websiteClickableLabelMouseClicked"/>
@@ -111,12 +119,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="githubLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="GitHub (English)"/>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="GitHub"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="githubClickableLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;a href=&quot;https://github.com/hurik/JGeagle&quot;&gt;https://github.com/hurik/JGeagle&lt;/a&gt;&lt;/html&gt;"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Handcursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="githubClickableLabelMouseClicked"/>

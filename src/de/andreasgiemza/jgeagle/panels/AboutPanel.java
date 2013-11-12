@@ -77,27 +77,33 @@ public class AboutPanel extends javax.swing.JPanel {
         copyrightLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         copyrightLabel.setText("Copyright 2013 Andreas Giemza.");
 
+        emailLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         emailLabel.setText("Email");
 
         emailClickableLabel.setText("<html><a href=\"mailto:andreas@giemza.net\">andreas@giemza.net</a></html>");
+        emailClickableLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         emailClickableLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 emailClickableLabelMouseClicked(evt);
             }
         });
 
-        websiteLabel.setText("Website (German)");
+        websiteLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        websiteLabel.setText("Website");
 
         websiteClickableLabel.setText("<html><a href=\"http://www.andreasgiemza.de/jgeagle/\">http://www.andreasgiemza.de/jgeagle/</a></html>");
+        websiteClickableLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         websiteClickableLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 websiteClickableLabelMouseClicked(evt);
             }
         });
 
-        githubLabel.setText("GitHub (English)");
+        githubLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        githubLabel.setText("GitHub");
 
         githubClickableLabel.setText("<html><a href=\"https://github.com/hurik/JGeagle\">https://github.com/hurik/JGeagle</a></html>");
+        githubClickableLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         githubClickableLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 githubClickableLabelMouseClicked(evt);
@@ -118,12 +124,12 @@ public class AboutPanel extends javax.swing.JPanel {
                             .addComponent(websiteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(githubLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(emailClickableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(websiteClickableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(githubClickableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
