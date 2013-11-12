@@ -45,7 +45,6 @@ public class Options {
     private final Path tempDir = optionsDir.resolve("temp");
     private final Path reposDir = optionsDir.resolve("repos");
     private final Path optionsFile = optionsDir.resolve("JGeagle.properties");
-    private final Path countSheetsUlp = optionsDir.resolve("countSheets.ulp");
     private final Properties properties = new Properties();
     // Constants
     public final static String EAGLE_BINARY = "eagleBinary";
@@ -79,11 +78,6 @@ public class Options {
                 Files.copy(inputStream, optionsFile);
             }
 
-            if (!Files.exists(countSheetsUlp)) {
-                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("de/andreasgiemza/jgeagle/resources/countSheets.ulp");
-                Files.copy(inputStream, countSheetsUlp);
-            }
-
             properties.load(new FileInputStream(optionsFile.toFile()));
         } catch (IOException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,10 +101,6 @@ public class Options {
 
     public Path getReposDir() {
         return reposDir;
-    }
-
-    public Path getCountSheetsUlp() {
-        return countSheetsUlp;
     }
 
     public Properties getProperties() {

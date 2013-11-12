@@ -73,8 +73,6 @@ public class CreateImagesPanel extends javax.swing.JPanel {
         sheetsProgressBar = new javax.swing.JProgressBar();
         cancelButton = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(320, 289));
-
         informationLabel.setForeground(new java.awt.Color(204, 0, 0));
         informationLabel.setText("<html>\n<p><strong>ATTENTION:</strong></p>\n<p>This machine is not usable while performing this task, because the eagle window will constantly open and close while getting the focus.</p>\n</html>");
 
@@ -271,9 +269,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                             repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd", layer);
                         }
                     } else {
-                        repo.createSheetCountFile(options, eagleFile, commit, "schematic.sch");
-
-                        int sheetCount = repo.getSheetCount(options, commit, eagleFile);
+                        int sheetCount = repo.getSheetCount(options, commit, eagleFile, "schematic.sch");
                         sheetsProgressBar.setMinimum(0);
                         sheetsProgressBar.setMaximum(sheetCount);
 

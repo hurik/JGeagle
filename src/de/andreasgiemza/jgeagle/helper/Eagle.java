@@ -39,31 +39,6 @@ public class Eagle {
     /**
      *
      * @param eagleBinary
-     * @param countSheetsUlp
-     * @param targetSheetCount
-     * @param tempSchematic
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public static void countSheets(
-            Path eagleBinary,
-            Path countSheetsUlp,
-            Path targetSheetCount,
-            Path tempSchematic)
-            throws IOException, InterruptedException {
-        if (!Files.exists(targetSheetCount)) {
-            Files.createDirectories(targetSheetCount.getParent());
-        }
-
-        runComman(eagleBinary,
-                "RUN '" + countSheetsUlp.toString() + "' '"
-                + targetSheetCount.toString() + "'; QUIT",
-                tempSchematic);
-    }
-
-    /**
-     *
-     * @param eagleBinary
      * @param sheet
      * @param targetSheetImage
      * @param dpi

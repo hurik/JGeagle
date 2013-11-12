@@ -42,19 +42,16 @@ public class SheetLayerDiffImage {
 
     private final Options options;
     private final JComboBox sheetComboBox;
-    private final JButton sheetButton;
     private final JComboBox layerComboBox;
     private final JButton diffImageButton;
 
     public SheetLayerDiffImage(
             Options options,
             JComboBox sheetComboBox,
-            JButton sheetButton,
             JComboBox layerComboBox,
             JButton diffImageButton) {
         this.options = options;
         this.sheetComboBox = sheetComboBox;
-        this.sheetButton = sheetButton;
         this.layerComboBox = layerComboBox;
         this.diffImageButton = diffImageButton;
     }
@@ -62,9 +59,8 @@ public class SheetLayerDiffImage {
     public void reset() {
         sheetComboBox.setEnabled(false);
         sheetComboBox.removeAllItems();
-        sheetButton.setEnabled(false);
-        layerComboBox.removeAllItems();
         layerComboBox.setEnabled(false);
+        layerComboBox.removeAllItems();
         diffImageButton.setEnabled(false);
     }
 
@@ -92,30 +88,15 @@ public class SheetLayerDiffImage {
             RevCommit newCommit) {
         reset();
 
-        int oldCount = repo.getSheetCount(options, oldCommit, eagleFile);
-        int newCount = repo.getSheetCount(options, newCommit, eagleFile);
+        int oldCount = repo.getSheetCount(options, oldCommit, eagleFile, "old.sch");
+        int newCount = repo.getSheetCount(options, newCommit, eagleFile, "new.sch");
 
-        if (oldCount != 0 && newCount != 0) {
-            for (int i = 1; i <= Math.min(oldCount, newCount); i++) {
-                sheetComboBox.addItem(i);
-            }
-
-            sheetComboBox.setEnabled(true);
-            diffImageButton.setEnabled(true);
-        } else {
-            sheetButton.setEnabled(true);
+        for (int i = 1; i <= Math.min(oldCount, newCount); i++) {
+            sheetComboBox.addItem(i);
         }
-    }
 
-    public void countSheets(
-            Repo repo,
-            EagleFile eagleFile,
-            RevCommit oldCommit,
-            RevCommit newCommit) {
-        repo.createSheetCountFile(options, eagleFile, oldCommit, "old.sch");
-        repo.createSheetCountFile(options, eagleFile, newCommit, "new.sch");
-
-        schSelected(repo, eagleFile, oldCommit, newCommit);
+        sheetComboBox.setEnabled(true);
+        diffImageButton.setEnabled(true);
     }
 
     public void createDiffImage(

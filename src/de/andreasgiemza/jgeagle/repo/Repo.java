@@ -132,19 +132,19 @@ public class Repo {
         return path.resolve(eagleFile.getFileName() + fileExtension);
     }
 
-    public int getSheetCount(Options options, RevCommit revCommit, EagleFile eagleFile) {
+    public int getSheetCount(Options options, RevCommit revCommit, EagleFile eagleFile, String fileName) {
         Path countFile = buildPath(options, revCommit, eagleFile, "-SHEETCOUNT.txt");
 
-        if (Files.exists(countFile)) {
-            try {
-                return Integer.parseInt(
-                        Files.readAllLines(
-                                countFile,
-                                Charset.defaultCharset()).get(0));
-            } catch (IOException ex) {
-                return 0;
-            }
-        } else {
+        if (!Files.exists(countFile)) {
+            createSheetCountFile(options, eagleFile, revCommit, fileName);
+        }
+
+        try {
+            return Integer.parseInt(
+                    Files.readAllLines(
+                            countFile,
+                            Charset.defaultCharset()).get(0));
+        } catch (IOException ex) {
             return 0;
         }
     }
@@ -174,13 +174,32 @@ public class Repo {
                             eagleFile.getRenames());
                 }
 
-                Eagle.countSheets(
-                        options.getPropEagleBinaryAsPath(),
-                        options.getCountSheetsUlp(),
-                        countFile,
-                        schematicFile);
+                try {
+                    Files.copy(
+                            options.getPropEagleBinaryAsPath().getParent().resolve("..").normalize().resolve("doc").resolve("eagle.dtd"),
+                            options.getTempDir().resolve("eagle.dtd"));
+                } catch (FileAlreadyExistsException ex) {
+                }
+
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document document = db.parse(schematicFile.toFile());
+                document.getDocumentElement().normalize();
+
+                NodeList sheets = document.getElementsByTagName("sheet");
+
+                if (!Files.exists(countFile.getParent())) {
+                    Files.createDirectories(countFile.getParent());
+                }
+
+                String count = "" + sheets.getLength();
+
+                try (FileOutputStream fos = new FileOutputStream(countFile.toFile())) {
+                    fos.write(count.getBytes());
+                    fos.flush();
+                }
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException | SAXException | ParserConfigurationException ex) {
             Logger.getLogger(Repo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -487,7 +506,7 @@ public class Repo {
                     }
                 }
 
-                if (!Files.exists(layersFile)) {
+                if (!Files.exists(layersFile.getParent())) {
                     Files.createDirectories(layersFile.getParent());
                 }
 

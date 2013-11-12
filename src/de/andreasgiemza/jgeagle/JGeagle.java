@@ -72,7 +72,6 @@ public class JGeagle extends javax.swing.JFrame {
         sheetLayerDiffImage = new SheetLayerDiffImage(
                 options,
                 sheetComboBox,
-                sheetButton,
                 layerComboBox,
                 diffImageButton);
 
@@ -155,7 +154,6 @@ public class JGeagle extends javax.swing.JFrame {
         newCommitsTable = new javax.swing.JTable();
         variousPanel = new javax.swing.JPanel();
         sheetPanel = new javax.swing.JPanel();
-        sheetButton = new javax.swing.JButton();
         sheetComboBox = new javax.swing.JComboBox();
         layerPanel = new javax.swing.JPanel();
         layerComboBox = new javax.swing.JComboBox();
@@ -240,19 +238,10 @@ public class JGeagle extends javax.swing.JFrame {
 
         commitsPanel.add(newCommitsPanel);
 
-        variousPanel.setLayout(new java.awt.GridLayout());
+        variousPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         sheetPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sheet"));
         sheetPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
-
-        sheetButton.setText("Count");
-        sheetButton.setEnabled(false);
-        sheetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sheetButtonActionPerformed(evt);
-            }
-        });
-        sheetPanel.add(sheetButton);
 
         sheetComboBox.setEnabled(false);
         sheetPanel.add(sheetComboBox);
@@ -395,14 +384,6 @@ public class JGeagle extends javax.swing.JFrame {
         eagleFilesTree.collapseAll();
     }//GEN-LAST:event_eagleFilesCollapseAllButtonActionPerformed
 
-    private void sheetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sheetButtonActionPerformed
-        sheetLayerDiffImage.countSheets(
-                repo,
-                commitsTables.getEagleFile(),
-                commitsTables.getOldCommit(),
-                commitsTables.getNewCommit());
-    }//GEN-LAST:event_sheetButtonActionPerformed
-
     private void diffImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffImageButtonActionPerformed
         try {
             sheetLayerDiffImage.createDiffImage(
@@ -524,7 +505,6 @@ public class JGeagle extends javax.swing.JFrame {
     private javax.swing.JFileChooser repositoryFileChooser;
     private javax.swing.JMenu repositoryMenu;
     private javax.swing.JMenuItem repositoryMenuItem;
-    private javax.swing.JButton sheetButton;
     private javax.swing.JComboBox sheetComboBox;
     private javax.swing.JPanel sheetPanel;
     private javax.swing.JMenu toolsMenu;
