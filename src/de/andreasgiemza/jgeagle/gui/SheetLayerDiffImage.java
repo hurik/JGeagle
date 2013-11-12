@@ -71,10 +71,13 @@ public class SheetLayerDiffImage {
             RevCommit newCommit) {
         reset();
 
-        List<String> layers = repo.getSameLayers(options, repo, eagleFile, oldCommit, newCommit);
+        List<String> oldLayers = repo.getOrCreateLayersFile(options, oldCommit, eagleFile, "old.brd");
+        List<String> newLayers = repo.getOrCreateLayersFile(options, newCommit, eagleFile, "new.brd");
 
-        for (String layer : layers) {
-            layerComboBox.addItem(layer);
+        for (String layer : oldLayers) {
+            if (newLayers.contains(layer)) {
+                layerComboBox.addItem(layer);
+            }
         }
 
         layerComboBox.setEnabled(true);
@@ -88,8 +91,8 @@ public class SheetLayerDiffImage {
             RevCommit newCommit) {
         reset();
 
-        int oldCount = repo.getSheetCount(options, oldCommit, eagleFile, "old.sch");
-        int newCount = repo.getSheetCount(options, newCommit, eagleFile, "new.sch");
+        int oldCount = repo.getorCreateSheetCountFile(options, oldCommit, eagleFile, "old.sch");
+        int newCount = repo.getorCreateSheetCountFile(options, newCommit, eagleFile, "new.sch");
 
         for (int i = 1; i <= Math.min(oldCount, newCount); i++) {
             sheetComboBox.addItem(i);

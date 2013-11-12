@@ -132,7 +132,7 @@ public class Repo {
         return path.resolve(eagleFile.getFileName() + fileExtension);
     }
 
-    public int getSheetCount(Options options, RevCommit revCommit, EagleFile eagleFile, String fileName) {
+    public int getorCreateSheetCountFile(Options options, RevCommit revCommit, EagleFile eagleFile, String fileName) {
         Path countFile = buildPath(options, revCommit, eagleFile, "-SHEETCOUNT.txt");
 
         if (!Files.exists(countFile)) {
@@ -149,7 +149,7 @@ public class Repo {
         }
     }
 
-    public void createSheetCountFile(
+    private void createSheetCountFile(
             Options options,
             EagleFile eagleFile,
             RevCommit revCommit,
@@ -407,49 +407,23 @@ public class Repo {
         return path;
     }
 
-    public List<String> getSameLayers(Options options, Repo repo, EagleFile eagleFile, RevCommit oldCommit, RevCommit newCommit) {
-        Path oldLayersFile = buildPath(options, oldCommit, eagleFile, "-LAYERS.txt");
-        if (!Files.exists(oldLayersFile)) {
-            createLayersFile(options, eagleFile, oldCommit, "old.brd");
-        }
-
-        List<String> oldLayers = getLayers(options, oldCommit, eagleFile);
-
-        Path newLayersFile = buildPath(options, newCommit, eagleFile, "-LAYERS.txt");
-        if (!Files.exists(newLayersFile)) {
-            createLayersFile(options, eagleFile, newCommit, "new.brd");
-        }
-
-        List<String> newLayers = getLayers(options, newCommit, eagleFile);
-
-        List<String> layers = new LinkedList<>();
-
-        for (String layer : oldLayers) {
-            if (newLayers.contains(layer)) {
-                layers.add(layer);
-            }
-        }
-
-        return layers;
-    }
-
-    public List<String> getLayers(Options options, RevCommit revCommit, EagleFile eagleFile) {
+    public List<String> getOrCreateLayersFile(Options options, RevCommit revCommit, EagleFile eagleFile, String fileName) {
         Path countFile = buildPath(options, revCommit, eagleFile, "-LAYERS.txt");
 
-        if (Files.exists(countFile)) {
-            try {
-                return Arrays.asList(Files.readAllLines(
-                        countFile,
-                        Charset.defaultCharset()).get(0).split(";"));
-            } catch (IOException ex) {
-                return new LinkedList<>();
-            }
-        } else {
+        if (!Files.exists(countFile)) {
+            createLayersFile(options, eagleFile, revCommit, fileName);
+        }
+
+        try {
+            return Arrays.asList(Files.readAllLines(
+                    countFile,
+                    Charset.defaultCharset()).get(0).split(";"));
+        } catch (IOException ex) {
             return new LinkedList<>();
         }
     }
 
-    public void createLayersFile(
+    private void createLayersFile(
             Options options,
             EagleFile eagleFile,
             RevCommit revCommit,
@@ -519,5 +493,4 @@ public class Repo {
             Logger.getLogger(Repo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

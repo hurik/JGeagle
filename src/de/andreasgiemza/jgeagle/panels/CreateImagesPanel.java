@@ -251,9 +251,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                     options.cleanTempDir();
 
                     if (eagleFile.getFileExtension().equals(EagleFile.BRD)) {
-                        repo.createLayersFile(options, eagleFile, commit, "board.brd");
-
-                        List<String> layers = repo.getLayers(options, commit, eagleFile);
+                        List<String> layers = repo.getOrCreateLayersFile(options, commit, eagleFile, "board.brd");
                         sheetsProgressBar.setMinimum(0);
                         sheetsProgressBar.setMaximum(layers.size());
 
@@ -269,7 +267,7 @@ public class CreateImagesPanel extends javax.swing.JPanel {
                             repo.getOrCreateBoardImage(options, commit, eagleFile, "board.brd", layer);
                         }
                     } else {
-                        int sheetCount = repo.getSheetCount(options, commit, eagleFile, "schematic.sch");
+                        int sheetCount = repo.getorCreateSheetCountFile(options, commit, eagleFile, "schematic.sch");
                         sheetsProgressBar.setMinimum(0);
                         sheetsProgressBar.setMaximum(sheetCount);
 
