@@ -77,7 +77,6 @@ public class JGeagle extends javax.swing.JFrame {
                 diffImageButton);
 
         if (!"".equals(options.getPropEagleBinary())
-                && !Files.exists(options.getPropEagleBinaryAsPath())
                 && !"".equals(options.getPropPresetRepo())) {
             openRepo(Paths.get(options.getPropPresetRepo()));
         }
@@ -400,8 +399,7 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_diffImageButtonActionPerformed
 
     private void repositoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repositoryMenuItemActionPerformed
-        if ("".equals(options.getPropEagleBinary())
-                || !Files.exists(options.getPropEagleBinaryAsPath())) {
+        if ("".equals(options.getPropEagleBinary())) {
             JOptionPane.showMessageDialog(this,
                     "Please select the eagle binary in the Preferences!",
                     "Eagle binary not selected!",
