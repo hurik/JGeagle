@@ -35,6 +35,7 @@ import de.andreasgiemza.jgeagle.panels.PreferencesPanel;
 import de.andreasgiemza.jgeagle.repo.Repo;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
@@ -75,7 +76,9 @@ public class JGeagle extends javax.swing.JFrame {
                 layerComboBox,
                 diffImageButton);
 
-        if (!"".equals(options.getPropPresetRepo())) {
+        if (!"".equals(options.getPropEagleBinary())
+                && !Files.exists(options.getPropEagleBinaryAsPath())
+                && !"".equals(options.getPropPresetRepo())) {
             openRepo(Paths.get(options.getPropPresetRepo()));
         }
     }
@@ -397,6 +400,17 @@ public class JGeagle extends javax.swing.JFrame {
     }//GEN-LAST:event_diffImageButtonActionPerformed
 
     private void repositoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repositoryMenuItemActionPerformed
+        if ("".equals(options.getPropEagleBinary())
+                || !Files.exists(options.getPropEagleBinaryAsPath())) {
+            JOptionPane.showMessageDialog(this,
+                    "Please select the eagle binary in the Preferences!",
+                    "Eagle binary not selected!",
+                    JOptionPane.ERROR_MESSAGE);
+
+            preferencesMenuItemActionPerformed(null);
+            return;
+        }
+
         int returnVal = repositoryFileChooser.showOpenDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
