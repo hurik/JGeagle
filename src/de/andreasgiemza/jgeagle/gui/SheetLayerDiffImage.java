@@ -64,6 +64,7 @@ public class SheetLayerDiffImage {
         diffImageButton.setEnabled(false);
     }
 
+    @SuppressWarnings("unchecked")
     public void brdSelected(Options options,
             Repo repo,
             EagleFile eagleFile,
@@ -84,6 +85,7 @@ public class SheetLayerDiffImage {
         diffImageButton.setEnabled(true);
     }
 
+    @SuppressWarnings("unchecked")
     public void schSelected(
             Repo repo,
             EagleFile eagleFile,
